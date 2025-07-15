@@ -1,11 +1,9 @@
 class Character extends MovableObject {
-    x = 0;
-    y = 300;
-    width = 150;
-    height = 100;
     keys = [];
-    constructor(x, y, width, height) {
-        super(x, y, width, height).loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
+    speed = 0;
+    maxSpeed = 5;
+    constructor() {
+        super().loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.moveCharacter();
     }
     moveCharacter() {
@@ -25,10 +23,19 @@ class Character extends MovableObject {
         });
     }
     updateCharacterPosition() {
+        this.x += this.speed;
         if (this.keys.includes('ArrowRight')) {
-            this.x ++
+            this.speed = this.maxSpeed;
         }   else if (this.keys.includes('ArrowLeft')) {
-            this.x --
+            this.speed = -this.maxSpeed;
+        } else {
+            this.speed = 0;
+        }
+        if (this.x < 0) {
+            this.x = 0;
+        }
+        if (this.x + this.width > canvas.width) {
+            this.x = canvas.width - this.width;
         }
 }
     jump() { }

@@ -1,16 +1,8 @@
 class MovableObject {
-    x;
-    y;
-    img;
-    width;
-    height;
-
-    constructor(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
+    x = 0;
+    y = 300;
+    width = 100;
+    height = 150;
 
     loadImage(path) {
         this.img = new Image();

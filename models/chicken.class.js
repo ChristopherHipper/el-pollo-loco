@@ -1,6 +1,10 @@
 class Chicken extends MovableObject {
    constructor() {
-        super(200,330,50,50).loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
+        super().loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
+        this.x = 400 + Math.random() * 500;
+    }
+    move(){
+        this.x --;
     }
     eat() {}
     attack() {}
