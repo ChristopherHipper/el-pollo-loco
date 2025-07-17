@@ -1,8 +1,6 @@
 class MovableObject {
+    width = canvas.width
     x = 0;
-    y = 230;
-    width = 150;
-    height = 200;
 
     loadImage(path) {
         this.img = new Image();

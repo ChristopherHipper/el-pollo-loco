@@ -1,5 +1,4 @@
 class Clouds extends MovableObject {
-    width = canvas.width
     height = 200;
     y = 20;
     constructor() {

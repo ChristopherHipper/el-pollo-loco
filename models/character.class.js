@@ -1,4 +1,7 @@
 class Character extends MovableObject {
+    width = 150;
+    height = 200;
+    y = 230;
     keys = [];
     speed = 0;
     maxSpeed = 3;
@@ -8,12 +11,12 @@ class Character extends MovableObject {
     }
     moveCharacter() {
         window.addEventListener('keydown', (e) => {
-            if ((e.key === 'ArrowRight' || e.key ==='ArrowLeft')
+            if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft')
                 && this.keys.indexOf(e.key) === -1) {
                 this.keys.push(e.key);
             }
             console.log(e.key, this.keys);
-            
+
         });
         window.addEventListener('keyup', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
@@ -26,7 +29,7 @@ class Character extends MovableObject {
         this.x += this.speed;
         if (this.keys.includes('ArrowRight')) {
             this.speed = this.maxSpeed;
-        }   else if (this.keys.includes('ArrowLeft')) {
+        } else if (this.keys.includes('ArrowLeft')) {
             this.speed = -this.maxSpeed;
         } else {
             this.speed = 0;
@@ -37,7 +40,7 @@ class Character extends MovableObject {
         if (this.x + this.width > canvas.width) {
             this.x = canvas.width - this.width;
         }
-}
+    }
     jump() { }
     sleep() { }
     throw() { }

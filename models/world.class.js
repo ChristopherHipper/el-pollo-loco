@@ -2,12 +2,17 @@ class World {
     ctx;
     canvas;
     character = new Character();
-    enemies = [new Chicken(), new Chicken(), new Chicken()];
+    enemies = [
+        new Chicken(), 
+        new Chicken(), 
+        new Chicken()];
     clouds = [new Clouds()];
-    firstLayer = [new FirstLayer()];
-    secondLayer = [new SecondLayer()];
-    thirdLayer = [new ThirdLayer()];
-    air = new Air();
+    background = [
+        new Background('../assets/img/5_background/layers/air.png'),
+        new Background('../assets/img/5_background/layers/3_third_layer/1.png'),
+        new Background('../assets/img/5_background/layers/2_second_layer/1.png'),
+        new Background('../assets/img/5_background/layers/1_first_layer/1.png')];
+
 
     constructor(canvas) {
         this.ctx = canvas.getContext('2d');
@@ -18,28 +23,28 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.air.img, this.air.x, this.air.y, this.air.width, this.air.height);
-        for (let layer of this.thirdLayer) {
-            this.ctx.drawImage(layer.img, layer.x, layer.y, layer.width, layer.height);
-        }
-        for (let layer of this.secondLayer) {
-            this.ctx.drawImage(layer.img, layer.x, layer.y, layer.width, layer.height);
-        }
-        for (let layer of this.firstLayer) {
-            this.ctx.drawImage(layer.img, layer.x, layer.y, layer.width, layer.height);
-        }
-        for (let cloud of this.clouds) {
-            this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
-            cloud.move();
-        }
+
+
+        this.addObjectsToMap(this.background);
+        this.addObjectsToMap(this.clouds);
+        this.addObjectsToMap(this.enemies);
         this.character.updateCharacterPosition();
-        this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.width, this.character.height);
-        for (let enemy of this.enemies) {
-            this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-            enemy.move();
-        }
+        this.addToMap(this.character);
 
 
         requestAnimationFrame(() => this.draw());
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(object => {
+            this.addToMap(object);
+            if (object instanceof Clouds || object instanceof Chicken) {
+                object.move();
+            }
+        });
+    }
+
+    addToMap(object) {
+        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
     }
 }
