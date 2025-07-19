@@ -38,9 +38,6 @@ class World {
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
-            if (object instanceof Clouds || object instanceof Chicken) {
-                object.move();
-            }
         });
     }
 
