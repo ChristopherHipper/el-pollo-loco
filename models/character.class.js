@@ -22,28 +22,28 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/3_jump/J-38.png',
         '../assets/img/2_character_pepe/3_jump/J-39.png',
     ];
-    constructor(keyboard) {
+    constructor() {
         super().loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
-        this.keyboard = keyboard
         this.moveAnmation()
         this.jumpAnmation()
     }
 
     moveAnmation() {
         setInterval(() => {
-            if (this.keyboard.right) {
+            if (this.World.keyboard.right) {
                 this.x += this.speed
                 this.mirroring = false;
             }
-            if (this.keyboard.left) {
+            if (this.World.keyboard.left) {
                 this.x -= this.speed
                 this.mirroring = true;
             }
+            this.World.camera_x = -this.x
         }, 1000 / 60)
         setInterval(() => {
-            if (this.keyboard.right || this.keyboard.left) {
+            if (this.World.keyboard.right || this.World.keyboard.left) {
                 let i = this.currentWalkingImage % this.walkingImages.length;
                 let path = this.walkingImages[i];
                 this.img = this.images[path];
@@ -56,10 +56,10 @@ class Character extends MovableObject {
 
     jumpAnmation() {
         setInterval(() => {
-            this.keyboard.up ? this.y -= this.speed : 'default'
+            this.World.keyboard.up ? this.y -= this.speed : 'default'
         }, 1000 / 60)
         setInterval(() => {
-            if (this.keyboard.up) {
+            if (this.World.keyboard.up) {
                 let i = this.currentJumpingImage % this.jumpingImages.length;
                 let path = this.jumpingImages[i];
                 this.img = this.images[path];

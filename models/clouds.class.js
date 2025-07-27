@@ -1,9 +1,10 @@
 class Clouds extends MovableObject {
     height = 200;
     y = 20;
-    constructor() {
+    constructor(path,x) {
         super();
-        this.loadImage('../assets/img/5_background/layers/4_clouds/1.png');
+        this.loadImage(path,x);
+        this.x = x
         this.moveLeft(0.03);
     }
 }
