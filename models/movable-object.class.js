@@ -2,7 +2,7 @@ class MovableObject {
     width = canvas.width
     x = 0;
     images = {};
-
+    currentWalkingImage = 0;
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;

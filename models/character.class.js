@@ -8,7 +8,6 @@ class Character extends MovableObject {
     keys = [];
     speed = 0;
     maxSpeed = 3;
-    currentWalkingImage = 0;
     validationInterval = null;
     walkingImages = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
