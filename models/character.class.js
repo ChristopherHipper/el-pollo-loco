@@ -17,10 +17,11 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/2_walk/W-25.png',
         '../assets/img/2_character_pepe/2_walk/W-26.png',
     ];
-    constructor() {
+    constructor(keyboard) {
         super().loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.moveCharacter();
         this.loadImages(this.walkingImages);
+        this.keyboard = keyboard
     }
     moveCharacter() {
         window.addEventListener('keydown', (e) => {

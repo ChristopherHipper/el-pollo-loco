@@ -3,20 +3,14 @@ class Keyboard {
     left = false;
     space = false;
 
-    constructor() {
-        this.moveCharacter();
+    keyPres(key) {
+        key === 'ArrowLeft' ? this.left = true : 'defaukt'
+        key === 'ArrowRight' ? this.right = true : 'defaukt'
+        key === 'Space' ? this.space = true : 'defaukt'
     }
-    moveCharacter() {
-        window.addEventListener('keydown', (e) => {
-            e.code === 'ArrowRight' ? this.right = true : 'default';
-            e.code === 'ArrowLeft' ? this.left = true : 'default';
-            e.code === 'Space' ? this.space = true : 'default';
-        })
-
-        window.addEventListener('keyup', (e) => {
-            e.code === 'ArrowRight' ? this.right = false : 'default';
-            e.code === 'ArrowLeft' ? this.left = false : 'default';
-            e.code === 'Space' ? this.space = false : 'default';
-        })
-    };
+    keyLeave(key) {
+        key === 'ArrowLeft' ? this.left = false : 'defaukt'
+        key === 'ArrowRight' ? this.right = false : 'defaukt'
+        key === 'Space' ? this.space = false : 'defaukt'
+    }
 }

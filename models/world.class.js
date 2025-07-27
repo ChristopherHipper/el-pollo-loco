@@ -1,8 +1,8 @@
 class World {
-    keyboard = new Keyboard();
     ctx;
     canvas;
-    character = new Character();
+    keyboard;
+    character;
     enemies = [
         new Chicken(), 
         new Chicken(), 
@@ -15,9 +15,11 @@ class World {
         new Background('../assets/img/5_background/layers/1_first_layer/1.png')];
 
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard
+        this.character = new Character(this.keyboard)
         this.draw();
     }
 
