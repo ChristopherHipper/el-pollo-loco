@@ -3,6 +3,8 @@ class MovableObject {
     x = 0;
     images = {};
     currentWalkingImage = 0;
+    currentJumpingImage = 0;
+    mirroring = false;
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
