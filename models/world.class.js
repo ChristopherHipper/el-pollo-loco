@@ -31,9 +31,7 @@ class World {
         this.addObjectsToMap(this.background);
         this.addObjectsToMap(this.clouds);
         this.addObjectsToMap(this.enemies);
-        this.character.updateCharacterPosition();
         this.addToMap(this.character);
-
 
         requestAnimationFrame(() => this.draw());
     }
