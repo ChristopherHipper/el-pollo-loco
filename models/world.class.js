@@ -1,4 +1,5 @@
 class World {
+    keyboard = new Keyboard();
     ctx;
     canvas;
     character = new Character();
