@@ -32,15 +32,15 @@ class Character extends MovableObject {
 
     moveAnmation() {
         setInterval(() => {
-            if (this.World.keyboard.right) {
+            if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
                 this.x += this.speed
                 this.mirroring = false;
             }
-            if (this.World.keyboard.left) {
+            if (this.World.keyboard.left && this.x > -100) {
                 this.x -= this.speed
                 this.mirroring = true;
             }
-            this.World.camera_x = -this.x
+            this.World.camera_x = -this.x + 100
         }, 1000 / 60)
         setInterval(() => {
             if (this.World.keyboard.right || this.World.keyboard.left) {
