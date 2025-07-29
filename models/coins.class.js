@@ -2,7 +2,7 @@ class Coins extends MovableObject {
     height = 150;;
     width = 150;
     y = Math.random() * (200 - 60) +60
-    x = Math.random() * (2300 - 230) +20
+    x = Math.random() * (2300 - 230) +200
     walkingImages = [
         '../assets/img/8_coin/coin_1.png',
         '../assets/img/8_coin/coin_2.png',

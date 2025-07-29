@@ -12,7 +12,7 @@ class Chicken extends MovableObject {
         super()
         this.loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
-        this.x = Math.random() * (2300 - 230) +20
+        this.x = Math.random() * (2300 - 430) +430
         this.moveAnmation();
     }
 
@@ -38,7 +38,7 @@ class SmallChicken extends MovableObject {
         super()
         this.loadImage('../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
-        this.x = Math.random() * (2300 - 230) +20
+        this.x = Math.random() * (2300 - 430) +430
         this.moveAnmation();
     }
 
