@@ -28,4 +28,10 @@ class MovableObject {
             this.x -= this.width * 2;
         }
     }
+    animations(imageArray) {
+        let i = this.currentWalkingImage % imageArray.length;
+        let path = imageArray[i];
+        this.img = this.images[path];
+        this.currentWalkingImage++;
+    }
 }

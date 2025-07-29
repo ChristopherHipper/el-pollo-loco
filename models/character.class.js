@@ -44,10 +44,7 @@ class Character extends MovableObject {
         }, 1000 / 60)
         setInterval(() => {
             if (this.World.keyboard.right || this.World.keyboard.left) {
-                let i = this.currentWalkingImage % this.walkingImages.length;
-                let path = this.walkingImages[i];
-                this.img = this.images[path];
-                this.currentWalkingImage++;
+                this.animations(this.walkingImages)
             } else {
                 this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
             }
