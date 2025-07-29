@@ -4,13 +4,13 @@ class Keyboard {
     up = false;
 
     keyPres(key) {
-        key === 'ArrowLeft' ? this.left = true : 'defaukt'
-        key === 'ArrowRight' ? this.right = true : 'defaukt'
-        key === 'ArrowUp' ? this.up = true : 'defaukt'
+        key === 'ArrowLeft' ? this.left = true : 'default'
+        key === 'ArrowRight' ? this.right = true : 'default'
+        key === 'ArrowUp' ? this.up = true : 'default'
     }
     keyLeave(key) {
-        key === 'ArrowLeft' ? this.left = false : 'defaukt'
-        key === 'ArrowRight' ? this.right = false : 'defaukt'
-        key === 'ArrowUp' ? this.up = false : 'defaukt'
+        key === 'ArrowLeft' ? this.left = false : 'default'
+        key === 'ArrowRight' ? this.right = false : 'default'
+        key === 'ArrowUp' ? this.up = false : 'default'
     }
 }
