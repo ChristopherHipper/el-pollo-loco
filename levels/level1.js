@@ -36,5 +36,8 @@ const level1 = new Level(
         new Bottle(),
     ],
     new Endboss(),
+    new HealthbarCharacter(),
+    new CoinbarCharacter(),
+    new BottlebarCharacter(),
 
 )

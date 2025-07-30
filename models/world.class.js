@@ -19,6 +19,7 @@ class World {
 
     setWorld() {
         this.character.World = this
+        this.level.healthbar.World = this
     }
 
     draw() {
@@ -32,8 +33,10 @@ class World {
         this.addObjectsToMap(this.level.bottle);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-
         this.addToMap(this.level.endboss);
+        this.addToMap(this.level.healthbar);
+        this.addToMap(this.level.coinbar);
+        this.addToMap(this.level.bottlebar);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0)

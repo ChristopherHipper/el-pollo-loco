@@ -26,11 +26,11 @@ class Character extends MovableObject {
         super().loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
-        this.moveAnmation()
-        this.jumpAnmation()
+        this.moveAnimation()
+        this.jumpAnimation()
     }
 
-    moveAnmation() {
+    moveAnimation() {
         setInterval(() => {
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
                 this.x += this.speed
@@ -51,7 +51,16 @@ class Character extends MovableObject {
         }, 50);
     }
 
-    jumpAnmation() {
+
+
+
+
+
+
+
+
+    
+    jumpAnimation() {
         setInterval(() => {
             this.World.keyboard.up ? this.y -= this.speed : 'default'
         }, 1000 / 60)
