@@ -18,18 +18,47 @@ class Endboss extends MovableObject {
         '../assets/img/4_enemie_boss_chicken/1_walk/G3.png',
         '../assets/img/4_enemie_boss_chicken/1_walk/G4.png',
     ];
-    speed = 0.08 + Math.random() * 0.15;
+    speed = 5
+    currentAnimation = null;
     constructor() {
         super()
         this.loadImage('../assets/img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.standImages);
+        this.loadImages(this.walkingImages);
         this.x = 3000
         this.standAnimation();
+        this.checkBossTrigger();
     }
 
     standAnimation() {
-        setInterval(() => {
-            this.animations(this.standImages)
+        this.stopCurrentAnimation();
+        this.currentAnimation = setInterval(() => {
+            this.animations(this.standImages);
         }, 250);
+    }
+
+    walkAnimation() {
+        this.stopCurrentAnimation();
+        this.currentAnimation = setInterval(() => {
+            this.animations(this.walkingImages);
+            this.x -= this.speed;
+        }, 150);
+    }
+
+
+    stopCurrentAnimation() {
+        if (this.currentAnimation) {
+            clearInterval(this.currentAnimation);
+            this.currentAnimation = null;
+        }
+    }
+
+    checkBossTrigger() {
+        setInterval(() => {
+            if (!this.bossStartedWalking && this.World.character.x >= 2600) {
+                this.bossStartedWalking = true;
+                this.walkAnimation();
+            }
+        }, 1000 / 60);
     }
 }

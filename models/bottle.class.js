@@ -9,6 +9,6 @@ class Bottle extends MovableObject {
     ]
     constructor() {
         super()
-        this.loadImage('../assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
+        this.loadImage(this.Images[Math.floor(Math.random() * 2)]);
     }
 }

@@ -22,6 +22,7 @@ class World {
         this.level.healthbar.World = this
         this.level.coinbar.World = this
         this.level.bottlebar.World = this
+        this.level.endboss.World = this
     }
 
     draw() {
@@ -53,9 +54,13 @@ class World {
     }
 
     addToMap(object) {
-        if (object.mirroring) this.mirrorImage(object)
+        if (!object.img) {
+            console.warn("Kein Bild für:", object);
+            return;
+        }
+        if (object.mirroring) this.mirrorImage(object);
         this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
-        if (object.mirroring) this.mirrorImageBack(object)
+        if (object.mirroring) this.mirrorImageBack(object);
     }
 
     mirrorImage(object) {
