@@ -20,6 +20,8 @@ class World {
     setWorld() {
         this.character.World = this
         this.level.healthbar.World = this
+        this.level.coinbar.World = this
+        this.level.bottlebar.World = this
     }
 
     draw() {
