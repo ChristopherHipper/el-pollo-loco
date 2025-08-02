@@ -5,6 +5,9 @@ class MovableObject {
     currentWalkingImage = 0;
     currentJumpingImage = 0;
     mirroring = false;
+    speedY = 0;
+    acceleration = 2.5;
+
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -33,5 +36,20 @@ class MovableObject {
         let path = imageArray[i];
         this.img = this.images[path];
         this.currentWalkingImage++;
+    }
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY>0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 50);
+    }
+
+    isOnGround() {
+        return this.y == 220
+    }
+    isAboveGround() {
+        return this.y < 220
     }
 }

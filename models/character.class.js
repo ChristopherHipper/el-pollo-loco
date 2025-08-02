@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     width = 150;
     height = 200;
-    y = 230;
+    y = 220;
     speed = 10;
     walkingImages = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
@@ -27,11 +27,11 @@ class Character extends MovableObject {
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
-        this.moveAnimation()
-        this.jumpAnimation()
+        this.playAnimation()
+        this.applyGravity();
     }
 
-    moveAnimation() {
+    playAnimation() {
         setInterval(() => {
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
                 this.x += this.speed
@@ -40,37 +40,18 @@ class Character extends MovableObject {
             if (this.World.keyboard.left && this.x > -100) {
                 this.x -= this.speed
                 this.mirroring = true;
+            } if (this.World.keyboard.up && this.isOnGround()) {
+                this.speedY = 30;
             }
             this.World.camera_x = -this.x + 100
         }, 1000 / 60)
         setInterval(() => {
-            if (this.World.keyboard.right || this.World.keyboard.left) {
+            if (this.isAboveGround()) {
+                this.animations(this.jumpingImages)
+            } else if (this.World.keyboard.right || this.World.keyboard.left) {
                 this.animations(this.walkingImages)
             } else {
                 this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
-            }
-        }, 50);
-    }
-
-
-
-
-
-
-
-
-
-    
-    jumpAnimation() {
-        setInterval(() => {
-            this.World.keyboard.up ? this.y -= this.speed : 'default'
-        }, 1000 / 60)
-        setInterval(() => {
-            if (this.World.keyboard.up) {
-                let i = this.currentJumpingImage % this.jumpingImages.length;
-                let path = this.jumpingImages[i];
-                this.img = this.images[path];
-                this.currentJumpingImage++;
             }
         }, 50);
     }
