@@ -6,14 +6,11 @@ class Clouds extends MovableObject {
         super();
         this.loadImage(path, x);
         this.x = x
-        this.moveAnimation();
+        this.animation()
     }
-
-
-    moveAnimation() {
+    animation(){
         setInterval(() => {
-            this.moveLeft(this.speed);
+            this.moveLeft()
         }, 1000 / 60);
     }
-
 }

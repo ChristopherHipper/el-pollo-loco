@@ -23,8 +23,8 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.level.background.forEach(bg => bg.updatePosition(this.camera_x));
-        this.level.clouds.forEach(cloud => cloud.updatePosition(this.camera_x));
+        this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
+        this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
         this.ctx.translate(this.camera_x, 0)
 
         this.addObjectsToMap(this.level.background);

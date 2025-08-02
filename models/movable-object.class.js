@@ -22,19 +22,17 @@ class MovableObject {
     }
     moveLeft() {
         this.x -= this.speed;
-        this.mirroring = true;
     }
 
     moveRight() {
         this.x += this.speed
-        this.mirroring = false;
     }
 
     jump() {
         this.speedY = 30;
     }
 
-    updatePosition(camera_x) {
+    updateCameraPosition(camera_x) {
         if (this.x + this.width + camera_x < 0) {
             this.x += this.width * 2;
         }
@@ -55,6 +53,15 @@ class MovableObject {
                 this.speedY -= this.acceleration;
             }
         }, 50);
+    }
+
+    walkingAnimation() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+        setInterval(() => {
+            this.animations(this.walkingImages)
+        }, 100); 
     }
 
     isOnGround() {

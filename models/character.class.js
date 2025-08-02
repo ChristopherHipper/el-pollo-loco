@@ -34,8 +34,10 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
                 this.moveRight()
+                this.mirroring = false;
             }
             if (this.World.keyboard.left && this.x > -100) {
+                this.mirroring = true;
                 this.moveLeft()
             } 
             if (this.World.keyboard.up && this.isOnGround()) {
@@ -51,6 +53,6 @@ class Character extends MovableObject {
             } else {
                 this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
             }
-        }, 50);
+        }, 100);
     }
 }
