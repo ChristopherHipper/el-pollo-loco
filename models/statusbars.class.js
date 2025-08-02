@@ -14,12 +14,6 @@ class HealthbarCharacter extends MovableObject {
         super()
         this.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png');
         this.loadImages(this.healthbarImages);
-        this.moveAnmation()
-    }
-    moveAnmation() {
-        setInterval(() => {
-                this.x = this.World.character.x-80
-        }, 1000 / 60)
     }
 }
 
@@ -39,12 +33,6 @@ class CoinbarCharacter extends MovableObject {
         super()
         this.loadImage('../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png');
         this.loadImages(this.coinhbarImages);
-        this.moveAnmation()
-    }
-    moveAnmation() {
-        setInterval(() => {
-                this.x = this.World.character.x-80
-        }, 1000 / 60)
     }
 }
 
@@ -65,11 +53,5 @@ class BottlebarCharacter extends MovableObject {
         super()
         this.loadImage('../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png');
         this.loadImages(this.bottlehbarImages);
-        this.moveAnmation()
-    }
-    moveAnmation() {
-        setInterval(() => {
-                this.x = this.World.character.x-80
-        }, 1000 / 60)
     }
 }
