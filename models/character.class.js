@@ -2,7 +2,6 @@ class Character extends MovableObject {
     width = 150;
     height = 200;
     y = 220;
-    speed = 10;
     walkingImages = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
         '../assets/img/2_character_pepe/2_walk/W-22.png',
@@ -34,14 +33,13 @@ class Character extends MovableObject {
     playAnimation() {
         setInterval(() => {
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
-                this.x += this.speed
-                this.mirroring = false;
+                this.moveRight()
             }
             if (this.World.keyboard.left && this.x > -100) {
-                this.x -= this.speed
-                this.mirroring = true;
-            } if (this.World.keyboard.up && this.isOnGround()) {
-                this.speedY = 30;
+                this.moveLeft()
+            } 
+            if (this.World.keyboard.up && this.isOnGround()) {
+                this.jump()
             }
             this.World.camera_x = -this.x + 100
         }, 1000 / 60)

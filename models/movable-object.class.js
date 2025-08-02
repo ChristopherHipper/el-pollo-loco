@@ -6,15 +6,12 @@ class MovableObject {
     currentJumpingImage = 0;
     mirroring = false;
     speedY = 0;
+    speed = 10;
     acceleration = 2.5;
 
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
-    }
-    moveLeft(speed) {
-        this.x = this.x - speed;
-        requestAnimationFrame(() => this.moveLeft(speed));
     }
     loadImages(arr) {
         arr.forEach(path => {
@@ -23,6 +20,20 @@ class MovableObject {
             this.images[path] = img;
         });
     }
+    moveLeft() {
+        this.x -= this.speed;
+        this.mirroring = true;
+    }
+
+    moveRight() {
+        this.x += this.speed
+        this.mirroring = false;
+    }
+
+    jump() {
+        this.speedY = 30;
+    }
+
     updatePosition(camera_x) {
         if (this.x + this.width + camera_x < 0) {
             this.x += this.width * 2;
@@ -39,7 +50,7 @@ class MovableObject {
     }
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY>0) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }

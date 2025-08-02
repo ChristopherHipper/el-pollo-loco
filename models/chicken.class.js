@@ -12,13 +12,18 @@ class Chicken extends MovableObject {
         super()
         this.loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
-        this.x = Math.random() * (2300 - 430) +430
-        this.moveAnmation();
+        this.x = Math.random() * (2300 - 430) + 430
+        this.moveAnimation();
     }
 
-    moveAnmation() {
-        this.moveLeft(this.speed);
+    moveAnimation() {
         setInterval(() => {
+            this.moveLeft(this.speed);
+            this.mirroring = false
+        }, 1000 / 60);
+        
+        setInterval(() => {
+            
             this.animations(this.walkingImages)
         }, 100);
     }
@@ -38,12 +43,14 @@ class SmallChicken extends MovableObject {
         super()
         this.loadImage('../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
-        this.x = Math.random() * (2300 - 430) +430
+        this.x = Math.random() * (2300 - 430) + 430
         this.moveAnmation();
     }
 
     moveAnmation() {
-        this.moveLeft(this.speed);
+        setInterval(() => {
+            this.moveLeft(this.speed);
+        }, 1000 / 60);
         setInterval(() => {
             this.animations(this.walkingImages)
         }, 100);
