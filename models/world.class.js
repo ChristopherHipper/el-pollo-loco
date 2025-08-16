@@ -51,7 +51,8 @@ class World {
 
     addToMap(object) {
         if (object.mirroring) this.mirrorImage(object);
-        this.ctx.drawImage(object.img, object.x, object.y, object.width, object.height);
+        object.draw(this.ctx);
+        object.drawBorder(this.ctx);
         if (object.mirroring) this.mirrorImageBack(object);
     }
 

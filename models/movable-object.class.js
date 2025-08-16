@@ -55,13 +55,26 @@ class MovableObject {
         }, 50);
     }
 
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    drawBorder(ctx) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'blue';
+        ctx.lineWidth = 5;
+        ctx.rect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+    }
+
+
     walkingAnimation() {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
         setInterval(() => {
             this.animations(this.walkingImages)
-        }, 100); 
+        }, 100);
     }
 
     isOnGround() {
