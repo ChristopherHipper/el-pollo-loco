@@ -14,8 +14,16 @@ class World {
         this.keyboard = keyboard
         this.draw();
         this.setWorld()
+        this.checkCollisions();
     }
 
+    checkCollisions() {
+            this.character.isColliding(this.level.enemies);
+            this.character.isColliding(this.level.coins);
+            this.character.isColliding(this.level.bottle);
+            this.character.isColliding(this.level.endboss);
+            requestAnimationFrame(() => this.checkCollisions());
+    }
 
     setWorld() {
         this.character.World = this
