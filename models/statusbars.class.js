@@ -22,12 +22,12 @@ class CoinbarCharacter extends MovableObject {
     width = 200;
     y = 50
     coinhbarImages = [
-        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
+        '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png',
     ]
     constructor() {
         super()
@@ -41,12 +41,12 @@ class BottlebarCharacter extends MovableObject {
     width = 200;
     y = 100
     bottlehbarImages = [
-        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/60.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png',
+        '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png',
 
     ]
     constructor() {

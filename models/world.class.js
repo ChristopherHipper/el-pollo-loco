@@ -21,8 +21,6 @@ class World {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
                 this.character.characterHit();
-                this.level.healthbar.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png')
-                console.log('Collision detected with enemy');
             }
         });
         requestAnimationFrame(() => this.checkCollisions());

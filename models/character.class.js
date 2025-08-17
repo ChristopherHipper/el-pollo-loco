@@ -2,6 +2,10 @@ class Character extends MovableObject {
     width = 150;
     height = 200;
     y = 220;
+    health = 100;
+    cooldown = false;
+    isHurt = false;
+
     walkingImages = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
         '../assets/img/2_character_pepe/2_walk/W-22.png',
@@ -37,11 +41,24 @@ class Character extends MovableObject {
     }
 
     characterHit() {
-            this.animations(this.hurtImages);
+        this.animations(this.hurtImages);
+        if (this.cooldown) return;
+        this.health -= 20;
+        this.cooldown = true;
+        this.isHurt = true;
+        this.updateHealthbar();
+        setInterval(() => {
+            this.cooldown = false;
+            this.isHurt = false;
+        }, 2000);
+
     }
 
     playAnimation() {
         setInterval(() => {
+            if (this.isHurt) {
+                this.animations(this.hurtImages);
+            }
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
                 this.moveRight()
                 this.mirroring = false;
