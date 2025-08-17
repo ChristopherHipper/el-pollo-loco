@@ -5,6 +5,13 @@ class Character extends MovableObject {
     health = 100;
     cooldown = false;
     isHurt = false;
+    isDead = false;
+    offset = {
+        top: 80,
+        width: 40,
+        left: 30,
+        height: 10
+    }
 
     walkingImages = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
@@ -30,17 +37,30 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/4_hurt/H-42.png',
         '../assets/img/2_character_pepe/4_hurt/H-43.png',
     ];
+    deathImages = [
+        '../assets/img/2_character_pepe/5_dead/D-51.png',
+        '../assets/img/2_character_pepe/5_dead/D-52.png',
+        '../assets/img/2_character_pepe/5_dead/D-53.png',
+        '../assets/img/2_character_pepe/5_dead/D-54.png',
+        '../assets/img/2_character_pepe/5_dead/D-55.png',
+        '../assets/img/2_character_pepe/5_dead/D-56.png',
+        '../assets/img/2_character_pepe/5_dead/D-57.png',
+    ];
     constructor() {
         super()
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
         this.loadImages(this.hurtImages);
+        this.loadImages(this.deathImages);
         this.playAnimation()
         this.applyGravity();
     }
 
     characterHit() {
+        if (this.health <= 0) {
+            this.isDead = true;
+        }
         this.animations(this.hurtImages);
         if (this.cooldown) return;
         this.health -= 20;
@@ -50,13 +70,16 @@ class Character extends MovableObject {
         setInterval(() => {
             this.cooldown = false;
             this.isHurt = false;
-            
+
         }, 2000);
 
     }
 
     playAnimation() {
         setInterval(() => {
+            if (this.isDead) {
+                this.animations(this.deathImages);
+            }
             if (this.isHurt) {
                 this.animations(this.hurtImages);
             }

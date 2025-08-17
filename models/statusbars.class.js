@@ -17,8 +17,13 @@ class HealthbarCharacter extends MovableObject {
     }
 
     updateHealthbar(health) {
-        let index = health / 20;
-        this.loadImage(this.healthbarImages[index]);
+        if (health > 0) {
+            let index = health / 20;
+            this.loadImage(this.healthbarImages[index]);
+        } else {
+            this.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png');
+        }
+
     }
 }
 

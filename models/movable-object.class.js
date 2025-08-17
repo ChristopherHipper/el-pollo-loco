@@ -8,6 +8,12 @@ class MovableObject {
     speedY = 0;
     speed = 10;
     acceleration = 2.5;
+    offset = {
+        top: 0,
+        width: 0,
+        left: 0,
+        height: 0
+    }
 
     loadImage(path) {
         this.img = new Image();
@@ -67,13 +73,25 @@ class MovableObject {
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
+        
+    }
+
+    drawOffsetBorder(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottle) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 3;
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.width, this.height - this.offset.height);
+            ctx.stroke();
+        }
+        
     }
 
     isColliding(object) {
-        return this.x + this.width > object.x &&
-            this.y + this.height > object.y &&
-            this.x < object.x + object.width &&
-            this.y < object.y + object.height;
+        return this.x + this.width - this.offset.width > object.x + object.offset.width &&
+            this.y + this.height - this.offset.height > object.y + this.offset.height &&
+            this.x + this.offset.left < object.x + object.width - object.offset.width &&
+            this.y + this.offset.top < object.y + object.height - object.offset.height;
     }
 
 

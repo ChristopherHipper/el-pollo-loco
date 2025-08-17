@@ -15,12 +15,23 @@ class World {
         this.draw();
         this.setWorld()
         this.checkCollisions();
+        this.checkCollect();
     }
 
     checkCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
                 this.character.characterHit();
+            }
+        });
+        requestAnimationFrame(() => this.checkCollisions());
+    }
+
+    checkCollect() {
+        this.level.coins.forEach(coin => {
+            if (this.character.isColliding(coin)) {
+                console.log('Coin collected');
+                
             }
         });
         requestAnimationFrame(() => this.checkCollisions());
@@ -62,6 +73,7 @@ class World {
         if (object.mirroring) this.mirrorImage(object);
         object.draw(this.ctx);
         object.drawBorder(this.ctx);
+        object.drawOffsetBorder(this.ctx);
         if (object.mirroring) this.mirrorImageBack(object);
     }
 
