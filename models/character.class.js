@@ -46,10 +46,11 @@ class Character extends MovableObject {
         this.health -= 20;
         this.cooldown = true;
         this.isHurt = true;
-        this.updateHealthbar();
+        this.World.level.healthbar.updateHealthbar(this.health);
         setInterval(() => {
             this.cooldown = false;
             this.isHurt = false;
+            
         }, 2000);
 
     }

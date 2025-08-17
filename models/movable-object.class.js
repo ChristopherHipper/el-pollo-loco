@@ -92,4 +92,5 @@ class MovableObject {
     isAboveGround() {
         return this.y < 220
     }
+
 }
