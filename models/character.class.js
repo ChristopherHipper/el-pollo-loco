@@ -21,13 +21,23 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/3_jump/J-38.png',
         '../assets/img/2_character_pepe/3_jump/J-39.png',
     ];
+    hurtImages = [
+        '../assets/img/2_character_pepe/4_hurt/H-41.png',
+        '../assets/img/2_character_pepe/4_hurt/H-42.png',
+        '../assets/img/2_character_pepe/4_hurt/H-43.png',
+    ];
     constructor() {
         super()
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
+        this.loadImages(this.hurtImages);
         this.playAnimation()
         this.applyGravity();
+    }
+
+    characterHit() {
+            this.animations(this.hurtImages);
     }
 
     playAnimation() {
@@ -39,7 +49,7 @@ class Character extends MovableObject {
             if (this.World.keyboard.left && this.x > -100) {
                 this.mirroring = true;
                 this.moveLeft()
-            } 
+            }
             if (this.World.keyboard.up && this.isOnGround()) {
                 this.jump()
             }

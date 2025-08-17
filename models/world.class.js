@@ -18,11 +18,14 @@ class World {
     }
 
     checkCollisions() {
-            this.character.isColliding(this.level.enemies);
-            this.character.isColliding(this.level.coins);
-            this.character.isColliding(this.level.bottle);
-            this.character.isColliding(this.level.endboss);
-            requestAnimationFrame(() => this.checkCollisions());
+        this.level.enemies.forEach(enemy => {
+            if (this.character.isColliding(enemy)) {
+                this.character.characterHit();
+                this.level.healthbar.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png')
+                console.log('Collision detected with enemy');
+            }
+        });
+        requestAnimationFrame(() => this.checkCollisions());
     }
 
     setWorld() {
