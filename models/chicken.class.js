@@ -19,7 +19,7 @@ class Chicken extends MovableObject {
         super()
         this.loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
-        //this.walkingAnimation();
+        this.walkingAnimation();
     }
 }
 
@@ -44,6 +44,6 @@ class SmallChicken extends MovableObject {
         super()
         this.loadImage('../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
-        //this.walkingAnimation();
+        this.walkingAnimation();
     }
 }

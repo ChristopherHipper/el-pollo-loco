@@ -66,14 +66,13 @@ class MovableObject {
     }
 
     drawBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
+   /*      if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
             ctx.beginPath();
             ctx.strokeStyle = 'blue';
             ctx.lineWidth = 5;
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
-        }
-        
+        } */
     }
 
     drawOffsetBorder(ctx) {
@@ -81,7 +80,7 @@ class MovableObject {
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 3;
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.width, this.height - this.offset.height);
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.width*2, this.height - this.offset.height*2);
             ctx.stroke();
         }
         
