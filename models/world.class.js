@@ -17,24 +17,37 @@ class World {
         this.checkCollisions();
     }
 
+
+
     checkCollisions() {
+        this.checkEnemyCollisions();
+        this.checkItemCollisions();
+        requestAnimationFrame(() => this.checkCollisions());
+    }
+
+    checkEnemyCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
                 this.character.characterHit();
             }
         });
+    }
+
+    checkItemCollisions() {
         this.level.coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
-                console.log('coin collected');
-                
+                this.character.coins++;
+                this.level.coinbar.updateCoinBar(this.character.coins);
+                this.level.coins.splice(this.level.coins.indexOf(coin), 1);
             }
         });
         this.level.bottle.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
-                console.log('bottle collected');
+                this.character.bottles++;
+                this.level.bottlebar.updateBottleBar(this.character.bottles);
+                this.level.bottle.splice(this.level.bottle.indexOf(bottle), 1);
             }
         });
-        requestAnimationFrame(() => this.checkCollisions());
     }
 
     setWorld() {

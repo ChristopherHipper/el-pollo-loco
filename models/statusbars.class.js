@@ -41,8 +41,15 @@ class CoinbarCharacter extends MovableObject {
     ]
     constructor() {
         super()
-        this.loadImage('../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/100.png');
+        this.loadImage('../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png');
         this.loadImages(this.coinhbarImages);
+    }
+
+    updateCoinBar(coins) {
+        if (coins > 5) {
+            coins = 5;
+        }
+            this.loadImage(this.coinhbarImages[coins]);
     }
 }
 
@@ -61,7 +68,14 @@ class BottlebarCharacter extends MovableObject {
     ]
     constructor() {
         super()
-        this.loadImage('../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png');
+        this.loadImage('../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png');
         this.loadImages(this.bottlehbarImages);
+    }
+
+    updateBottleBar(bottles) {
+        if (bottles > 5) {
+            bottles = 5;
+        }
+        this.loadImage(this.bottlehbarImages[bottles]);
     }
 }

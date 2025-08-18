@@ -12,6 +12,8 @@ class Character extends MovableObject {
         left: 30,
         height: 30
     }
+    coins = 0;
+    bottles = 0;
 
     walkingImages = [
         '../assets/img/2_character_pepe/2_walk/W-21.png',
@@ -71,7 +73,7 @@ class Character extends MovableObject {
             this.cooldown = false;
             this.isHurt = false;
 
-        }, 2000);
+        }, 3000);
 
     }
 
