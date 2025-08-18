@@ -15,7 +15,6 @@ class World {
         this.draw();
         this.setWorld()
         this.checkCollisions();
-        this.checkCollect();
     }
 
     checkCollisions() {
@@ -24,14 +23,15 @@ class World {
                 this.character.characterHit();
             }
         });
-        requestAnimationFrame(() => this.checkCollisions());
-    }
-
-    checkCollect() {
         this.level.coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
-                console.log('Coin collected');
+                console.log('coin collected');
                 
+            }
+        });
+        this.level.bottle.forEach(bottle => {
+            if (this.character.isColliding(bottle)) {
+                console.log('bottle collected');
             }
         });
         requestAnimationFrame(() => this.checkCollisions());

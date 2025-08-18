@@ -1,8 +1,8 @@
 class Bottle extends MovableObject {
     height = 80;;
     width = 80;
-    y = 350
-    x = Math.random() * (2300 - 230) + 200
+    y = 350;
+    x = Math.random() * (2300 - 230) + 200;
     offset = {
         top: 10, 
         width: 20, 

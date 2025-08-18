@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     width = 150;
     height = 200;
-    y = 220;
+    y = 230;
     health = 100;
     cooldown = false;
     isHurt = false;
@@ -10,7 +10,7 @@ class Character extends MovableObject {
         top: 80,
         width: 40,
         left: 30,
-        height: 10
+        height: 30
     }
 
     walkingImages = [

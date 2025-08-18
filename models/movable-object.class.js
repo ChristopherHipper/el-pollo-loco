@@ -66,7 +66,7 @@ class MovableObject {
     }
 
     drawBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
             ctx.beginPath();
             ctx.strokeStyle = 'blue';
             ctx.lineWidth = 5;
@@ -105,10 +105,10 @@ class MovableObject {
     }
 
     isOnGround() {
-        return this.y == 220
+        return this.y == 230
     }
     isAboveGround() {
-        return this.y < 220
+        return this.y < 230
     }
 
 }

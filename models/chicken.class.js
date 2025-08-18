@@ -1,7 +1,7 @@
 class Chicken extends MovableObject {
     height = 80;;
     width = 80;
-    y = 340;
+    y = 345;
     walkingImages = [
         '../assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         '../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -26,7 +26,7 @@ class Chicken extends MovableObject {
 class SmallChicken extends MovableObject {
     height = 60;;
     width = 60;
-    y = 355;
+    y = 360;
     x = Math.random() * (2300 - 430) + 430
     offset = {
         top: 0,
