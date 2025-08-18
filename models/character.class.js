@@ -86,11 +86,17 @@ class Character extends MovableObject {
                 this.animations(this.hurtImages);
             }
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
-                this.moveRight()
+                this.moveRight();
+                this.World.level.healthbar.x = this.x - 100
+                this.World.level.coinbar.x = this.x - 100
+                this.World.level.bottlebar.x = this.x - 100
                 this.mirroring = false;
             }
             if (this.World.keyboard.left && this.x > -100) {
                 this.mirroring = true;
+                this.World.level.healthbar.x = this.x - 110
+                this.World.level.coinbar.x = this.x - 110
+                this.World.level.bottlebar.x = this.x -110
                 this.moveLeft()
             }
             if (this.World.keyboard.up && this.isOnGround()) {

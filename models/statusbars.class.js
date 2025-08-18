@@ -2,6 +2,7 @@ class HealthbarCharacter extends MovableObject {
     height = 50;;
     width = 200;
     y = 0
+    x = -100
     healthbarImages = [
         '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
         '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
@@ -23,7 +24,6 @@ class HealthbarCharacter extends MovableObject {
         } else {
             this.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png');
         }
-
     }
 }
 
@@ -31,6 +31,7 @@ class CoinbarCharacter extends MovableObject {
     height = 50;;
     width = 200;
     y = 50
+    x = -100
     coinhbarImages = [
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
@@ -49,7 +50,7 @@ class CoinbarCharacter extends MovableObject {
         if (coins > 5) {
             coins = 5;
         }
-            this.loadImage(this.coinhbarImages[coins]);
+        this.loadImage(this.coinhbarImages[coins]);
     }
 }
 
@@ -57,6 +58,7 @@ class BottlebarCharacter extends MovableObject {
     height = 50;;
     width = 200;
     y = 100
+    x = -100
     bottlehbarImages = [
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
