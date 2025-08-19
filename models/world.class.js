@@ -23,37 +23,10 @@ class World {
     }
 
     checkCollisions() {
-        this.checkEnemyCollisions();
-        this.checkItemCollisions();
+        this.character.checkEnemyCollisions(this.level.enemies);
+        this.character.checkItemCollisions(this.level.coins, this.level.bottle);
         requestAnimationFrame(() => this.checkCollisions());
     }
-
-    checkEnemyCollisions() {
-        this.level.enemies.forEach(enemy => {
-            if (this.character.isColliding(enemy)) {
-                this.character.hit();
-            }
-        });
-    }
-
-    checkItemCollisions() {
-        this.level.coins.forEach(coin => {
-            if (this.character.isColliding(coin)) {
-                this.character.coins++;
-                this.level.coinbar.updateCoinBar(this.character.coins);
-                this.level.coins.splice(this.level.coins.indexOf(coin), 1);
-            }
-        });
-        this.level.bottle.forEach(bottle => {
-            if (this.character.isColliding(bottle)) {
-                this.character.bottles++;
-                this.level.bottlebar.updateBottleBar(this.character.bottles);
-                this.level.bottle.splice(this.level.bottle.indexOf(bottle), 1);
-            }
-        });
-    }
-
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

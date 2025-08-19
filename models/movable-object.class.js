@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     health = 100;
     acceleration = 2.5;
     hurt = false;
+    mirroring = false;
     offset = {
         top: 0,
         width: 0,
@@ -94,7 +95,7 @@ class MovableObject extends DrawableObject {
             this.cooldown = true;
             this.hurt = true;
             this.health -= 20;
-            //this.World.level.healthbar.updateHealthbar(this.health);
+            this.World.level.healthbar.updateHealthbar(this.health);
             setInterval(() => {
                 this.cooldown = false;
                 this.hurt = false;
@@ -109,4 +110,29 @@ class MovableObject extends DrawableObject {
     isHurt() {
         return this.hurt;
     };
+
+    checkEnemyCollisions(enemies) {
+        enemies.forEach(enemy => {
+            if (this.isColliding(enemy)) {
+                this.hit();
+            }
+        });
+    }
+
+    checkItemCollisions(coins, bottles) {
+        coins.forEach(coin => {
+            if (this.isColliding(coin)) {
+                this.coins++;
+                this.World.level.coinbar.updateCoinBar(this.coins);
+                coins.splice(coins.indexOf(coin), 1);
+            }
+        });
+        bottles.forEach(bottle => {
+            if (this.isColliding(bottle)) {
+                this.bottles++;
+                this.World.level.bottlebar.updateBottleBar(this.bottles);
+                bottles.splice(bottles.indexOf(bottle), 1);
+            }
+        });
+    }
 };

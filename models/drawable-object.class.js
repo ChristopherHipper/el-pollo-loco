@@ -1,7 +1,7 @@
 class DrawableObject {
     images = {};
     currentImage = 0;
-    mirroring = false;
+    img;
 
 
     draw(ctx) {
