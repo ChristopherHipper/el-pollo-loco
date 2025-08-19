@@ -1,4 +1,4 @@
-class HealthbarCharacter extends MovableObject {
+class HealthbarCharacter extends DrawableObject {
     height = 50;;
     width = 200;
     y = 0
@@ -27,7 +27,7 @@ class HealthbarCharacter extends MovableObject {
     }
 }
 
-class CoinbarCharacter extends MovableObject {
+class CoinbarCharacter extends DrawableObject {
     height = 50;;
     width = 200;
     y = 50
@@ -54,7 +54,7 @@ class CoinbarCharacter extends MovableObject {
     }
 }
 
-class BottlebarCharacter extends MovableObject {
+class BottlebarCharacter extends DrawableObject {
     height = 50;;
     width = 200;
     y = 100

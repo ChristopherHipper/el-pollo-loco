@@ -17,7 +17,10 @@ class World {
         this.checkCollisions();
     }
 
-
+    setWorld() {
+        this.character.World = this
+        this.character.playAnimation();
+    }
 
     checkCollisions() {
         this.checkEnemyCollisions();
@@ -28,7 +31,7 @@ class World {
     checkEnemyCollisions() {
         this.level.enemies.forEach(enemy => {
             if (this.character.isColliding(enemy)) {
-                this.character.characterHit();
+                this.character.hit();
             }
         });
     }
@@ -50,9 +53,7 @@ class World {
         });
     }
 
-    setWorld() {
-        this.character.World = this
-    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -85,8 +86,8 @@ class World {
     addToMap(object) {
         if (object.mirroring) this.mirrorImage(object);
         object.draw(this.ctx);
-        object.drawBorder(this.ctx);
-        object.drawOffsetBorder(this.ctx);
+        if (typeof object.drawBorder === 'function') object.drawBorder(this.ctx);
+        if (typeof object.drawOffsetBorder === 'function') object.drawOffsetBorder(this.ctx);
         if (object.mirroring) this.mirrorImageBack(object);
     }
 

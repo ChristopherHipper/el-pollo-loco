@@ -2,10 +2,7 @@ class Character extends MovableObject {
     width = 150;
     height = 200;
     y = 230;
-    health = 100;
     cooldown = false;
-    isHurt = false;
-    isDead = false;
     offset = {
         top: 80,
         width: 40,
@@ -55,36 +52,11 @@ class Character extends MovableObject {
         this.loadImages(this.jumpingImages);
         this.loadImages(this.hurtImages);
         this.loadImages(this.deathImages);
-        this.playAnimation()
         this.applyGravity();
-    }
-
-    characterHit() {
-        if (this.health <= 0) {
-            this.isDead = true;
-        }
-        this.animations(this.hurtImages);
-        if (this.cooldown) return;
-        this.health -= 20;
-        this.cooldown = true;
-        this.isHurt = true;
-        this.World.level.healthbar.updateHealthbar(this.health);
-        setInterval(() => {
-            this.cooldown = false;
-            this.isHurt = false;
-
-        }, 3000);
-
     }
 
     playAnimation() {
         setInterval(() => {
-            if (this.isDead) {
-                this.animations(this.deathImages);
-            }
-            if (this.isHurt) {
-                this.animations(this.hurtImages);
-            }
             if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
                 this.moveRight();
                 this.World.level.healthbar.x = this.x - 100
@@ -96,7 +68,7 @@ class Character extends MovableObject {
                 this.mirroring = true;
                 this.World.level.healthbar.x = this.x - 110
                 this.World.level.coinbar.x = this.x - 110
-                this.World.level.bottlebar.x = this.x -110
+                this.World.level.bottlebar.x = this.x - 110
                 this.moveLeft()
             }
             if (this.World.keyboard.up && this.isOnGround()) {
@@ -105,7 +77,11 @@ class Character extends MovableObject {
             this.World.camera_x = -this.x + 100
         }, 1000 / 60)
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.animations(this.deathImages);
+            } else if (this.isHurt()) {
+                this.animations(this.hurtImages);
+            } else if (this.isAboveGround()) {
                 this.animations(this.jumpingImages)
             } else if (this.World.keyboard.right || this.World.keyboard.left) {
                 this.animations(this.walkingImages)

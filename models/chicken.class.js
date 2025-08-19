@@ -21,6 +21,14 @@ class Chicken extends MovableObject {
         this.loadImages(this.walkingImages);
         this.walkingAnimation();
     }
+    walkingAnimation() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+        setInterval(() => {
+            this.animations(this.walkingImages)
+        }, 100);
+    }
 }
 
 class SmallChicken extends MovableObject {
@@ -45,5 +53,13 @@ class SmallChicken extends MovableObject {
         this.loadImage('../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
         this.walkingAnimation();
+    }
+    walkingAnimation() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60);
+        setInterval(() => {
+            this.animations(this.walkingImages)
+        }, 100);
     }
 }
