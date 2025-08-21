@@ -48,8 +48,8 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/2_walk/W-26.png',
     ];
     jumpingImages = [
-        //'../assets/img/2_character_pepe/3_jump/J-31.png',
-        //'../assets/img/2_character_pepe/3_jump/J-32.png',
+        '../assets/img/2_character_pepe/3_jump/J-31.png',
+        '../assets/img/2_character_pepe/3_jump/J-32.png',
         '../assets/img/2_character_pepe/3_jump/J-33.png',
         '../assets/img/2_character_pepe/3_jump/J-34.png',
         '../assets/img/2_character_pepe/3_jump/J-35.png',
@@ -113,7 +113,7 @@ class Character extends MovableObject {
             } else if (this.World.keyboard.right || this.World.keyboard.left) {
                 this.animations(this.walkingImages)
             } else {
-                this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
+                this.animations(this.idleImages);
             }
         }, 100);
     }

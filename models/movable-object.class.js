@@ -36,11 +36,20 @@ class MovableObject extends DrawableObject {
     };
 
     animations(imageArray) {
-            let i = this.currentImage % imageArray.length;
-            let path = imageArray[i];
-            this.img = this.images[path];
-            this.currentImage++;
+        let i = this.currentImage % imageArray.length;
+        let path = imageArray[i];
+        this.img = this.images[path];
+        this.currentImage++;
     };
+
+    singleAnimation(imageArray) {
+        if (this.currentImage >= imageArray.length) {
+            this.currentImage = imageArray.length -1 ;
+        }
+        let path = imageArray[this.currentImage];
+        this.img = this.images[path];
+        this.currentImage++;
+    }
 
     applyGravity() {
         setInterval(() => {
