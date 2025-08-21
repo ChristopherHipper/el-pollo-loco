@@ -2,11 +2,12 @@ class MovableObject extends DrawableObject {
     width = 720;
     x = 0;
     speedY = 0;
-    speed = 10;
+    speed = 5;
     health = 100;
     acceleration = 2.5;
     hurt = false;
     mirroring = false;
+    timeOut = 0;
     offset = {
         top: 0,
         width: 0,
@@ -35,10 +36,10 @@ class MovableObject extends DrawableObject {
     };
 
     animations(imageArray) {
-        let i = this.currentImage % imageArray.length;
-        let path = imageArray[i];
-        this.img = this.images[path];
-        this.currentImage++;
+            let i = this.currentImage % imageArray.length;
+            let path = imageArray[i];
+            this.img = this.images[path];
+            this.currentImage++;
     };
 
     applyGravity() {
@@ -109,6 +110,15 @@ class MovableObject extends DrawableObject {
     isHurt() {
         return this.hurt;
     };
+
+    isIdle() {
+
+    };
+
+    stopIdle() {
+        this.fallAsleep = false;
+        clearTimeout(this.timeOut);
+    }
 
     checkEnemyCollisions(enemies) {
         enemies.forEach(enemy => {

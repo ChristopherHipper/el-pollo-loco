@@ -48,8 +48,8 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/2_walk/W-26.png',
     ];
     jumpingImages = [
-        '../assets/img/2_character_pepe/3_jump/J-31.png',
-        '../assets/img/2_character_pepe/3_jump/J-32.png',
+        //'../assets/img/2_character_pepe/3_jump/J-31.png',
+        //'../assets/img/2_character_pepe/3_jump/J-32.png',
         '../assets/img/2_character_pepe/3_jump/J-33.png',
         '../assets/img/2_character_pepe/3_jump/J-34.png',
         '../assets/img/2_character_pepe/3_jump/J-35.png',
@@ -84,27 +84,25 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
+    movement() {
+        if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
+            this.moveRight();
+            this.updateStatusBarPosition(this.x, 100);
+            this.mirroring = false;
+        }
+        if (this.World.keyboard.left && this.x > -500) {
+            this.updateStatusBarPosition(this.x, 105);
+            this.moveLeft()
+            this.mirroring = true;
+        }
+        if (this.World.keyboard.up && this.isOnGround()) {
+            this.jump()
+        }
+        this.World.camera_x = -this.x + 100
+        requestAnimationFrame(() => this.movement());
+    }
+
     playAnimation() {
-        setInterval(() => {
-            if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
-                this.moveRight();
-                this.World.level.healthbar.x = this.x - 100
-                this.World.level.coinbar.x = this.x - 100
-                this.World.level.bottlebar.x = this.x - 100
-                this.mirroring = false;
-            }
-            if (this.World.keyboard.left && this.x > -100) {
-                this.mirroring = true;
-                this.World.level.healthbar.x = this.x - 110
-                this.World.level.coinbar.x = this.x - 110
-                this.World.level.bottlebar.x = this.x - 110
-                this.moveLeft()
-            }
-            if (this.World.keyboard.up && this.isOnGround()) {
-                this.jump()
-            }
-            this.World.camera_x = -this.x + 100
-        }, 1000 / 60)
         setInterval(() => {
             if (this.isDead()) {
                 this.animations(this.deathImages);
@@ -114,7 +112,7 @@ class Character extends MovableObject {
                 this.animations(this.jumpingImages)
             } else if (this.World.keyboard.right || this.World.keyboard.left) {
                 this.animations(this.walkingImages)
-            }else {
+            } else {
                 this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
             }
         }, 100);

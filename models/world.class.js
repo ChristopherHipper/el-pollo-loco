@@ -20,6 +20,7 @@ class World {
     setWorld() {
         this.character.World = this
         this.character.playAnimation();
+        this.character.movement();
     }
 
     checkCollisions() {
