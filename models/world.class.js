@@ -1,26 +1,14 @@
 class World {
-    character = new Character()
-    level = level1;
-    ctx;
-    canvas;
-    keyboard;
     camera_x;
-
-
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.level = level1;
         this.keyboard = keyboard
+        this.character = new Character(this)
         this.draw();
-        this.setWorld()
         this.checkCollisions();
-    }
-
-    setWorld() {
-        this.character.World = this
-        this.character.playAnimation();
-        this.character.movement();
     }
 
     checkCollisions() {
