@@ -10,7 +10,7 @@ class Character extends MovableObject {
         left: 30,
         height: 30
     }
-    lastTime = 0;
+    lastMovement = 0;
     coins = 0;
     bottles = 0;
 
@@ -92,31 +92,47 @@ class Character extends MovableObject {
         this.animateStatus();
     }
 
+    fallAsleep() {
+        this.lastMovement = new Date().getTime();
+        this.timer = this.lastMovement + 15000;
+        
+        
+    }
+
     animateIdle() {
         setInterval(() => {
-            if (!(this.World.keyboard.right || this.World.keyboard.left || this.World.keyboard.up) && !this.isAboveGround() && !this.isHurt() && !this.isDead()) {
-                this.singleAnimation(this.idleImages);
+            if (!this.World.keyboard.right && !this.World.keyboard.left && !this.World.keyboard.up
+                && !this.isAboveGround()
+                && !this.isHurt()
+                && !this.isDead()) {
+                if (!this.isIdle) {
+                    this.currentImage = 0;
+                    this.isIdle = true;
+                    this.fallAsleep();
+                }
+                this.animations(this.idleImages);
+            } else {
+                this.isIdle = false;
             }
         }, 200);
-
     }
 
     animateMovement() {
-            if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
-                this.moveRight();
-                this.updateStatusBarPosition(this.x, 100);
-                this.mirroring = false;
-            }
-            if (this.World.keyboard.left && this.x > -500) {
-                this.updateStatusBarPosition(this.x, 105);
-                this.moveLeft()
-                this.mirroring = true;
-            }
-            if (this.World.keyboard.up && this.isOnGround()) {
-                this.currentImage = 0;
-                this.jump()
-            }
-            this.World.camera_x = -this.x + 100
+        if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
+            this.moveRight();
+            this.updateStatusBarPosition(this.x, 100);
+            this.mirroring = false;
+        }
+        if (this.World.keyboard.left && this.x > -500) {
+            this.updateStatusBarPosition(this.x, 105);
+            this.moveLeft()
+            this.mirroring = true;
+        }
+        if (this.World.keyboard.up && this.isOnGround()) {
+            this.currentImage = 0;
+            this.jump()
+        }
+        this.World.camera_x = -this.x + 100
         requestAnimationFrame(() => this.animateMovement());
     }
 
