@@ -10,7 +10,7 @@ class Character extends MovableObject {
         left: 30,
         height: 30
     }
-    lastMovement = 0;
+    lastMovement = new Date().getTime();
     coins = 0;
     bottles = 0;
 
@@ -92,11 +92,9 @@ class Character extends MovableObject {
         this.animateStatus();
     }
 
-    fallAsleep() {
-        this.lastMovement = new Date().getTime();
-        this.timer = this.lastMovement + 15000;
-        
-        
+    isSleeping() {
+        const now = new Date().getTime();
+        return (now - this.lastMovement > 15000);
     }
 
     animateIdle() {
@@ -104,11 +102,11 @@ class Character extends MovableObject {
             if (!this.World.keyboard.right && !this.World.keyboard.left && !this.World.keyboard.up
                 && !this.isAboveGround()
                 && !this.isHurt()
-                && !this.isDead()) {
+                && !this.isDead()
+                && !this.isSleeping()) {
                 if (!this.isIdle) {
                     this.currentImage = 0;
                     this.isIdle = true;
-                    this.fallAsleep();
                 }
                 this.animations(this.idleImages);
             } else {
@@ -122,15 +120,19 @@ class Character extends MovableObject {
             this.moveRight();
             this.updateStatusBarPosition(this.x, 100);
             this.mirroring = false;
+            this.lastMovement = new Date().getTime();
+
         }
         if (this.World.keyboard.left && this.x > -500) {
-            this.updateStatusBarPosition(this.x, 105);
+            this.updateStatusBarPosition(this.x, 103);
             this.moveLeft()
             this.mirroring = true;
+            this.lastMovement = new Date().getTime();
         }
         if (this.World.keyboard.up && this.isOnGround()) {
             this.currentImage = 0;
             this.jump()
+            this.lastMovement = new Date().getTime();
         }
         this.World.camera_x = -this.x + 100
         requestAnimationFrame(() => this.animateMovement());
@@ -146,6 +148,8 @@ class Character extends MovableObject {
                 this.singleAnimation(this.jumpingImages)
             } else if (this.World.keyboard.right || this.World.keyboard.left) {
                 this.animations(this.walkingImages)
+            } else if (this.isSleeping()) {
+                this.animations(this.longIdleImages);
             }
         }, 150);
     }

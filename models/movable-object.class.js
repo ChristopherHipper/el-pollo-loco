@@ -120,15 +120,6 @@ class MovableObject extends DrawableObject {
         return this.hurt;
     };
 
-    isIdle() {
-
-    };
-
-    stopIdle() {
-        this.fallAsleep = false;
-        clearTimeout(this.timeOut);
-    }
-
     checkEnemyCollisions(enemies) {
         enemies.forEach(enemy => {
             if (this.isColliding(enemy)) {
