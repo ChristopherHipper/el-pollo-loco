@@ -8,6 +8,7 @@ class MovableObject extends DrawableObject {
     hurt = false;
     mirroring = false;
     timeOut = 0;
+    bounce = 0;
     offset = {
         top: 0,
         width: 0,
@@ -44,7 +45,7 @@ class MovableObject extends DrawableObject {
 
     singleAnimation(imageArray) {
         if (this.currentImage >= imageArray.length) {
-            this.currentImage = imageArray.length -1 ;
+            this.currentImage = imageArray.length - 1;
         }
         let path = imageArray[this.currentImage];
         this.img = this.images[path];
@@ -105,11 +106,29 @@ class MovableObject extends DrawableObject {
             this.hurt = true;
             this.health -= 20;
             this.World.level.healthbar.updateHealthbar(this.health);
+            this.bounce = 20;
             setInterval(() => {
                 this.cooldown = false;
                 this.hurt = false;
             }, 2000);
         };
+    }
+
+    bounceBack() {
+        setInterval(() => {
+            if (this.isHurt() && !this.mirroring) {
+                this.x -= this.bounce;
+                this.bounce -= this.acceleration;
+                this.updateStatusBarPosition(this.x, 100);
+            } else if (this.isHurt() && this.mirroring) {
+                this.x += this.bounce;
+                this.bounce -= this.acceleration;
+                this.updateStatusBarPosition(this.x, 100);
+            }
+            if (this.bounce < 0) {
+                this.bounce = 0;
+            }
+        }, 1000 / 60);
     }
 
     isDead() {

@@ -50,6 +50,8 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/2_walk/W-26.png',
     ];
     jumpingImages = [
+        '../assets/img/2_character_pepe/3_jump/J-31.png',
+        '../assets/img/2_character_pepe/3_jump/J-32.png',
         '../assets/img/2_character_pepe/3_jump/J-33.png',
         '../assets/img/2_character_pepe/3_jump/J-34.png',
         '../assets/img/2_character_pepe/3_jump/J-35.png',
@@ -84,6 +86,7 @@ class Character extends MovableObject {
         this.loadImages(this.longIdleImages);
         this.playAnimation();
         this.applyGravity();
+        this.bounceBack();
     }
 
     playAnimation() {
@@ -151,6 +154,6 @@ class Character extends MovableObject {
             } else if (this.isSleeping()) {
                 this.animations(this.longIdleImages);
             }
-        }, 150);
+        }, 200);
     }
 }
