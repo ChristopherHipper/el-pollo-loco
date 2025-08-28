@@ -6,9 +6,9 @@ class Character extends MovableObject {
     cooldown = false;
     offset = {
         top: 80,
-        width: 40,
+        width: 30,
         left: 30,
-        height: 30
+        height: 5
     }
     lastMovement = new Date().getTime();
     coins = 0;

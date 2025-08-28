@@ -62,23 +62,25 @@ class MovableObject extends DrawableObject {
     };
 
     drawBorder(ctx) {
-        /*      if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
-                 ctx.beginPath();
-                 ctx.strokeStyle = 'blue';
-                 ctx.lineWidth = 5;
-                 ctx.rect(this.x, this.y, this.width, this.height);
-                 ctx.stroke();
-             } */
+/*         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
+            ctx.beginPath();
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 5;
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        } */
     }
 
     drawOffsetBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottle) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottle
+        ) {
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 3;
-            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.width * 2, this.height - this.offset.height * 2);
+
+            ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.width, this.height - this.offset.top - this.offset.height);
             ctx.stroke();
-        };
+        }
     };
 
     isColliding(object) {
@@ -119,12 +121,12 @@ class MovableObject extends DrawableObject {
 
     bounceBack() {
         setInterval(() => {
-            if (!this.mirroring) {
+            if (this.World.keyboard.right || !this.World.keyboard.right && !this.World.keyboard.left) {
                 this.x -= this.bounce;
                 this.x = Math.round(this.x);
                 this.bounce -= this.acceleration;
                 this.updateStatusBarPosition(this.x, 100);
-            } else if (this.mirroring) {
+            } else if (this.World.keyboard.left) {
                 this.x += this.bounce;
                 this.x = Math.round(this.x);
                 this.bounce -= this.acceleration;
@@ -147,7 +149,9 @@ class MovableObject extends DrawableObject {
 
     checkEnemyCollisions(enemies) {
         enemies.forEach(enemy => {
-            if (this.isColliding(enemy)) {
+            if (this.isColliding(enemy) && this.isAboveGround()) {
+                this.speedY = 25
+            } else if (this.isColliding(enemy)&& this.isOnGround()) {
                 this.hit();
             }
         });
