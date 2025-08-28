@@ -86,7 +86,6 @@ class Character extends MovableObject {
         this.loadImages(this.longIdleImages);
         this.playAnimation();
         this.applyGravity();
-        this.bounceBack();
     }
 
     playAnimation() {
@@ -119,20 +118,20 @@ class Character extends MovableObject {
     }
 
     animateMovement() {
-        if (this.World.keyboard.right && this.x < this.World.level.levelEndX) {
+        if (this.World.keyboard.right && this.x < this.World.level.levelEndX && !this.isHurt()) {
             this.moveRight();
             this.updateStatusBarPosition(this.x, 100);
             this.mirroring = false;
             this.lastMovement = new Date().getTime();
 
         }
-        if (this.World.keyboard.left && this.x > -500) {
+        if (this.World.keyboard.left && this.x > -500 && !this.isHurt()) {
             this.updateStatusBarPosition(this.x, 103);
             this.moveLeft()
             this.mirroring = true;
             this.lastMovement = new Date().getTime();
         }
-        if (this.World.keyboard.up && this.isOnGround()) {
+        if (this.World.keyboard.up && this.isOnGround() && !this.isHurt()) {
             this.currentImage = 0;
             this.jump()
             this.lastMovement = new Date().getTime();
@@ -154,6 +153,6 @@ class Character extends MovableObject {
             } else if (this.isSleeping()) {
                 this.animations(this.longIdleImages);
             }
-        }, 200);
+        }, 100);
     }
 }

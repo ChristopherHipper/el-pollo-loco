@@ -107,28 +107,32 @@ class MovableObject extends DrawableObject {
             this.health -= 20;
             this.World.level.healthbar.updateHealthbar(this.health);
             this.bounce = 20;
-            setInterval(() => {
+            this.bounceBack();
+            this.lastMovement = new Date().getTime();
+            setTimeout(() => {
                 this.cooldown = false;
                 this.hurt = false;
-            }, 2000);
+                this.currentImage = 0;
+            }, 1500);
         };
     }
 
     bounceBack() {
         setInterval(() => {
-            if (this.isHurt() && !this.mirroring) {
-                this.x -= this.bounce;
-                this.bounce -= this.acceleration;
-                this.updateStatusBarPosition(this.x, 100);
-            } else if (this.isHurt() && this.mirroring) {
-                this.x += this.bounce;
-                this.bounce -= this.acceleration;
-                this.updateStatusBarPosition(this.x, 100);
-            }
-            if (this.bounce < 0) {
-                this.bounce = 0;
-            }
+                    if (!this.mirroring) {
+            this.x -= this.bounce;
+            this.bounce -= this.acceleration;
+            this.updateStatusBarPosition(this.x, 100);
+        } else if (this.mirroring) {
+            this.x += this.bounce;
+            this.bounce -= this.acceleration;
+            this.updateStatusBarPosition(this.x, 100);
+        }
+        if (this.bounce < 0) {
+            this.bounce = 0;
+        }
         }, 1000 / 60);
+
     }
 
     isDead() {
