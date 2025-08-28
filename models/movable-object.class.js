@@ -119,18 +119,20 @@ class MovableObject extends DrawableObject {
 
     bounceBack() {
         setInterval(() => {
-                    if (!this.mirroring) {
-            this.x -= this.bounce;
-            this.bounce -= this.acceleration;
-            this.updateStatusBarPosition(this.x, 100);
-        } else if (this.mirroring) {
-            this.x += this.bounce;
-            this.bounce -= this.acceleration;
-            this.updateStatusBarPosition(this.x, 100);
-        }
-        if (this.bounce < 0) {
-            this.bounce = 0;
-        }
+            if (!this.mirroring) {
+                this.x -= this.bounce;
+                this.x = Math.round(this.x);
+                this.bounce -= this.acceleration;
+                this.updateStatusBarPosition(this.x, 100);
+            } else if (this.mirroring) {
+                this.x += this.bounce;
+                this.x = Math.round(this.x);
+                this.bounce -= this.acceleration;
+                this.updateStatusBarPosition(this.x, 100);
+            }
+            if (this.bounce < 0) {
+                this.bounce = 0;
+            }
         }, 1000 / 60);
 
     }
