@@ -1,4 +1,5 @@
 class Enemies extends MovableObject {
+    died = false
     offset = {
         top: 0,
         width: 0,
@@ -18,13 +19,15 @@ class Enemies extends MovableObject {
             this.moveLeft();
         }, 1000 / 60);
         setInterval(() => {
-            this.animations(this.walkingImages)
+            if (!this.died) {
+                this.animations(this.walkingImages)
+            }
         }, 100);
 
     }
 
     chickenDied(enemyArr, currentEnemie) {
-
+        this.died = true 
         this.loadImage(this.deadImage);
         this.speed = 0
         //enemyArr.splice(enemyArr.indexOf(currentEnemie), 1);
