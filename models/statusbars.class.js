@@ -46,11 +46,12 @@ class CoinbarCharacter extends DrawableObject {
         this.loadImages(this.coinhbarImages);
     }
 
-    updateCoinBar(coins) {
-        if (coins > 5) {
-            coins = 5;
+    updateCoinBar(coinsArr, CurrentCoin, ammountOfCoins) {
+        coinsArr.splice(coinsArr.indexOf(CurrentCoin), 1);
+        if (ammountOfCoins > 5) {
+            ammountOfCoins = 5;
         }
-        this.loadImage(this.coinhbarImages[coins]);
+        this.loadImage(this.coinhbarImages[ammountOfCoins]);
     }
 }
 
@@ -74,10 +75,11 @@ class BottlebarCharacter extends DrawableObject {
         this.loadImages(this.bottlehbarImages);
     }
 
-    updateBottleBar(bottles) {
-        if (bottles > 5) {
-            bottles = 5;
+    updateBottleBar(bottleArr, CurrentBottle, amountOfBottles) {
+        bottleArr.splice(bottleArr.indexOf(CurrentBottle), 1);
+        if (amountOfBottles > 5) {
+            amountOfBottles = 5;
         }
-        this.loadImage(this.bottlehbarImages[bottles]);
+        this.loadImage(this.bottlehbarImages[amountOfBottles]);
     }
 }

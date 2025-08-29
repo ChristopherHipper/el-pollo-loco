@@ -62,13 +62,13 @@ class MovableObject extends DrawableObject {
     };
 
     drawBorder(ctx) {
-/*         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
-            ctx.beginPath();
-            ctx.strokeStyle = 'blue';
-            ctx.lineWidth = 5;
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        } */
+        /*         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'blue';
+                    ctx.lineWidth = 5;
+                    ctx.rect(this.x, this.y, this.width, this.height);
+                    ctx.stroke();
+                } */
     }
 
     drawOffsetBorder(ctx) {
@@ -151,7 +151,8 @@ class MovableObject extends DrawableObject {
         enemies.forEach(enemy => {
             if (this.isColliding(enemy) && this.isAboveGround()) {
                 this.speedY = 25
-            } else if (this.isColliding(enemy)&& this.isOnGround()) {
+                enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
+            } else if (this.isColliding(enemy) && this.isOnGround()) {
                 this.hit();
             }
         });
@@ -161,16 +162,15 @@ class MovableObject extends DrawableObject {
         coins.forEach(coin => {
             if (this.isColliding(coin)) {
                 this.coins++;
-                this.World.level.coinbar.updateCoinBar(this.coins);
-                coins.splice(coins.indexOf(coin), 1);
+                this.World.level.coinbar.updateCoinBar(coins, coin, this.coins);
             }
         });
         bottles.forEach(bottle => {
             if (this.isColliding(bottle)) {
                 this.bottles++;
-                this.World.level.bottlebar.updateBottleBar(this.bottles);
-                bottles.splice(bottles.indexOf(bottle), 1);
+                this.World.level.bottlebar.updateBottleBar(bottles, bottle, this.bottles);
             }
         });
     }
+
 };
