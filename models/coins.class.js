@@ -1,8 +1,7 @@
-class Coins extends MovableObject {
+class Coin extends MovableObject {
     height = 150;
     width = 150;
-    y = Math.random() * (200 - 60) + 60
-    x = Math.random() * (2300 - 230) + 200
+
     offset = {
         top: 50,
         width: 50,
@@ -19,9 +18,26 @@ class Coins extends MovableObject {
         this.loadImages(this.blinkImages);
         this.moveAnmation()
     }
+
+
     moveAnmation() {
         setInterval(() => {
             this.animations(this.blinkImages)
         }, 200);
     }
+
 }
+
+
+
+/* 
+    findObjectPosition() {
+        this.x = Math.random() * (2300 - 230) + 200
+        this.y = Math.random() * (200 - 60) + 60
+
+        let object = coins.find(o => o.x < this.x - 50 && o.x > this.x + 50);
+
+        if (object) {
+            this.findObjectPosition();
+        }
+    } */

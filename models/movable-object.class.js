@@ -62,7 +62,7 @@ class MovableObject extends DrawableObject {
     };
 
     drawBorder(ctx) {
-        /*         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coins) {
+        /*         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coin) {
                     ctx.beginPath();
                     ctx.strokeStyle = 'blue';
                     ctx.lineWidth = 5;
@@ -72,7 +72,7 @@ class MovableObject extends DrawableObject {
     }
 
     drawOffsetBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottle
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle
         ) {
             ctx.beginPath();
             ctx.strokeStyle = 'red';

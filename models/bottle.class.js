@@ -1,13 +1,12 @@
 class Bottle extends DrawableObject {
     height = 80;;
     width = 80;
-    y = 350;
-    x = Math.random() * (2300 - 230) + 200;
+    y = 350
     offset = {
-        top: 10, 
-        width: 20, 
-        left: 20, 
-        height: 10 
+        top: 10,
+        width: 20,
+        left: 20,
+        height: 10
     }
     Images = [
         '../assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',

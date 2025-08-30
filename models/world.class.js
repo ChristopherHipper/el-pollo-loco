@@ -13,7 +13,7 @@ class World {
 
     checkCollisions() {
         this.character.checkEnemyCollisions(this.level.enemies);
-        this.character.checkItemCollisions(this.level.coins, this.level.bottle);
+        this.character.checkItemCollisions(this.level.coins, this.level.bottles);
         requestAnimationFrame(() => this.checkCollisions());
     }
 
@@ -25,7 +25,7 @@ class World {
 
         this.addObjectsToMap(this.level.background);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottle);
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
         this.addToMap(this.level.endboss);
