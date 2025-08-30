@@ -1,7 +1,6 @@
 class Coin extends MovableObject {
     height = 150;
     width = 150;
-
     offset = {
         top: 50,
         width: 50,
@@ -19,7 +18,6 @@ class Coin extends MovableObject {
         this.moveAnmation()
     }
 
-
     moveAnmation() {
         setInterval(() => {
             this.animations(this.blinkImages)
@@ -27,17 +25,3 @@ class Coin extends MovableObject {
     }
 
 }
-
-
-
-/* 
-    findObjectPosition() {
-        this.x = Math.random() * (2300 - 230) + 200
-        this.y = Math.random() * (200 - 60) + 60
-
-        let object = coins.find(o => o.x < this.x - 50 && o.x > this.x + 50);
-
-        if (object) {
-            this.findObjectPosition();
-        }
-    } */
