@@ -15,6 +15,22 @@ class MovableObject extends DrawableObject {
         left: 0,
         height: 0
     };
+
+    isDead() {
+        return this.health == 0;
+    };
+
+    isHurt() {
+        return this.hurt;
+    };
+
+    isOnGround() {
+        return this.y >= 230;
+    };
+
+    isAboveGround() {
+        return this.y < 230;
+    };
     moveLeft() {
         this.x -= this.speed;
     };
@@ -23,9 +39,29 @@ class MovableObject extends DrawableObject {
         this.x += this.speed;
     };
 
+    startJump(height) {
+        this.speedY = height;
+        this.currentImage = 0;
+    }
+
     jump() {
-        this.speedY = 30;
+        this.startJump(30);
+    }
+
+    smallJump() {
+        this.startJump(25);
+    }
+
+    isColliding(object) {
+        return this.x + this.width - this.offset.width > object.x + object.offset.width &&
+            this.y + this.height - this.offset.height > object.y + this.offset.height &&
+            this.x + this.offset.left < object.x + object.width - object.offset.width &&
+            this.y + this.offset.top < object.y + object.height - object.offset.height;
     };
+
+    isFalling() {
+        return this.speedY < 0;
+    }
 
     updateCameraPosition(camera_x) {
         if (this.x + this.width + camera_x < 0) {
@@ -57,7 +93,11 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-            };
+                if (this.isOnGround()) {
+                    this.y = 230;
+                    this.speedY = 0;
+                }
+            }
         }, 50);
     };
 
@@ -83,22 +123,11 @@ class MovableObject extends DrawableObject {
         }
     };
 
-    isColliding(object) {
-        return this.x + this.width - this.offset.width > object.x + object.offset.width &&
-            this.y + this.height - this.offset.height > object.y + this.offset.height &&
-            this.x + this.offset.left < object.x + object.width - object.offset.width &&
-            this.y + this.offset.top < object.y + object.height - object.offset.height;
-    };
 
-    isOnGround() {
-        return this.y == 230;
-    };
 
-    isAboveGround() {
-        return this.y < 230;
-    };
 
-    hit() {
+
+    takeHit() {
         if (this.health < 0) {
             this.health = 0;
         } else if (this.cooldown) {
@@ -139,26 +168,27 @@ class MovableObject extends DrawableObject {
 
     }
 
-    isDead() {
-        return this.health == 0;
-    };
 
-    isHurt() {
-        return this.hurt;
-    };
 
-    checkEnemyCollisions(enemies) {
+    checkEnemyCollision(enemies) {
         enemies.forEach(enemy => {
-            if (this.isColliding(enemy) && this.isAboveGround()) {
-                this.speedY = 25
-                enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
-            } else if (this.isColliding(enemy) && this.isOnGround()) {
-                this.hit();
-            }
+            this.handleEnmyCollision(enemy, enemies)
         });
     }
 
-    checkItemCollisions(coins, bottles) {
+    handleEnmyCollision(enemy, enemies) {
+        if (!this.isColliding(enemy)) {
+            return
+        } else if (this.isFalling()) {
+            this.smallJump();
+            enemy.chickenDied(enemy, enemies)
+            return
+        } else {
+            this.takeHit()
+        }
+    }
+
+    checkItemCollision(coins, bottles) {
         coins.forEach(coin => {
             if (this.isColliding(coin)) {
                 this.coins++;

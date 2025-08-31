@@ -8,13 +8,13 @@ class World {
         this.keyboard = keyboard
         this.character = new Character(this)
         this.draw();
-        this.checkCollisions();
+        this.checkCollision();
     }
 
-    checkCollisions() {
-        this.character.checkEnemyCollisions(this.level.enemies);
-        this.character.checkItemCollisions(this.level.coins, this.level.bottles);
-        requestAnimationFrame(() => this.checkCollisions());
+    checkCollision() {
+        this.character.checkEnemyCollision(this.level.enemies);
+        this.character.checkItemCollision(this.level.coins, this.level.bottles);
+        requestAnimationFrame(() => this.checkCollision());
     }
 
     draw() {

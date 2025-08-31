@@ -25,11 +25,10 @@ class Enemies extends MovableObject {
 
     }
 
-    chickenDied(enemyArr, currentEnemie) {
+    chickenDied(enemy, enemies) {
         this.died = true
         this.loadImage(this.deadImage);
         this.speed = 0
-        //enemyArr.splice(enemyArr.indexOf(currentEnemie), 1);
     }
 }
 
