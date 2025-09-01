@@ -1,12 +1,11 @@
 class Enemies extends MovableObject {
-    died = false
     offset = {
         top: 0,
         width: 0,
         left: 0,
         height: 0
     }
-    speed = 0.08 + Math.random() * 0.15;
+    speedX = 0.08 + Math.random() * 0.15;
     constructor() {
         super();
         this.walkingAnimation()
@@ -18,7 +17,7 @@ class Enemies extends MovableObject {
             this.moveLeft();
         }, 1000 / 60);
         setInterval(() => {
-            if (!this.died) {
+            if (this.isAlive) {
                 this.animations(this.walkingImages)
             }
         }, 100);
@@ -26,9 +25,9 @@ class Enemies extends MovableObject {
     }
 
     chickenDied(enemy, enemies) {
-        this.died = true
+        enemy.isAlive = false;
         this.loadImage(this.deadImage);
-        this.speed = 0
+        this.speedX = 0
     }
 }
 

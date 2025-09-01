@@ -131,7 +131,7 @@ class Character extends MovableObject {
             this.mirroring = true;
             this.lastMovement = new Date().getTime();
         }
-        if (this.World.keyboard.up && this.isOnGround() && !this.isHurt()) {
+        if (this.World.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
             this.jump()
             this.lastMovement = new Date().getTime();
         }

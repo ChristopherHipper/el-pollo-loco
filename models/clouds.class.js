@@ -1,7 +1,7 @@
 class Cloud extends MovableObject {
     height = 200;
     y = 20;
-    speed = 0.05
+    speedX = 0.05
     constructor(path, x) {
         super();
         this.loadImage(path, x);

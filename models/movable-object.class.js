@@ -2,11 +2,12 @@ class MovableObject extends DrawableObject {
     width = 720;
     x = 0;
     speedY = 0;
-    speed = 3;
+    speedX = 3;
     health = 100;
     acceleration = 2.5;
     hurt = false;
     mirroring = false;
+    isAlive = true;
     timeOut = 0;
     bounce = 0;
     offset = {
@@ -24,33 +25,25 @@ class MovableObject extends DrawableObject {
         return this.hurt;
     };
 
-    isOnGround() {
-        return this.y >= 230;
-    };
+    jump() {
+        this.speedY = 30
+        this.currentImage = 0
+    }
+
+    isFalling() {
+        return this.speedY < 0
+    }
 
     isAboveGround() {
         return this.y < 230;
     };
     moveLeft() {
-        this.x -= this.speed;
+        this.x -= this.speedX;
     };
 
     moveRight() {
-        this.x += this.speed;
+        this.x += this.speedX;
     };
-
-    startJump(height) {
-        this.speedY = height;
-        this.currentImage = 0;
-    }
-
-    jump() {
-        this.startJump(30);
-    }
-
-    smallJump() {
-        this.startJump(25);
-    }
 
     isColliding(object) {
         return this.x + this.width - this.offset.width > object.x + object.offset.width &&
@@ -58,10 +51,6 @@ class MovableObject extends DrawableObject {
             this.x + this.offset.left < object.x + object.width - object.offset.width &&
             this.y + this.offset.top < object.y + object.height - object.offset.height;
     };
-
-    isFalling() {
-        return this.speedY < 0;
-    }
 
     updateCameraPosition(camera_x) {
         if (this.x + this.width + camera_x < 0) {
@@ -93,10 +82,9 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
-                if (this.isOnGround()) {
-                    this.y = 230;
-                    this.speedY = 0;
-                }
+            } if (!this.isAboveGround()) {
+                this.speedY = 0
+                this.y = 230
             }
         }, 50);
     };
@@ -168,6 +156,11 @@ class MovableObject extends DrawableObject {
 
     }
 
+    bounceUp() {
+        this.speedY = 20
+        this.currentImage = 0
+    }
+
 
 
     checkEnemyCollision(enemies) {
@@ -179,11 +172,11 @@ class MovableObject extends DrawableObject {
     handleEnmyCollision(enemy, enemies) {
         if (!this.isColliding(enemy)) {
             return
-        } else if (this.isFalling()) {
-            this.smallJump();
+        } else if (this.isFalling() && enemy.isAlive) {
+            this.bounceUp();
             enemy.chickenDied(enemy, enemies)
             return
-        } else {
+        } else if (enemy.isAlive) {
             this.takeHit()
         }
     }

@@ -14,6 +14,7 @@ class World {
     checkCollision() {
         this.character.checkEnemyCollision(this.level.enemies);
         this.character.checkItemCollision(this.level.coins, this.level.bottles);
+        this.character.isFalling();
         requestAnimationFrame(() => this.checkCollision());
     }
 

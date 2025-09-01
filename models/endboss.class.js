@@ -42,7 +42,7 @@ class Endboss extends MovableObject {
     walkAnimation() {
         this.currentAnimation = setInterval(() => {
             this.animations(this.walkingImages);
-            this.x -= this.speed;
+            this.x -= this.speedX;
         }, 150);
     }
 }
