@@ -25,8 +25,8 @@ class MovableObject extends DrawableObject {
         return this.hurt;
     };
 
-    jump() {
-        this.speedY = 30
+    jump(force) {
+        this.speedY = force
         this.currentImage = 0
     }
 
@@ -156,13 +156,6 @@ class MovableObject extends DrawableObject {
 
     }
 
-    bounceUp() {
-        this.speedY = 20
-        this.currentImage = 0
-    }
-
-
-
     checkEnemyCollision(enemies) {
         enemies.forEach(enemy => {
             this.handleEnmyCollision(enemy, enemies)
@@ -173,7 +166,7 @@ class MovableObject extends DrawableObject {
         if (!this.isColliding(enemy)) {
             return
         } else if (this.isFalling() && enemy.isAlive) {
-            this.bounceUp();
+            this.jump(25);
             enemy.chickenDied(enemy, enemies)
             return
         } else if (enemy.isAlive) {
