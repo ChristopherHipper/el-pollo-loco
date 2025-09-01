@@ -132,7 +132,7 @@ class Character extends MovableObject {
             this.lastMovement = new Date().getTime();
         }
         if (this.World.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
-            this.jump()
+            this.jump(30)
             this.lastMovement = new Date().getTime();
         }
         this.World.camera_x = -this.x + 100
