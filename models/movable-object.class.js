@@ -26,8 +26,8 @@ class MovableObject extends DrawableObject {
     };
 
     jump(force) {
+        this.currentImage = 0
         this.speedY = force
-         
     }
 
     isFalling() {
@@ -110,10 +110,6 @@ class MovableObject extends DrawableObject {
             ctx.stroke();
         }
     };
-
-
-
-
 
     takeHit() {
         if (this.health < 0) {

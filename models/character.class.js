@@ -49,17 +49,23 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/2_walk/W-25.png',
         '../assets/img/2_character_pepe/2_walk/W-26.png',
     ];
+
     jumpingImages = [
         '../assets/img/2_character_pepe/3_jump/J-31.png',
         '../assets/img/2_character_pepe/3_jump/J-32.png',
         '../assets/img/2_character_pepe/3_jump/J-33.png',
         '../assets/img/2_character_pepe/3_jump/J-34.png',
+        //'../assets/img/2_character_pepe/3_jump/J-35.png',
+    ];
+
+    fallImages = [
         '../assets/img/2_character_pepe/3_jump/J-35.png',
         '../assets/img/2_character_pepe/3_jump/J-36.png',
         '../assets/img/2_character_pepe/3_jump/J-37.png',
         '../assets/img/2_character_pepe/3_jump/J-38.png',
         '../assets/img/2_character_pepe/3_jump/J-39.png',
-    ];
+    ]
+
     hurtImages = [
         '../assets/img/2_character_pepe/4_hurt/H-41.png',
         '../assets/img/2_character_pepe/4_hurt/H-42.png',
@@ -81,6 +87,7 @@ class Character extends MovableObject {
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
         this.loadImages(this.hurtImages);
+        this.loadImages(this.fallImages);
         this.loadImages(this.deathImages);
         this.loadImages(this.idleImages);
         this.loadImages(this.longIdleImages);
@@ -105,7 +112,8 @@ class Character extends MovableObject {
                 && !this.isAboveGround()
                 && !this.isHurt()
                 && !this.isDead()
-                && !this.isSleeping()) {
+                && !this.isSleeping()
+                && !this.isFalling()) {
                 if (!this.isIdle) {
                     this.currentImage = 0;
                     this.isIdle = true;
@@ -145,8 +153,10 @@ class Character extends MovableObject {
                 this.animations(this.deathImages);
             } else if (this.isHurt()) {
                 this.animations(this.hurtImages);
-            } else if (this.isAboveGround()) {
+            } else if (this.isAboveGround() && !this.isFalling()) {
                 this.singleAnimation(this.jumpingImages)
+            } else if (this.isAboveGround() && this.isFalling()) {
+                this.animations(this.fallImages)
             } else if (this.World.keyboard.right || this.World.keyboard.left) {
                 this.animations(this.walkingImages)
             } else if (this.isSleeping()) {
@@ -155,3 +165,22 @@ class Character extends MovableObject {
         }, 100);
     }
 }
+
+
+/*     animateStatus() {
+        setInterval(() => {
+            if (this.isDead()) {
+                this.animations(this.deathImages);
+            } else if (this.isHurt()) {
+                this.animations(this.hurtImages);
+            } else if (this.isAboveGround() && !this.isFalling()) {
+                this.singleAnimation(this.jumpingImages)
+            } else if (this.isAboveGround() && this.isFalling()) {
+                this.animations(this.fallImages)
+            } else if (this.World.keyboard.right || this.World.keyboard.left) {
+                this.animations(this.walkingImages)
+            } else if (this.isSleeping()) {
+                this.animations(this.longIdleImages);
+            }
+        }, 100);
+    } */

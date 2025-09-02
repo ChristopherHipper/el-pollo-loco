@@ -35,7 +35,7 @@ class Level {
         if (item instanceof Bottle) {
             this.y = 350;
         }
-        let checkX = this.Items.find(i => i !== item && i.x !== undefined && Math.abs(i.x - this.x) < 150);
+        let checkX = this.Items.find(i => i !== item && i.x !== undefined && Math.abs(i.x - this.x) < 120);
         if (checkX) {
             this.positionItems(item);
             return;
