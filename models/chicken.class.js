@@ -24,10 +24,14 @@ class Enemies extends MovableObject {
 
     }
 
-    chickenDied(enemy, enemies) {
+    chickenDied(enemies, enemy) {
         enemy.isAlive = false;
         this.loadImage(this.deadImage);
         this.speedX = 0
+        setTimeout(() => {
+            enemies.splice(enemies.indexOf(enemy), 1);
+        }, 1000);
+        
     }
 }
 

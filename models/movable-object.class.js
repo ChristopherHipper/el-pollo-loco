@@ -27,7 +27,7 @@ class MovableObject extends DrawableObject {
 
     jump(force) {
         this.speedY = force
-        this.currentImage = 0
+         
     }
 
     isFalling() {
@@ -158,16 +158,16 @@ class MovableObject extends DrawableObject {
 
     checkEnemyCollision(enemies) {
         enemies.forEach(enemy => {
-            this.handleEnmyCollision(enemy, enemies)
+            this.handleEnmyCollision(enemies, enemy)
         });
     }
 
-    handleEnmyCollision(enemy, enemies) {
+    handleEnmyCollision(enemies, enemy) {
         if (!this.isColliding(enemy)) {
             return
         } else if (this.isFalling() && enemy.isAlive) {
             this.jump(25);
-            enemy.chickenDied(enemy, enemies)
+            this.World.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy)
             return
         } else if (enemy.isAlive) {
             this.takeHit()
