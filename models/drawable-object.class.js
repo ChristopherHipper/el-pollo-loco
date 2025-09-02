@@ -22,9 +22,9 @@ class DrawableObject {
     };
 
     updateStatusBarPosition(charcter_x, camera_x) {
-        this.World.level.healthbar.x = charcter_x - camera_x
-        this.World.level.coinbar.x = charcter_x - camera_x
-        this.World.level.bottlebar.x = charcter_x - camera_x
+        this.level.healthbar.x = charcter_x - camera_x
+        this.level.coinbar.x = charcter_x - camera_x
+        this.level.bottlebar.x = charcter_x - camera_x
     }
 
 

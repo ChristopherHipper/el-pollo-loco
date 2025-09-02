@@ -1,4 +1,5 @@
 class World {
+    lastFrameTime = performance.now();
     camera_x;
 
     constructor(canvas, keyboard) {
@@ -6,16 +7,20 @@ class World {
         this.canvas = canvas;
         this.level = level1;
         this.keyboard = keyboard
-        this.character = new Character(this)
-        this.draw();
-        this.checkCollision();
+        this.character = new Character()
+        this.loop();
     }
 
-    checkCollision() {
-        this.character.checkEnemyCollision(this.level.enemies);
-        this.character.checkItemCollision(this.level.coins, this.level.bottles);
-        this.character.isFalling();
-        requestAnimationFrame(() => this.checkCollision());
+    loop() {
+        let now = performance.now();
+        let deltaTime = now - this.lastFrameTime;
+        this.lastFrameTime = now;
+
+        this.character.update(deltaTime, this.keyboard, this.level);
+        this.camera_x = -this.character.x + 100
+        this.draw();
+
+        requestAnimationFrame(() => this.loop());
     }
 
     draw() {
@@ -37,7 +42,6 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0)
 
-        requestAnimationFrame(() => this.draw());
     }
 
     addObjectsToMap(objects) {

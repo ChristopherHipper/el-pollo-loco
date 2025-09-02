@@ -8,8 +8,6 @@ class MovableObject extends DrawableObject {
     hurt = false;
     mirroring = false;
     isAlive = true;
-    timeOut = 0;
-    bounce = 0;
     offset = {
         top: 0,
         width: 0,
@@ -110,79 +108,5 @@ class MovableObject extends DrawableObject {
             ctx.stroke();
         }
     };
-
-    takeHit() {
-        if (this.health < 0) {
-            this.health = 0;
-        } else if (this.cooldown) {
-            return;
-        } else {
-            this.cooldown = true;
-            this.hurt = true;
-            this.health -= 20;
-            this.World.level.healthbar.updateHealthbar(this.health);
-            this.bounce = 20;
-            this.bounceBack();
-            this.lastMovement = new Date().getTime();
-            setTimeout(() => {
-                this.cooldown = false;
-                this.hurt = false;
-                this.currentImage = 0;
-            }, 1500);
-        };
-    }
-
-    bounceBack() {
-        setInterval(() => {
-            if (this.World.keyboard.right || !this.World.keyboard.right && !this.World.keyboard.left) {
-                this.x -= this.bounce;
-                this.x = Math.round(this.x);
-                this.bounce -= this.acceleration;
-                this.updateStatusBarPosition(this.x, 100);
-            } else if (this.World.keyboard.left) {
-                this.x += this.bounce;
-                this.x = Math.round(this.x);
-                this.bounce -= this.acceleration;
-                this.updateStatusBarPosition(this.x, 100);
-            }
-            if (this.bounce < 0) {
-                this.bounce = 0;
-            }
-        }, 1000 / 60);
-
-    }
-
-    checkEnemyCollision(enemies) {
-        enemies.forEach(enemy => {
-            this.handleEnmyCollision(enemies, enemy)
-        });
-    }
-
-    handleEnmyCollision(enemies, enemy) {
-        if (!this.isColliding(enemy)) {
-            return
-        } else if (this.isFalling() && enemy.isAlive) {
-            this.jump(25);
-            this.World.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy)
-            return
-        } else if (enemy.isAlive) {
-            this.takeHit()
-        }
-    }
-
-    checkItemCollision(coins, bottles) {
-        coins.forEach(coin => {
-            if (this.isColliding(coin)) {
-                this.coins++;
-                this.World.level.coinbar.updateCoinBar(coins, coin, this.coins);
-            }
-        });
-        bottles.forEach(bottle => {
-            if (this.isColliding(bottle)) {
-                this.bottles++;
-                this.World.level.bottlebar.updateBottleBar(bottles, bottle, this.bottles);
-            }
-        });
-    }
 
 };

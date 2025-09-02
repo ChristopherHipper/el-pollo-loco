@@ -1,5 +1,10 @@
 class Character extends MovableObject {
-    World;
+    isIdle = true
+    timeOut = 0;
+    bounce = 0;
+    level;
+    keyboard;
+    deltaTime;
     width = 150;
     height = 200;
     y = 230;
@@ -55,7 +60,7 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/3_jump/J-32.png',
         '../assets/img/2_character_pepe/3_jump/J-33.png',
         '../assets/img/2_character_pepe/3_jump/J-34.png',
-        //'../assets/img/2_character_pepe/3_jump/J-35.png',
+        '../assets/img/2_character_pepe/3_jump/J-35.png',
     ];
 
     fallImages = [
@@ -80,9 +85,9 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/5_dead/D-56.png',
         '../assets/img/2_character_pepe/5_dead/D-57.png',
     ];
-    constructor(game) {
+    constructor(world) {
         super()
-        this.World = game
+        this.World = world
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
@@ -91,14 +96,21 @@ class Character extends MovableObject {
         this.loadImages(this.deathImages);
         this.loadImages(this.idleImages);
         this.loadImages(this.longIdleImages);
-        this.playAnimation();
         this.applyGravity();
     }
 
-    playAnimation() {
-        this.animateMovement();
-        this.animateIdle();
-        this.animateStatus();
+    update(deltaTime, keyboard, level) {
+        this.level = level
+        this.keyboard = keyboard
+        this.deltaTime = deltaTime
+        this.handleInput();
+        this.playAnimation();
+        this.checkCollision()
+    }
+
+    checkCollision() {
+        this.checkEnemyCollision(this.level.enemies);
+        this.checkItemCollision(this.level.coins, this.level.bottles);
     }
 
     isSleeping() {
@@ -106,81 +118,126 @@ class Character extends MovableObject {
         return (now - this.lastMovement > 15000);
     }
 
-    animateIdle() {
-        setInterval(() => {
-            if (!this.World.keyboard.right && !this.World.keyboard.left && !this.World.keyboard.up
-                && !this.isAboveGround()
-                && !this.isHurt()
-                && !this.isDead()
-                && !this.isSleeping()
-                && !this.isFalling()) {
-                if (!this.isIdle) {
-                    this.currentImage = 0;
-                    this.isIdle = true;
-                }
-                this.animations(this.idleImages);
-            } else {
-                this.isIdle = false;
-            }
-        }, 200);
-    }
-
-    animateMovement() {
-        if (this.World.keyboard.right && this.x < this.World.level.levelEndX && !this.isHurt()) {
+    handleInput() {
+        if (this.keyboard.right && this.x < this.level.levelEndX && !this.isHurt()) {
             this.moveRight();
             this.updateStatusBarPosition(this.x, 100);
             this.mirroring = false;
             this.lastMovement = new Date().getTime();
-
         }
-        if (this.World.keyboard.left && this.x > -500 && !this.isHurt()) {
+        if (this.keyboard.left && this.x > -500 && !this.isHurt()) {
             this.updateStatusBarPosition(this.x, 103);
             this.moveLeft()
             this.mirroring = true;
             this.lastMovement = new Date().getTime();
         }
-        if (this.World.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
+        if (this.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
             this.jump(30)
             this.lastMovement = new Date().getTime();
+        } else {
+            this.isIdle = true
         }
-        this.World.camera_x = -this.x + 100
-        requestAnimationFrame(() => this.animateMovement());
     }
 
-    animateStatus() {
-        setInterval(() => {
-            if (this.isDead()) {
-                this.animations(this.deathImages);
-            } else if (this.isHurt()) {
-                this.animations(this.hurtImages);
-            } else if (this.isAboveGround() && !this.isFalling()) {
-                this.singleAnimation(this.jumpingImages)
-            } else if (this.isAboveGround() && this.isFalling()) {
-                this.animations(this.fallImages)
-            } else if (this.World.keyboard.right || this.World.keyboard.left) {
-                this.animations(this.walkingImages)
-            } else if (this.isSleeping()) {
-                this.animations(this.longIdleImages);
+    playAnimation() {
+        if (this.isDead()) {
+            this.animations(this.deathImages);
+        }
+        else if (this.isHurt()) {
+            this.animations(this.hurtImages);
+        }
+        else if (this.isAboveGround() && !this.isFalling()) {
+            this.singleAnimation(this.jumpingImages)
+        }
+        else if (this.isAboveGround() && this.isFalling()) {
+            this.animations(this.fallImages)
+        }
+        else if (this.keyboard.right || this.keyboard.left) {
+            this.animations(this.walkingImages)
+        }
+        else if (this.isSleeping()) {
+            this.animations(this.longIdleImages);
+        }
+        else {
+            if (!this.isIdle) {
+                this.currentImage = 0;
+                this.isIdle = true;
             }
-        }, 100);
+            this.animations(this.idleImages);
+        }
+    }
+
+    takeHit() {
+        if (this.health < 0) {
+            this.health = 0;
+        } else if (this.cooldown) {
+            return;
+        } else {
+            this.cooldown = true;
+            this.hurt = true;
+            this.health -= 20;
+            this.level.healthbar.updateHealthbar(this.health);
+            this.bounce = 20;
+            this.bounceBack();
+            this.lastMovement = new Date().getTime();
+            setTimeout(() => {
+                this.cooldown = false;
+                this.hurt = false;
+                this.currentImage = 0;
+            }, 1500);
+        };
+    }
+
+    bounceBack() {
+        setInterval(() => {
+            if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
+                this.x -= this.bounce;
+                this.x = Math.round(this.x);
+                this.bounce -= this.acceleration;
+                this.updateStatusBarPosition(this.x, 100);
+            } else if (this.keyboard.left) {
+                this.x += this.bounce;
+                this.x = Math.round(this.x);
+                this.bounce -= this.acceleration;
+                this.updateStatusBarPosition(this.x, 100);
+            }
+            if (this.bounce < 0) {
+                this.bounce = 0;
+            }
+        }, 1000 / 60);
+
+    }
+
+    checkEnemyCollision(enemies) {
+        enemies.forEach(enemy => {
+            this.handleEnmyCollision(enemies, enemy)
+        });
+    }
+
+    handleEnmyCollision(enemies, enemy) {
+        if (!this.isColliding(enemy)) {
+            return
+        } else if (this.isFalling() && enemy.isAlive) {
+            this.jump(25);
+            this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy)
+            return
+        } else if (enemy.isAlive) {
+            this.takeHit()
+        }
+    }
+
+    checkItemCollision(coins, bottles) {
+        coins.forEach(coin => {
+            if (this.isColliding(coin)) {
+                this.coins++;
+                this.level.coinbar.updateCoinBar(coins, coin, this.coins);
+            }
+        });
+        bottles.forEach(bottle => {
+            if (this.isColliding(bottle)) {
+                this.bottles++;
+                this.level.bottlebar.updateBottleBar(bottles, bottle, this.bottles);
+            }
+        });
     }
 }
-
-
-/*     animateStatus() {
-        setInterval(() => {
-            if (this.isDead()) {
-                this.animations(this.deathImages);
-            } else if (this.isHurt()) {
-                this.animations(this.hurtImages);
-            } else if (this.isAboveGround() && !this.isFalling()) {
-                this.singleAnimation(this.jumpingImages)
-            } else if (this.isAboveGround() && this.isFalling()) {
-                this.animations(this.fallImages)
-            } else if (this.World.keyboard.right || this.World.keyboard.left) {
-                this.animations(this.walkingImages)
-            } else if (this.isSleeping()) {
-                this.animations(this.longIdleImages);
-            }
-        }, 100);
-    } */
