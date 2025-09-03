@@ -1,4 +1,7 @@
 class MovableObject extends DrawableObject {
+    deltaTime;
+    frameTimer = 0
+    frameDuration = 100
     width = 720;
     x = 0;
     speedY = 0;
@@ -59,11 +62,21 @@ class MovableObject extends DrawableObject {
         };
     };
 
-    animations(imageArray) {
-        let i = this.currentImage % imageArray.length;
-        let path = imageArray[i];
+    animations(imageArray, frameDuration) {
+        if (this.currentImageArray != imageArray) {
+            this.currentImageArray = imageArray;
+            this.currentImage = 0;
+            this.frameTimer = 0;
+            this.frameDuration = frameDuration;
+        }
+        this.frameTimer += this.deltaTime
+
+        if (this.frameTimer >= this.frameDuration) {
+            this.frameTimer = 0;
+            this.currentImage = (this.currentImage + 1) % imageArray.length
+        }
+        let path = imageArray[this.currentImage];
         this.img = this.images[path];
-        this.currentImage++;
     };
 
     singleAnimation(imageArray) {

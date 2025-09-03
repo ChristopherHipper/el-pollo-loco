@@ -4,7 +4,6 @@ class Character extends MovableObject {
     bounce = 0;
     level;
     keyboard;
-    deltaTime;
     width = 150;
     height = 200;
     y = 230;
@@ -60,7 +59,6 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/3_jump/J-32.png',
         '../assets/img/2_character_pepe/3_jump/J-33.png',
         '../assets/img/2_character_pepe/3_jump/J-34.png',
-        '../assets/img/2_character_pepe/3_jump/J-35.png',
     ];
 
     fallImages = [
@@ -85,9 +83,8 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/5_dead/D-56.png',
         '../assets/img/2_character_pepe/5_dead/D-57.png',
     ];
-    constructor(world) {
+    constructor() {
         super()
-        this.World = world
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
@@ -106,6 +103,7 @@ class Character extends MovableObject {
         this.handleInput();
         this.playAnimation();
         this.checkCollision()
+        this.bounceBack()
     }
 
     checkCollision() {
@@ -115,7 +113,7 @@ class Character extends MovableObject {
 
     isSleeping() {
         const now = new Date().getTime();
-        return (now - this.lastMovement > 15000);
+        return (now - this.lastMovement > 16000);
     }
 
     handleInput() {
@@ -141,29 +139,29 @@ class Character extends MovableObject {
 
     playAnimation() {
         if (this.isDead()) {
-            this.animations(this.deathImages);
+            this.animations(this.deathImages,100);
         }
         else if (this.isHurt()) {
-            this.animations(this.hurtImages);
+            this.animations(this.hurtImages,100);
         }
         else if (this.isAboveGround() && !this.isFalling()) {
-            this.singleAnimation(this.jumpingImages)
+            this.animations(this.jumpingImages,100)
         }
         else if (this.isAboveGround() && this.isFalling()) {
-            this.animations(this.fallImages)
+            this.animations(this.fallImages,300)
         }
         else if (this.keyboard.right || this.keyboard.left) {
-            this.animations(this.walkingImages)
+            this.animations(this.walkingImages,100)
         }
         else if (this.isSleeping()) {
-            this.animations(this.longIdleImages);
+            this.animations(this.longIdleImages,400);
         }
         else {
             if (!this.isIdle) {
                 this.currentImage = 0;
                 this.isIdle = true;
             }
-            this.animations(this.idleImages);
+            this.animations(this.idleImages,400);
         }
     }
 
@@ -189,7 +187,6 @@ class Character extends MovableObject {
     }
 
     bounceBack() {
-        setInterval(() => {
             if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
                 this.x -= this.bounce;
                 this.x = Math.round(this.x);
@@ -204,8 +201,6 @@ class Character extends MovableObject {
             if (this.bounce < 0) {
                 this.bounce = 0;
             }
-        }, 1000 / 60);
-
     }
 
     checkEnemyCollision(enemies) {

@@ -8,20 +8,15 @@ class Enemies extends MovableObject {
     speedX = 0.08 + Math.random() * 0.15;
     constructor() {
         super();
-        this.walkingAnimation()
     }
 
 
-    walkingAnimation() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
-        setInterval(() => {
-            if (this.isAlive) {
-                this.animations(this.walkingImages)
-            }
-        }, 100);
-
+    update(deltaTime) {
+        this.deltaTime = deltaTime
+        this.moveLeft();
+        if (this.isAlive) {
+            this.animations(this.walkingImages, 100);
+        }
     }
 
     chickenDied(enemies, enemy) {
@@ -31,7 +26,7 @@ class Enemies extends MovableObject {
         setTimeout(() => {
             enemies.splice(enemies.indexOf(enemy), 1);
         }, 1000);
-        
+
     }
 }
 

@@ -1,5 +1,5 @@
 class World {
-    lastFrameTime = performance.now();
+    lastFrameTime = new Date().getTime();
     camera_x;
 
     constructor(canvas, keyboard) {
@@ -12,11 +12,12 @@ class World {
     }
 
     loop() {
-        let now = performance.now();
+        let now = new Date().getTime();
         let deltaTime = now - this.lastFrameTime;
         this.lastFrameTime = now;
-
+        
         this.character.update(deltaTime, this.keyboard, this.level);
+        this.level.enemies.forEach(e => e.update(deltaTime));
         this.camera_x = -this.character.x + 100
         this.draw();
 

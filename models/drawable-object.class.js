@@ -1,6 +1,7 @@
 class DrawableObject {
     images = {};
     currentImage = 0;
+    currentImageArray;
     img;
 
 
