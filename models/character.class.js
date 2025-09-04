@@ -54,10 +54,11 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/2_walk/W-26.png',
     ];
 
-    jumpingImages = [
-        '../assets/img/2_character_pepe/3_jump/J-31.png',
-        '../assets/img/2_character_pepe/3_jump/J-32.png',
+    preJumpImages = [
         '../assets/img/2_character_pepe/3_jump/J-33.png',
+    ]
+
+    jumpingImages = [
         '../assets/img/2_character_pepe/3_jump/J-34.png',
     ];
 
@@ -88,6 +89,7 @@ class Character extends MovableObject {
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
+        this.loadImages(this.preJumpImages);
         this.loadImages(this.hurtImages);
         this.loadImages(this.fallImages);
         this.loadImages(this.deathImages);
@@ -130,7 +132,9 @@ class Character extends MovableObject {
             this.lastMovement = new Date().getTime();
         }
         if (this.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
-            this.jump(30)
+            setTimeout(() => {
+                this.jump(22)
+            }, 80);
             this.lastMovement = new Date().getTime();
         } else {
             this.isIdle = true
@@ -139,29 +143,32 @@ class Character extends MovableObject {
 
     playAnimation() {
         if (this.isDead()) {
-            this.animations(this.deathImages,100);
+            this.animations(this.deathImages, 100);
         }
         else if (this.isHurt()) {
-            this.animations(this.hurtImages,100);
+            this.animations(this.hurtImages, 100);
+        }
+        else if (!this.isAboveGround() && this.keyboard.up) {
+            this.animations(this.preJumpImages, 100);
         }
         else if (this.isAboveGround() && !this.isFalling()) {
-            this.animations(this.jumpingImages,100)
+            this.animations(this.jumpingImages, 100);
         }
         else if (this.isAboveGround() && this.isFalling()) {
-            this.animations(this.fallImages,300)
+            this.animations(this.fallImages, 300);
         }
         else if (this.keyboard.right || this.keyboard.left) {
-            this.animations(this.walkingImages,100)
+            this.animations(this.walkingImages, 100)
         }
         else if (this.isSleeping()) {
-            this.animations(this.longIdleImages,400);
+            this.animations(this.longIdleImages, 400);
         }
         else {
             if (!this.isIdle) {
                 this.currentImage = 0;
                 this.isIdle = true;
             }
-            this.animations(this.idleImages,400);
+            this.animations(this.idleImages, 400);
         }
     }
 
@@ -187,20 +194,20 @@ class Character extends MovableObject {
     }
 
     bounceBack() {
-            if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
-                this.x -= this.bounce;
-                this.x = Math.round(this.x);
-                this.bounce -= this.acceleration;
-                this.updateStatusBarPosition(this.x, 100);
-            } else if (this.keyboard.left) {
-                this.x += this.bounce;
-                this.x = Math.round(this.x);
-                this.bounce -= this.acceleration;
-                this.updateStatusBarPosition(this.x, 100);
-            }
-            if (this.bounce < 0) {
-                this.bounce = 0;
-            }
+        if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
+            this.x -= this.bounce;
+            this.x = Math.round(this.x);
+            this.bounce -= this.acceleration;
+            this.updateStatusBarPosition(this.x, 100);
+        } else if (this.keyboard.left) {
+            this.x += this.bounce;
+            this.x = Math.round(this.x);
+            this.bounce -= this.acceleration;
+            this.updateStatusBarPosition(this.x, 100);
+        }
+        if (this.bounce < 0) {
+            this.bounce = 0;
+        }
     }
 
     checkEnemyCollision(enemies) {
@@ -213,7 +220,7 @@ class Character extends MovableObject {
         if (!this.isColliding(enemy)) {
             return
         } else if (this.isFalling() && enemy.isAlive) {
-            this.jump(25);
+            this.jump(22);
             this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy)
             return
         } else if (enemy.isAlive) {

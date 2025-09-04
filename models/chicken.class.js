@@ -5,7 +5,7 @@ class Enemies extends MovableObject {
         left: 0,
         height: 0
     }
-    speedX = 0.08 + Math.random() * 0.15;
+    speedX = 0.08 + Math.random() * 0.05;
     constructor() {
         super();
     }
