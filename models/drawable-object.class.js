@@ -4,7 +4,6 @@ class DrawableObject {
     currentImageArray;
     img;
 
-
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     };
@@ -21,14 +20,4 @@ class DrawableObject {
             this.images[path] = img;
         });
     };
-
-    updateStatusBarPosition(charcter_x, camera_x) {
-        this.level.healthbar.x = charcter_x - camera_x
-        this.level.coinbar.x = charcter_x - camera_x
-        this.level.bottlebar.x = charcter_x - camera_x
-    }
-
-
-
-
 };

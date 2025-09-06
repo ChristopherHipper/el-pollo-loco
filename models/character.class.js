@@ -121,12 +121,10 @@ class Character extends MovableObject {
     handleInput() {
         if (this.keyboard.right && this.x < this.level.levelEndX && !this.isHurt()) {
             this.moveRight();
-            this.updateStatusBarPosition(this.x, 100);
             this.mirroring = false;
             this.lastMovement = new Date().getTime();
         }
         if (this.keyboard.left && this.x > -500 && !this.isHurt()) {
-            this.updateStatusBarPosition(this.x, 103);
             this.moveLeft()
             this.mirroring = true;
             this.lastMovement = new Date().getTime();
@@ -198,12 +196,10 @@ class Character extends MovableObject {
             this.x -= this.bounce;
             this.x = Math.round(this.x);
             this.bounce -= this.acceleration;
-            this.updateStatusBarPosition(this.x, 100);
         } else if (this.keyboard.left) {
             this.x += this.bounce;
             this.x = Math.round(this.x);
             this.bounce -= this.acceleration;
-            this.updateStatusBarPosition(this.x, 100);
         }
         if (this.bounce < 0) {
             this.bounce = 0;

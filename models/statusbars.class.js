@@ -2,7 +2,7 @@ class HealthbarCharacter extends DrawableObject {
     height = 50;;
     width = 200;
     y = 0
-    x = -100
+    x = 0
     healthbarImages = [
         '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
         '../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
@@ -25,13 +25,16 @@ class HealthbarCharacter extends DrawableObject {
             this.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png');
         }
     }
+
+/*             let path = imageArray[this.currentImage];
+            this.img = this.images[path]; */
 }
 
 class CoinbarCharacter extends DrawableObject {
     height = 50;;
     width = 200;
     y = 50
-    x = -100
+    x = 0
     coinhbarImages = [
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
         '../assets/img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
@@ -59,7 +62,7 @@ class BottlebarCharacter extends DrawableObject {
     height = 50;;
     width = 200;
     y = 100
-    x = -100
+    x = 0
     bottlehbarImages = [
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
         '../assets/img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
