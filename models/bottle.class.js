@@ -8,12 +8,13 @@ class Bottle extends DrawableObject {
         left: 20,
         height: 10
     }
-    Images = [
+    groundImages = [
         '../assets/img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         '../assets/img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
     ]
+
     constructor() {
         super()
-        this.loadImage(this.Images[Math.floor(Math.random() * 2)]);
+        this.loadImage(this.groundImages[Math.floor(Math.random() * 2)]);
     }
 }
