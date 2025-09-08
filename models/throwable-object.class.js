@@ -1,8 +1,8 @@
 class ThrowableObject extends MovableObject {
-    speedX = 30;
+    speedX = 3;
     speedY = 20;
-    width = 50;
-    height = 50
+    width = 80;
+    height = 80
 
     rotateImages = [
         'assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -22,14 +22,16 @@ class ThrowableObject extends MovableObject {
 
     constructor() {
         super();
+        this.loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
         this.loadImages(this.splashImages);
         this.loadImages(this.rotateImages);
     }
 
-    throw() {
-        console.log('flasche fliegt');
-        this.animations(this.rotateImages)
-        
+    throw(deltaTime, characterX, characterY) {
+        this.deltaTime = deltaTime
+        this.x = characterX
+        this.y = characterY
+        this.animations(this.rotateImages,100)
     };
 
 };

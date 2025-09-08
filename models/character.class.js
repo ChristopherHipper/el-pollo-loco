@@ -86,8 +86,9 @@ class Character extends MovableObject {
         '../assets/img/2_character_pepe/5_dead/D-57.png',
     ];
 
-    constructor() {
+    constructor(bottle) {
         super();
+        this.bottle = bottle
         this.loadImage('../assets/img/2_character_pepe/1_idle/idle/I-1.png');
         this.loadImages(this.walkingImages);
         this.loadImages(this.jumpingImages);
@@ -200,11 +201,8 @@ class Character extends MovableObject {
         if (this.bottles <= 0) {
             return;
         } else {
-            const throwBottle = new ThrowableObject();
-            throwBottle.throw();
+            this.bottle.throw(this.deltaTime, this.x + this.width/4 ,this.y);
             this.bottles--;
-            console.log(this.bottles);
-            
         }
     };
 
