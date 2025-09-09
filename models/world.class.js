@@ -7,8 +7,7 @@ class World {
         this.canvas = canvas;
         this.level = level1;
         this.keyboard = keyboard
-        this.throwableObj = new ThrowableObject()
-        this.character = new Character(this.throwableObj)
+        this.character = new Character()
         this.loop();
     }
 
@@ -38,7 +37,6 @@ class World {
         this.addObjectsToMap(this.level.enemies);
 
         this.addToMap(this.level.endboss);
-        this.addToMap(this.throwableObj);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0)

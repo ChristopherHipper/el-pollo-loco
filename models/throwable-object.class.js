@@ -27,11 +27,8 @@ class ThrowableObject extends MovableObject {
         this.loadImages(this.rotateImages);
     }
 
-    throw(deltaTime, characterX, characterY) {
-        this.deltaTime = deltaTime
-        this.x = characterX
-        this.y = characterY
-        this.animations(this.rotateImages,100)
+    throw() {
+
     };
 
 };
