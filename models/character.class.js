@@ -98,7 +98,7 @@ class Character extends MovableObject {
         this.loadImages(this.deathImages);
         this.loadImages(this.idleImages);
         this.loadImages(this.longIdleImages);
-        this.applyGravity();
+        this.applyGravity(0);
     }
 
     update(deltaTime, keyboard, level) {
@@ -201,7 +201,7 @@ class Character extends MovableObject {
         if (this.bottles <= 0) {
             return;
         } else {
-            this.throwableBottles.push(new ThrowableObject(this.x, this.y));
+            this.throwableBottles.push(new ThrowableObject(this.x + this.offset.width, this.y));
             this.bottles--;
         }
         
