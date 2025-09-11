@@ -16,6 +16,7 @@ class World {
         let deltaTime = now - this.lastFrameTime;
         this.lastFrameTime = now;
         this.character.update(deltaTime, this.keyboard, this.level);
+        this.character.throwableBottles.forEach(bottle => bottle.throw(deltaTime));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.camera_x = -this.character.x + 100
         this.draw();
@@ -37,6 +38,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
 
         this.addToMap(this.level.endboss);
+        this.addObjectsToMap(this.character.throwableBottles);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0)

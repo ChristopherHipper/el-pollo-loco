@@ -11,6 +11,7 @@ class Character extends MovableObject {
     lastMovement = new Date().getTime();
     coins = 0;
     bottles = 0;
+    throwableBottles = [];
 
     offset = {
         top: 80,
@@ -197,7 +198,12 @@ class Character extends MovableObject {
     };
 
     throwBottle() {
-        console.log('throw bottle');
+        if (this.bottles <= 0) {
+            return;
+        } else {
+            this.throwableBottles.push(new ThrowableObject(this.x, this.y));
+            this.bottles--;
+        }
         
     };
 
