@@ -1,5 +1,5 @@
 class ThrowableObject extends MovableObject {
-    speedX = 3;
+    speedX = 15;
     speedY = 20;
     width = 80;
     height = 80
@@ -27,7 +27,7 @@ class ThrowableObject extends MovableObject {
         this.loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
         this.loadImages(this.splashImages);
         this.loadImages(this.rotateImages);
-        this.applyGravity(25);
+        this.applyGravity();
     }
 
     throw(deltaTime) {

@@ -98,7 +98,7 @@ class Character extends MovableObject {
         this.loadImages(this.deathImages);
         this.loadImages(this.idleImages);
         this.loadImages(this.longIdleImages);
-        this.applyGravity(0);
+        this.applyGravity();
     }
 
     update(deltaTime, keyboard, level) {

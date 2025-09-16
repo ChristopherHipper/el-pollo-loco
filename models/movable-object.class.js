@@ -88,22 +88,27 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-    applyGravity(speedX) {
+    applyGravity() {
         setInterval(() => {
-            this.x += speedX;
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration; 
-                
-            } if (!this.isAboveGround()) {
-                this.speedY = 0
-                if (this instanceof Character) {
-                    this.y = 230
-                } else {
-                    this.y = 350
+            if (this instanceof Character) {
+                if (this.isAboveGround() || this.speedY > 0) {
+                    this.y -= this.speedY;
+                    this.speedY -= this.acceleration;
+
+                } if (!this.isAboveGround()) {
+                    this.speedY = 0
+                    this.y = 230;
                 }
-                
+            } else if (this instanceof ThrowableObject) {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.speedY -= this.acceleration;
+                if (this.y >= 360) {
+                    this.speedY = 0;
+                    this.speedX = 0;
+                }
             }
+
         }, 50);
     };
 
