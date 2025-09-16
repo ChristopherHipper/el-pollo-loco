@@ -30,9 +30,19 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
     }
 
-    throw(deltaTime) {
+    throw(deltaTime, level) {
+        this.level = level;
         this.deltaTime = deltaTime;
-        this.animations(this.rotateImages, 100);
+        if (this.y > 367 || this.isColliding(this.level.enemies)) {
+            this.splash();
+        } else {
+            this.animations(this.rotateImages, 100);
+        }
+
     };
+
+    splash() {
+        this.singleAnimation(this.splashImages, 100);
+    }
 
 };
