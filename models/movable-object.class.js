@@ -100,8 +100,13 @@ class MovableObject extends DrawableObject {
                     this.y = 230;
                 }
             } else if (this instanceof ThrowableObject) {
+                if (this.mirroring) {
+                    this.x -= this.speedX;
+                }
+                if (!this.mirroring) {
+                    this.x += this.speedX;
+                }
                 this.y -= this.speedY;
-                this.x += this.speedX;
                 this.speedY -= this.acceleration;
                 if (this.y >= 360) {
                     this.speedY = 0;
