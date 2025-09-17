@@ -203,6 +203,9 @@ class Character extends MovableObject {
         } else {
             this.throwableBottles.push(new ThrowableObject(this.x + this.offset.width, this.y, this.mirroring));
             this.bottles--;
+            this.level.bottlebar.updateBottleBar(this.bottles);
+            console.log(this.throwableBottles);
+            
         }
         
     };
@@ -250,7 +253,7 @@ class Character extends MovableObject {
         bottles.forEach(bottle => {
             if (this.isColliding(bottle)) {
                 this.bottles++;
-                this.level.bottlebar.updateBottleBar(bottles, bottle, this.bottles);
+                this.level.bottlebar.addBottleToBar(bottles, bottle, this.bottles);
             };
         });
     };

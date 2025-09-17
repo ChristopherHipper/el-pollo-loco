@@ -32,13 +32,19 @@ class ThrowableObject extends MovableObject {
     }
 
     throw(deltaTime, level) {
-        this.level = level;
         this.deltaTime = deltaTime;
-        if (this.y > 367) {
-            this.splash();
-        } else {
-            this.animations(this.rotateImages, 100);
-        }
+        level.enemies.forEach(enemy => {
+            if (this.y > 367) {
+                if (this.isColliding(enemy)) {
+                    level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
+                }
+                this.splash();
+            } else {
+                this.animations(this.rotateImages, 100);
+            }
+        })
+
+
 
     };
 

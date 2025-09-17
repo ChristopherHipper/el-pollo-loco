@@ -26,8 +26,8 @@ class HealthbarCharacter extends DrawableObject {
         }
     }
 
-/*             let path = imageArray[this.currentImage];
-            this.img = this.images[path]; */
+    /*             let path = imageArray[this.currentImage];
+                this.img = this.images[path]; */
 }
 
 class CoinbarCharacter extends DrawableObject {
@@ -78,11 +78,15 @@ class BottlebarCharacter extends DrawableObject {
         this.loadImages(this.bottlehbarImages);
     }
 
-    updateBottleBar(bottleArr, CurrentBottle, amountOfBottles) {
+    addBottleToBar(bottleArr, CurrentBottle, amountOfBottles) {
         bottleArr.splice(bottleArr.indexOf(CurrentBottle), 1);
         if (amountOfBottles > 5) {
             amountOfBottles = 5;
         }
+        this.updateBottleBar(amountOfBottles);
+    }
+
+    updateBottleBar(amountOfBottles) {
         this.loadImage(this.bottlehbarImages[amountOfBottles]);
     }
 }
