@@ -32,14 +32,15 @@ class ThrowableObject extends MovableObject {
         this.applyGravity();
     }
 
-    throw(deltaTime, level) {
+    throw(deltaTime, level, throwableBottles) {
         this.deltaTime = deltaTime;
-        level.enemies.forEach(enemy => {
+        level.enemies.find(enemy => {
             if (this.y > 367) {
                 if (this.isColliding(enemy)) {
-                    level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
+                    console.log('colliding');
+                    
                 }
-                this.splash();
+                this.splash(throwableBottles);
             } else {
                 this.animations(this.rotateImages, 100);
             }
@@ -49,10 +50,10 @@ class ThrowableObject extends MovableObject {
 
     };
 
-    splash() {
+    splash(throwableBottles) {
         this.singleAnimation(this.splashImages, 100);
         setTimeout(() => {
-            this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
+            throwableBottles.splice(throwableBottles.indexOf(this), 1);
         }, 100);
 
     }

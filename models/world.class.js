@@ -9,6 +9,7 @@ class World {
         this.keyboard = keyboard
         this.character = new Character()
         this.throwableBottles = [];
+        this.lastThrow = 0;
         this.loop();
     }
 
@@ -19,6 +20,7 @@ class World {
         this.checkCollision();
         this.checkThrowableObject()
         this.character.update(deltaTime, this.keyboard, this.level);
+        this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
         this.camera_x = -this.character.x + 100
@@ -117,12 +119,17 @@ class World {
     };
 
     checkThrowableObject() {
-        if (this.keyboard.throw && !this.character.isHurt()) {
+        let now = new Date().getTime();
+        if (this.character.bottles <= 0) {
+            return;
+        } else if (this.keyboard.throw && !this.character.isHurt() && now - this.lastThrow > 1200) {
             let bottle = new ThrowableObject(this.character.x + this.character.offset.width, this.character.y, this.character.mirroring);
             this.throwableBottles.push(bottle);
-            //this.character.bottles--;
-            //this.level.bottlebar.updateBottleBar(this.character.bottles); 
-
+            this.character.bottles--;
+            this.level.bottlebar.updateBottleBar(this.character.bottles);
+            this.lastThrow = now;
+            
         };
+        
     }
 }
