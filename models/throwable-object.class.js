@@ -54,7 +54,7 @@ class ThrowableObject extends MovableObject {
         setTimeout(() => {
             this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
         }, 100);
-        
+
     }
 
 };

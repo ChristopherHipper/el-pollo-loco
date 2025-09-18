@@ -53,6 +53,11 @@ class MovableObject extends DrawableObject {
             this.y + this.offset.top < object.y + object.height - object.offset.height;
     };
 
+        isSleeping() {
+        const now = new Date().getTime();
+        return (now - this.lastMovement > 16000);
+    };
+
     updateCameraPosition(camera_x) {
         if (this.x + this.width + camera_x < 0) {
             this.x += this.width * 2;

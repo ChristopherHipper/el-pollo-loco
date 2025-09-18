@@ -11,7 +11,6 @@ class Character extends MovableObject {
     lastMovement = new Date().getTime();
     coins = 0;
     bottles = 0;
-    throwableBottles = [];
 
     offset = {
         top: 80,
@@ -107,24 +106,10 @@ class Character extends MovableObject {
         this.deltaTime = deltaTime;
         this.handleInput();
         this.playAnimation();
-        this.checkCollision();
         this.bounceBack();
     };
 
-    checkCollision() {
-        this.checkEnemyCollision(this.level.enemies);
-        this.checkItemCollision(this.level.coins, this.level.bottles);
-    };
-
-    isSleeping() {
-        const now = new Date().getTime();
-        return (now - this.lastMovement > 16000);
-    };
-
     handleInput() {
-        if (this.keyboard.throw && !this.isHurt()) {
-            this.throwBottle();
-        };
         if (this.keyboard.right && this.x < this.level.levelEndX && !this.isHurt()) {
             this.moveRight();
             this.mirroring = false;
@@ -197,18 +182,6 @@ class Character extends MovableObject {
         };
     };
 
-    throwBottle() {
-        if (this.bottles <= 0) {
-            return;
-        } else {
-            this.throwableBottles.push(new ThrowableObject(this.x + this.offset.width, this.y, this.mirroring, this.throwableBottles));
-            this.bottles--;
-            this.level.bottlebar.updateBottleBar(this.bottles);
-            
-        }
-        
-    };
-
     bounceBack() {
         if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
             this.x -= this.bounce;
@@ -224,36 +197,5 @@ class Character extends MovableObject {
         };
     };
 
-    checkEnemyCollision(enemies) {
-        enemies.forEach(enemy => {
-            this.handleEnmyCollision(enemies, enemy);
-        });
-    };
 
-    handleEnmyCollision(enemies, enemy) {
-        if (!this.isColliding(enemy)) {
-            return;
-        } else if (this.isFalling() && enemy.isAlive) {
-            this.jump(22);
-            this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
-            return;
-        } else if (enemy.isAlive) {
-            this.takeHit();
-        };
-    };
-
-    checkItemCollision(coins, bottles) {
-        coins.forEach(coin => {
-            if (this.isColliding(coin)) {
-                this.coins++;
-                this.level.coinbar.updateCoinBar(coins, coin, this.coins);
-            };
-        });
-        bottles.forEach(bottle => {
-            if (this.isColliding(bottle)) {
-                this.bottles++;
-                this.level.bottlebar.addBottleToBar(bottles, bottle, this.bottles);
-            };
-        });
-    };
 };

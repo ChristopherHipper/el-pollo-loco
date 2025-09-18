@@ -8,6 +8,7 @@ class World {
         this.level = level1;
         this.keyboard = keyboard
         this.character = new Character()
+        this.throwableBottles = [];
         this.loop();
     }
 
@@ -15,8 +16,9 @@ class World {
         let now = new Date().getTime();
         let deltaTime = now - this.lastFrameTime;
         this.lastFrameTime = now;
+        this.checkCollision();
+        this.checkThrowableObject()
         this.character.update(deltaTime, this.keyboard, this.level);
-        this.character.throwableBottles.forEach(bottle => bottle.throw(deltaTime, this.level));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
         this.camera_x = -this.character.x + 100
@@ -31,15 +33,15 @@ class World {
 
         this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
         this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
-        
+
         this.addObjectsToMap(this.level.background);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableBottles);
 
         this.addToMap(this.level.endboss);
-        this.addObjectsToMap(this.character.throwableBottles);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0)
@@ -47,7 +49,7 @@ class World {
         this.addToMap(this.level.coinbar);
         this.addToMap(this.level.bottlebar);
         this.ctx.translate(this.camera_x, 0)
-        
+
         this.ctx.translate(-this.camera_x, 0)
     }
 
@@ -74,5 +76,53 @@ class World {
     mirrorImageBack(object) {
         object.x = object.x * -1
         this.ctx.restore()
+    }
+
+    checkCollision() {
+        this.checkEnemyCollision(this.level.enemies);
+        this.checkItemCollision(this.level.coins, this.level.bottles);
+    };
+
+    checkEnemyCollision(enemies) {
+        enemies.forEach(enemy => {
+            this.handleEnmyCollision(enemies, enemy);
+        });
+    };
+
+    handleEnmyCollision(enemies, enemy) {
+        if (!this.character.isColliding(enemy)) {
+            return;
+        } else if (this.character.isFalling() && enemy.isAlive) {
+            this.character.jump(22);
+            this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
+            return;
+        } else if (enemy.isAlive) {
+            this.character.takeHit();
+        };
+    };
+
+    checkItemCollision(coins, bottles) {
+        coins.forEach(coin => {
+            if (this.character.isColliding(coin)) {
+                this.character.coins++;
+                this.level.coinbar.updateCoinBar(coins, coin, this.character.coins);
+            };
+        });
+        bottles.forEach(bottle => {
+            if (this.character.isColliding(bottle)) {
+                this.character.bottles++;
+                this.level.bottlebar.addBottleToBar(bottles, bottle, this.character.bottles);
+            };
+        });
+    };
+
+    checkThrowableObject() {
+        if (this.keyboard.throw && !this.character.isHurt()) {
+            let bottle = new ThrowableObject(this.character.x + this.character.offset.width, this.character.y, this.character.mirroring);
+            this.throwableBottles.push(bottle);
+            //this.character.bottles--;
+            //this.level.bottlebar.updateBottleBar(this.character.bottles); 
+
+        };
     }
 }
