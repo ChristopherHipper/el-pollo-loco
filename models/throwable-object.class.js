@@ -20,9 +20,10 @@ class ThrowableObject extends MovableObject {
         'assets/img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ];
 
-    constructor(x, y, mirroring) {
+    constructor(x, y, mirroring, throwableBottles) {
         super();
         this.mirroring = mirroring;
+        this.throwableBottles = throwableBottles;
         this.x = x;
         this.y = y;
         this.loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
@@ -50,6 +51,10 @@ class ThrowableObject extends MovableObject {
 
     splash() {
         this.singleAnimation(this.splashImages, 100);
+        setTimeout(() => {
+            this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
+        }, 100);
+        
     }
 
 };

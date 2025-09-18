@@ -15,13 +15,11 @@ class Coin extends MovableObject {
         super()
         this.loadImage('../assets/img/8_coin/coin_1.png');
         this.loadImages(this.blinkImages);
-        this.moveAnmation()
     }
 
-    moveAnmation() {
-        setInterval(() => {
-            this.animations(this.blinkImages)
-        }, 200);
+    moveAnmation(deltaTime) {
+        this.deltaTime = deltaTime
+        this.animations(this.blinkImages,200)
     }
 
 }

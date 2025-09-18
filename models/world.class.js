@@ -18,6 +18,7 @@ class World {
         this.character.update(deltaTime, this.keyboard, this.level);
         this.character.throwableBottles.forEach(bottle => bottle.throw(deltaTime, this.level));
         this.level.enemies.forEach(e => e.update(deltaTime));
+        this.level.coins.forEach(c => c.moveAnmation(deltaTime));
         this.camera_x = -this.character.x + 100
         this.draw();
 

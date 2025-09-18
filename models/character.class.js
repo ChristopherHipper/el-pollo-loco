@@ -201,10 +201,9 @@ class Character extends MovableObject {
         if (this.bottles <= 0) {
             return;
         } else {
-            this.throwableBottles.push(new ThrowableObject(this.x + this.offset.width, this.y, this.mirroring));
+            this.throwableBottles.push(new ThrowableObject(this.x + this.offset.width, this.y, this.mirroring, this.throwableBottles));
             this.bottles--;
             this.level.bottlebar.updateBottleBar(this.bottles);
-            console.log(this.throwableBottles);
             
         }
         
