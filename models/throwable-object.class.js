@@ -2,7 +2,7 @@ class ThrowableObject extends MovableObject {
     speedX = 15;
     speedY = 20;
     width = 80;
-    height = 80
+    height = 80;
 
     rotateImages = [
         'assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -26,11 +26,11 @@ class ThrowableObject extends MovableObject {
         this.throwableBottles = throwableBottles;
         this.x = x;
         this.y = y;
-        this.loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png')
+        this.loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.splashImages);
         this.loadImages(this.rotateImages);
         this.applyGravity();
-    }
+    };
 
     throw(deltaTime, level, throwableBottles) {
         this.deltaTime = deltaTime;
@@ -38,15 +38,12 @@ class ThrowableObject extends MovableObject {
             if (this.y > 367) {
                 if (this.isColliding(enemy) && enemy.isAlive) {
                     level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
-                }
+                };
                 this.splash(throwableBottles);
             } else {
                 this.animations(this.rotateImages, 100);
-            }
-        })
-
-
-
+            };
+        });
     };
 
     splash(throwableBottles) {
@@ -54,6 +51,6 @@ class ThrowableObject extends MovableObject {
         setTimeout(() => {
             throwableBottles.splice(throwableBottles.indexOf(this), 1);
         }, 100);
-    }
+    };
 
 };

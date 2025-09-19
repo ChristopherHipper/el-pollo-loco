@@ -8,30 +8,28 @@ class Enemies extends MovableObject {
     speedX = 0.08 + Math.random() * 0.05;
     constructor() {
         super();
-    }
-
+    };
 
     update(deltaTime) {
         this.deltaTime = deltaTime
         this.moveLeft();
         if (this.isAlive) {
             this.animations(this.walkingImages, 100);
-        }
-    }
+        };
+    };
 
     chickenDied(enemies, enemy) {
         enemy.isAlive = false;
         this.loadImage(this.deadImage);
-        this.speedX = 0
+        this.speedX = 0;
         setTimeout(() => {
             enemies.splice(enemies.indexOf(enemy), 1);
         }, 1000);
-
-    }
-}
+    };
+};
 
 class Chicken extends Enemies {
-    height = 80;;
+    height = 80;
     width = 80;
     y = 345;
     walkingImages = [
@@ -39,18 +37,19 @@ class Chicken extends Enemies {
         '../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         '../assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
-    deadImage = '../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+
+    deadImage = '../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
     constructor() {
-        super()
+        super();
         this.loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
         this.loadImage(this.deadImage);
-    }
-}
+    };
+};
 
 class SmallChicken extends Enemies {
-    height = 60;;
+    height = 60;
     width = 60;
     y = 360;
     walkingImages = [
@@ -58,13 +57,13 @@ class SmallChicken extends Enemies {
         '../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
         '../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
-    deadImage = '../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png'
+
+    deadImage = '../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
     constructor() {
-        super()
+        super();
         this.loadImage('../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImage(this.deadImage);
         this.loadImages(this.walkingImages);
-    }
-
-}
+    };
+};

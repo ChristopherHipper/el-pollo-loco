@@ -131,27 +131,13 @@ class Character extends MovableObject {
     };
 
     playAnimation() {
-        if (this.isDead()) {
-            this.animations(this.deathImages, 100);
-        }
-        else if (this.isHurt()) {
-            this.animations(this.hurtImages, 100);
-        }
-        else if (!this.isAboveGround() && this.keyboard.up) {
-            this.animations(this.preJumpImages, 100);
-        }
-        else if (this.isAboveGround() && !this.isFalling()) {
-            this.animations(this.jumpingImages, 100);
-        }
-        else if (this.isAboveGround() && this.isFalling()) {
-            this.animations(this.fallImages, 300);
-        }
-        else if (this.keyboard.right || this.keyboard.left) {
-            this.animations(this.walkingImages, 100);
-        }
-        else if (this.isSleeping()) {
-            this.animations(this.longIdleImages, 400);
-        }
+        if (this.isDead()) this.animations(this.deathImages, 100);
+        else if (this.isHurt()) this.animations(this.hurtImages, 100);
+        else if (!this.isAboveGround() && this.keyboard.up) this.animations(this.preJumpImages, 100);
+        else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100);
+        else if (this.isAboveGround() && this.isFalling()) this.animations(this.fallImages, 300);
+        else if (this.keyboard.right || this.keyboard.left) this.animations(this.walkingImages, 100);
+        else if (this.isSleeping()) this.animations(this.longIdleImages, 400);
         else {
             if (!this.isIdle) {
                 this.currentImage = 0;

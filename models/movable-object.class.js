@@ -1,7 +1,7 @@
 class MovableObject extends DrawableObject {
     deltaTime;
-    frameTimer = 0
-    frameDuration = 100
+    frameTimer = 0;
+    frameDuration = 100;
     width = 720;
     x = 0;
     speedY = 0;
@@ -27,17 +27,18 @@ class MovableObject extends DrawableObject {
     };
 
     jump(force) {
-        this.currentImage = 0
-        this.speedY = force
-    }
+        this.currentImage = 0;
+        this.speedY = force;
+    };
 
     isFalling() {
-        return this.speedY < 0
-    }
+        return this.speedY < 0;
+    };
 
     isAboveGround() {
         return this.y < 230;
     };
+
     moveLeft() {
         this.x -= this.speedX;
     };
@@ -53,7 +54,7 @@ class MovableObject extends DrawableObject {
             this.y + this.offset.top < object.y + object.height - object.offset.height;
     };
 
-        isSleeping() {
+    isSleeping() {
         const now = new Date().getTime();
         return (now - this.lastMovement > 16000);
     };
@@ -61,7 +62,7 @@ class MovableObject extends DrawableObject {
     updateCameraPosition(camera_x) {
         if (this.x + this.width + camera_x < 0) {
             this.x += this.width * 2;
-        }
+        };
         if (this.x + camera_x > this.width) {
             this.x -= this.width * 2;
         };
@@ -74,8 +75,7 @@ class MovableObject extends DrawableObject {
             this.frameTimer = 0;
             this.frameDuration = frameDuration;
         }
-        this.frameTimer += this.deltaTime
-
+        this.frameTimer += this.deltaTime;
         if (this.frameTimer >= this.frameDuration) {
             this.frameTimer = 0;
             this.currentImage = (this.currentImage + 1) % imageArray.length
@@ -87,7 +87,7 @@ class MovableObject extends DrawableObject {
     singleAnimation(imageArray) {
         if (this.currentImage >= imageArray.length) {
             this.currentImage = imageArray.length - 1;
-        }
+        };
         let path = imageArray[this.currentImage];
         this.img = this.images[path];
         this.currentImage++;
@@ -99,26 +99,24 @@ class MovableObject extends DrawableObject {
                 if (this.isAboveGround() || this.speedY > 0) {
                     this.y -= this.speedY;
                     this.speedY -= this.acceleration;
-
                 } if (!this.isAboveGround()) {
-                    this.speedY = 0
+                    this.speedY = 0;
                     this.y = 230;
-                }
+                };
             } else if (this instanceof ThrowableObject) {
                 if (this.mirroring) {
                     this.x -= this.speedX;
-                }
+                };
                 if (!this.mirroring) {
                     this.x += this.speedX;
-                }
+                };
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
                 if (this.y >= 360) {
                     this.speedY = 0;
                     this.speedX = 0;
-                }
-            }
-
+                };
+            };
         }, 50);
     };
 
@@ -138,12 +136,8 @@ class MovableObject extends DrawableObject {
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 3;
-
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.width, this.height - this.offset.top - this.offset.height);
             ctx.stroke();
-        }
+        };
     };
-
-
-
 };
