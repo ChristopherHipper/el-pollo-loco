@@ -122,14 +122,12 @@ class World {
         let now = new Date().getTime();
         if (this.character.bottles <= 0) {
             return;
-        } else if (this.keyboard.throw && !this.character.isHurt() && now - this.lastThrow > 1200) {
+        } else if (this.keyboard.throw && !this.character.isHurt() && now - this.lastThrow > 1400) {
             let bottle = new ThrowableObject(this.character.x + this.character.offset.width, this.character.y, this.character.mirroring);
             this.throwableBottles.push(bottle);
             this.character.bottles--;
             this.level.bottlebar.updateBottleBar(this.character.bottles);
             this.lastThrow = now;
-            
         };
-        
     }
 }

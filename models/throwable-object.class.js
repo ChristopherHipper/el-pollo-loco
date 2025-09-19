@@ -34,11 +34,10 @@ class ThrowableObject extends MovableObject {
 
     throw(deltaTime, level, throwableBottles) {
         this.deltaTime = deltaTime;
-        level.enemies.find(enemy => {
+        level.enemies.forEach(enemy => {
             if (this.y > 367) {
-                if (this.isColliding(enemy)) {
-                    console.log('colliding');
-                    
+                if (this.isColliding(enemy) && enemy.isAlive) {
+                    level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
                 }
                 this.splash(throwableBottles);
             } else {
@@ -55,7 +54,6 @@ class ThrowableObject extends MovableObject {
         setTimeout(() => {
             throwableBottles.splice(throwableBottles.indexOf(this), 1);
         }, 100);
-
     }
 
 };
