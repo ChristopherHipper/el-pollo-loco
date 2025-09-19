@@ -2,12 +2,9 @@ class Character extends MovableObject {
     isIdle = true;
     timeOut = 0;
     bounce = 0;
-    level;
-    keyboard;
     width = 150;
     height = 200;
     y = 230;
-    cooldown = false;
     lastMovement = new Date().getTime();
     coins = 0;
     bottles = 0;

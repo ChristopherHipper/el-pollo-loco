@@ -3,6 +3,7 @@ class ThrowableObject extends MovableObject {
     speedY = 20;
     width = 80;
     height = 80;
+    splashed = false;
 
     rotateImages = [
         'assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -34,23 +35,45 @@ class ThrowableObject extends MovableObject {
 
     throw(deltaTime, level, throwableBottles) {
         this.deltaTime = deltaTime;
-        level.enemies.forEach(enemy => {
-            if (this.y > 367) {
-                if (this.isColliding(enemy) && enemy.isAlive) {
-                    level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
-                };
-                this.splash(throwableBottles);
-            } else {
-                this.animations(this.rotateImages, 100);
+        this.level = level;
+        this.throwableBottles = throwableBottles;
+        this.hitEnemy();
+        this.hitEndboss();
+        this.hitGround();
+        this.splash();
+    };
+
+    splash() {
+        if (this.splashed) {
+            this.animations(this.splashImages, 50);
+            setTimeout(() => {
+                this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
+                this.splashed = false;
+            }, 100);
+        } else{
+            this.animations(this.rotateImages, 50);
+        };
+    };
+
+    hitGround() {
+        if (this.y >= 360) {
+            this.splashed = true;
+        };
+    };
+
+    hitEnemy() {
+        this.level.enemies.forEach(enemy => {
+            if (this.isColliding(enemy) && enemy.isAlive) {
+                this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
+                this.splashed = true;
             };
         });
     };
 
-    splash(throwableBottles) {
-        this.singleAnimation(this.splashImages, 100);
-        setTimeout(() => {
-            throwableBottles.splice(throwableBottles.indexOf(this), 1);
-        }, 100);
+    hitEndboss() {
+        if (this.isColliding(this.level.endboss)) {
+            this.level.endboss.takeHit();
+            this.splashed = true;
+        };
     };
-
 };

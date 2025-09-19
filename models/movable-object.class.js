@@ -9,6 +9,7 @@ class MovableObject extends DrawableObject {
     health = 100;
     acceleration = 2.5;
     hurt = false;
+    cooldown = false;
     mirroring = false;
     isAlive = true;
     offset = {
@@ -83,15 +84,6 @@ class MovableObject extends DrawableObject {
         let path = imageArray[this.currentImage];
         this.img = this.images[path];
     };
-
-    singleAnimation(imageArray) {
-        if (this.currentImage >= imageArray.length) {
-            this.currentImage = imageArray.length - 1;
-        };
-        let path = imageArray[this.currentImage];
-        this.img = this.images[path];
-        this.currentImage++;
-    }
 
     applyGravity() {
         setInterval(() => {
