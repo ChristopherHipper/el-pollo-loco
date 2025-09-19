@@ -20,6 +20,7 @@ class World {
         this.checkCollision();
         this.checkThrowableObject()
         this.character.update(deltaTime, this.keyboard, this.level);
+        this.level.endboss.update(deltaTime, this.level, this.character);
         this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));

@@ -18,6 +18,26 @@ class Endboss extends MovableObject {
         '../assets/img/4_enemie_boss_chicken/1_walk/G3.png',
         '../assets/img/4_enemie_boss_chicken/1_walk/G4.png',
     ];
+    attackImages = [
+        'assets/img/4_enemie_boss_chicken/3_attack/G13.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G14.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G15.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G16.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G17.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G18.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G19.png',
+        'assets/img/4_enemie_boss_chicken/3_attack/G20.png',
+    ]
+    hurtImages = [
+        'assets/img/4_enemie_boss_chicken/4_hurt/G21.png',
+        'assets/img/4_enemie_boss_chicken/4_hurt/G22.png',
+        'assets/img/4_enemie_boss_chicken/4_hurt/G23.png',
+    ]
+    deathImages = [
+        'assets/img/4_enemie_boss_chicken/5_dead/G24.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G25.png',
+        'assets/img/4_enemie_boss_chicken/5_dead/G26.png',
+    ]
     offset = {
         top: 70,
         width: 0,
@@ -29,20 +49,12 @@ class Endboss extends MovableObject {
         this.loadImage('../assets/img/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.standImages);
         this.loadImages(this.walkingImages);
+        this.loadImages(this.attackImages);
+        this.loadImages(this.hurtImages);
+        this.loadImages(this.deathImages);
         this.x = 3000
-        this.standAnimation();
     }
+    update(deltaTime, level, character) {
 
-    standAnimation() {
-        this.currentAnimation = setInterval(() => {
-            this.animations(this.standImages);
-        }, 250);
-    }
-
-    walkAnimation() {
-        this.currentAnimation = setInterval(() => {
-            this.animations(this.walkingImages);
-            this.x -= this.speedX;
-        }, 150);
     }
 }
