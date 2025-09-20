@@ -1,6 +1,5 @@
 class Character extends MovableObject {
     isIdle = true;
-    timeOut = 0;
     bounce = 0;
     width = 150;
     height = 200;
@@ -161,7 +160,7 @@ class Character extends MovableObject {
                 this.cooldown = false;
                 this.hurt = false;
                 this.currentImage = 0;
-            }, 1500);
+            }, 1000);
         };
     };
 
