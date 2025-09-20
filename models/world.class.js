@@ -24,6 +24,7 @@ class World {
         this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
+        this.level.endbossBar.updateEndbossHealtbarPosition(this.level.endboss.x, this.level.endboss.y);
         this.camera_x = -this.character.x + 100;
         this.draw();
 
@@ -45,12 +46,17 @@ class World {
         this.addObjectsToMap(this.throwableBottles);
 
         this.addToMap(this.level.endboss);
+        this.addToMap(this.level.endbossBar);
+
+
         this.addToMap(this.character);
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.level.healthbar);
         this.addToMap(this.level.coinbar);
         this.addToMap(this.level.bottlebar);
+        this.addToMap(this.level.bottlebar);
+
         this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);

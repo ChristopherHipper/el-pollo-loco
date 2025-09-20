@@ -1,16 +1,7 @@
 class Level {
-    enemies;
-    clouds;
-    background;
-    endboss;
-    coins;
-    bottles;
-    healthbar;
-    coinbar;
-    bottlebar;
     levelEndX = 3500;
     Items = [];
-    constructor(enemies, clouds, background, coins, bottles, endboss, healthbar, coinbar, bottlebar) {
+    constructor(enemies, clouds, background, coins, bottles, endboss, healthbar, coinbar, bottlebar, endbossBar) {
         this.enemies = enemies;
         this.clouds = clouds;
         this.background = background;
@@ -20,6 +11,7 @@ class Level {
         this.healthbar = healthbar;
         this.coinbar = coinbar;
         this.bottlebar = bottlebar;
+        this.endbossBar = endbossBar;
         this.initializeLevelObjects();
     };
 

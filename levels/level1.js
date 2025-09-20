@@ -24,4 +24,5 @@ const level1 = new Level(
     new HealthbarCharacter(),
     new CoinbarCharacter(),
     new BottlebarCharacter(),
+    new HealthbarEndboss(),
 )

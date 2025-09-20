@@ -57,7 +57,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.attackImages);
         this.loadImages(this.hurtImages);
         this.loadImages(this.deathImages);
-        this.x = 200;
+        this.x = 300;
     };
 
     update(deltaTime, level, character) {
@@ -87,7 +87,7 @@ class Endboss extends MovableObject {
             this.cooldown = true;
             this.hurt = true;
             this.health -= 20;
-            //this.level.healthbar.updateHealthbar(this.health);
+            this.level.endbossBar.updateEndbossHealthbar(this.health);
             setTimeout(() => {
                 this.cooldown = false;
                 this.hurt = false;
