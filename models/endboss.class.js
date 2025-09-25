@@ -2,8 +2,9 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 60;
-    speedX = 0.2;
+    speedX = 0.4;
     attackMode = false;
+    startWalking = false;
     standImages = [
         '../assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         '../assets/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -48,7 +49,7 @@ class Endboss extends MovableObject {
     offset = {
         top: 70,
         width: 0,
-        left: 0,
+        left: 20,
         height: 10
     };
     constructor() {
@@ -69,6 +70,7 @@ class Endboss extends MovableObject {
         this.playAnimation();
         this.walking();
         this.attack();
+        this.characterDetection();
     };
 
     playAnimation() {
@@ -78,7 +80,7 @@ class Endboss extends MovableObject {
             this.animations(this.hurtImages, 200);
         } else if (this.attackMode) {
             this.animations(this.attackImages, 150);
-        } else if (this.detectedCharacter()) {
+        } else if (this.startWalking) {
             this.animations(this.walkingImages, 200);
         }
         else this.animations(this.standImages, 300);
@@ -91,19 +93,24 @@ class Endboss extends MovableObject {
             this.speedX = 0;
             setTimeout(() => {
                 this.attackMode = false;
-                this.speedX = 0.2;
+                this.speedX = 0.4;
             }, 1300);
         }
     }
 
     walking() {
-        if (this.detectedCharacter()) {
+        if (this.startWalking) {
             this.moveLeft();
         }
     }
 
-    detectedCharacter() {
-        return this.character.x + 400 > this.x;
+    characterDetection() {
+        const distance = Math.abs(this.character.x - this.x);
+        if (distance <= 300) {
+            this.startWalking = true;
+        } else if (distance >= 650) {
+            this.startWalking = false;
+        }
     }
 
     takeHit() {
@@ -112,6 +119,7 @@ class Endboss extends MovableObject {
         } else if (this.cooldown) {
             return;
         } else {
+            this.speedX = 0;
             this.cooldown = true;
             this.hurt = true;
             this.health -= 20;
@@ -120,6 +128,8 @@ class Endboss extends MovableObject {
                 this.cooldown = false;
                 this.hurt = false;
                 this.currentImage = 0;
+                this.speedX = 0.4;
+                this.startWalking = true;
             }, 1500);
         };
     };
