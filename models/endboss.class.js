@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     width = 250;
     y = 60;
     speedX = 0.2;
+    attackMode = false;
     standImages = [
         '../assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         '../assets/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -58,7 +59,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.attackImages);
         this.loadImages(this.hurtImages);
         this.loadImages(this.deathImages);
-        this.x = 300;
+        this.x = 500;
     };
 
     update(deltaTime, level, character) {
@@ -75,17 +76,23 @@ class Endboss extends MovableObject {
             this.animations(this.deathImages, 200);
         } else if (this.isHurt()) {
             this.animations(this.hurtImages, 200);
-        } else if (this.isColliding(this.character)) {
-            this.animations(this.attackImages, 100);
+        } else if (this.attackMode) {
+            this.animations(this.attackImages, 150);
         } else if (this.detectedCharacter()) {
             this.animations(this.walkingImages, 200);
         }
         else this.animations(this.standImages, 300);
     };
 
-    attack(){
+    attack() {
         if (this.isColliding(this.character)) {
+            this.attackMode = true;
             this.character.takeHit();
+            this.speedX = 0;
+            setTimeout(() => {
+                this.attackMode = false;
+                this.speedX = 0.2;
+            }, 1300);
         }
     }
 
