@@ -64,18 +64,20 @@ class Endboss extends MovableObject {
     };
 
     update(deltaTime, level, character) {
-        this.character = character;
-        this.level = level;
-        this.deltaTime = deltaTime;
-        this.playAnimation();
-        this.walking();
-        this.attack();
-        this.characterDetection();
+        if (this.isAlive) {
+            this.character = character;
+            this.level = level;
+            this.deltaTime = deltaTime;
+            this.playAnimation();
+            this.walking();
+            this.attack();
+            this.characterDetection();
+        }
     };
 
     playAnimation() {
-        if (this.isDead()) {
-            this.animations(this.deathImages, 200);
+        if (this.health <= 0) {
+            this.animations(this.deathImages, 250);
         } else if (this.isHurt()) {
             this.animations(this.hurtImages, 200);
         } else if (this.attackMode) {
@@ -88,6 +90,8 @@ class Endboss extends MovableObject {
 
     attack() {
         if (this.isColliding(this.character)) {
+            console.log('Endboss attacks');
+            
             this.attackMode = true;
             this.character.takeHit();
             this.speedX = 0;
@@ -114,23 +118,22 @@ class Endboss extends MovableObject {
     }
 
     takeHit() {
-        if (this.health < 0) {
-            this.health = 0;
-        } else if (this.cooldown) {
+        if (this.cooldown) return;
+        this.speedX = 0;
+        this.cooldown = true;
+        this.hurt = true;
+        this.health -= this.damage;
+        this.level.endbossBar.updateEndbossHealthbar(this.health);
+        if (this.health <= 0) {
+            this.isDead();
             return;
-        } else {
-            this.speedX = 0;
-            this.cooldown = true;
-            this.hurt = true;
-            this.health -= 20;
-            this.level.endbossBar.updateEndbossHealthbar(this.health);
-            setTimeout(() => {
-                this.cooldown = false;
-                this.hurt = false;
-                this.currentImage = 0;
-                this.speedX = 0.4;
-                this.startWalking = true;
-            }, 1500);
-        };
+        }
+        setTimeout(() => {
+            this.cooldown = false;
+            this.hurt = false;
+            this.currentImage = 0;
+            this.speedX = 0.4;
+            this.startWalking = true;
+        }, 1500);
     };
 };

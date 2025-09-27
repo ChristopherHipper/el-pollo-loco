@@ -6,7 +6,7 @@ class DrawableObject {
 
     draw(ctx) {
         if (this instanceof Character || this instanceof Endboss) {
-            if (this.isDead()) {
+            if (!this.isAlive) {
                 return
             }
         }

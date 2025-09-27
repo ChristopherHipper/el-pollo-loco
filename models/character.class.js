@@ -97,12 +97,14 @@ class Character extends MovableObject {
     }
 
     update(deltaTime, keyboard, level) {
-        this.level = level;
-        this.keyboard = keyboard;
-        this.deltaTime = deltaTime;
-        this.handleInput();
-        this.playAnimation();
-        this.bounceBack();
+        if (this.isAlive) {
+            this.level = level;
+            this.keyboard = keyboard;
+            this.deltaTime = deltaTime;
+            this.handleInput();
+            this.playAnimation();
+            this.bounceBack();
+        }
     };
 
     handleInput() {
@@ -127,7 +129,7 @@ class Character extends MovableObject {
     };
 
     playAnimation() {
-        if (this.isDead()) this.animations(this.deathImages, 100);
+        if (this.health <= 0) this.animations(this.deathImages, 150)
         else if (this.isHurt()) this.animations(this.hurtImages, 100);
         else if (!this.isAboveGround() && this.keyboard.up) this.animations(this.preJumpImages, 100);
         else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100);
@@ -144,40 +146,39 @@ class Character extends MovableObject {
     };
 
     takeHit() {
-        if (this.health < 0) {
-            this.health = 0;
-        } else if (this.cooldown) {
+        if (this.cooldown) return;
+        this.cooldown = true;
+        this.hurt = true;
+        this.health -= this.damage;
+        this.level.healthbar.updateHealthbar(this.health);
+        this.bounce = 20;
+        this.bounceBack();
+        this.lastMovement = new Date().getTime();
+        if (this.health <= 0) {
+            this.isDead();
             return;
-        } else {
-            this.cooldown = true;
-            this.hurt = true;
-            this.health -= 20;
-            this.level.healthbar.updateHealthbar(this.health);
-            this.bounce = 20;
-            this.bounceBack();
-            this.lastMovement = new Date().getTime();
+        }
             setTimeout(() => {
                 this.cooldown = false;
                 this.hurt = false;
                 this.currentImage = 0;
             }, 1000);
         };
-    };
 
-    bounceBack() {
-        if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
-            this.x -= this.bounce;
-            this.x = Math.round(this.x);
-            this.bounce -= this.acceleration;
-        } else if (this.keyboard.left) {
-            this.x += this.bounce;
-            this.x = Math.round(this.x);
-            this.bounce -= this.acceleration;
+        bounceBack() {
+            if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
+                this.x -= this.bounce;
+                this.x = Math.round(this.x);
+                this.bounce -= this.acceleration;
+            } else if (this.keyboard.left) {
+                this.x += this.bounce;
+                this.x = Math.round(this.x);
+                this.bounce -= this.acceleration;
+            };
+            if (this.bounce < 0) {
+                this.bounce = 0;
+            };
         };
-        if (this.bounce < 0) {
-            this.bounce = 0;
-        };
+
+
     };
-
-
-};

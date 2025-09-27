@@ -1,4 +1,5 @@
 class MovableObject extends DrawableObject {
+    damage = 20;
     deltaTime;
     frameTimer = 0;
     frameDuration = 100;
@@ -20,7 +21,9 @@ class MovableObject extends DrawableObject {
     };
 
     isDead() {
-        return this.health == 0;
+        setTimeout(() => {
+            this.isAlive = false;
+        }, 700);
     };
 
     isHurt() {
