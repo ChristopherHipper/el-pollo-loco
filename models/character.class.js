@@ -6,7 +6,7 @@ class Character extends MovableObject {
     y = 230;
     lastMovement = new Date().getTime();
     coins = 0;
-    bottles = 5;
+    bottles = 0;
 
     offset = {
         top: 80,
@@ -94,7 +94,7 @@ class Character extends MovableObject {
         this.loadImages(this.idleImages);
         this.loadImages(this.longIdleImages);
         this.applyGravity();
-    }
+    };
 
     update(deltaTime, keyboard, level) {
         if (this.isAlive) {
@@ -104,7 +104,7 @@ class Character extends MovableObject {
             this.handleInput();
             this.playAnimation();
             this.bounceBack();
-        }
+        };
     };
 
     handleInput() {
@@ -147,9 +147,7 @@ class Character extends MovableObject {
 
     takeHit() {
         if (this.cooldown) return;
-        this.cooldown = true;
-        this.hurt = true;
-        this.health -= this.damage;
+        this.takeDamage();
         this.level.healthbar.updateHealthbar(this.health);
         this.bounce = 20;
         this.bounceBack();
@@ -158,27 +156,31 @@ class Character extends MovableObject {
             this.isDead();
             return;
         }
-            setTimeout(() => {
-                this.cooldown = false;
-                this.hurt = false;
-                this.currentImage = 0;
-            }, 1000);
-        };
-
-        bounceBack() {
-            if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
-                this.x -= this.bounce;
-                this.x = Math.round(this.x);
-                this.bounce -= this.acceleration;
-            } else if (this.keyboard.left) {
-                this.x += this.bounce;
-                this.x = Math.round(this.x);
-                this.bounce -= this.acceleration;
-            };
-            if (this.bounce < 0) {
-                this.bounce = 0;
-            };
-        };
-
-
+        this.resetCooldown();
     };
+
+    bounceBack() {
+        if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
+            this.x -= this.bounce;
+            this.x = Math.round(this.x);
+            this.bounce -= this.acceleration;
+        } else if (this.keyboard.left) {
+            this.x += this.bounce;
+            this.x = Math.round(this.x);
+            this.bounce -= this.acceleration;
+        };
+        if (this.bounce < 0) {
+            this.bounce = 0;
+        };
+    };
+
+    characterGravity() {
+        if (this.isAboveGround() || this.speedY > 0) {
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
+        } if (!this.isAboveGround()) {
+            this.speedY = 0;
+            this.y = 230;
+        };
+    };
+};

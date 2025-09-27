@@ -7,8 +7,8 @@ class DrawableObject {
     draw(ctx) {
         if (this instanceof Character || this instanceof Endboss) {
             if (!this.isAlive) {
-                return
-            }
+                return;
+            };
         }
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     };

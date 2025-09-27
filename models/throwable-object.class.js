@@ -50,7 +50,7 @@ class ThrowableObject extends MovableObject {
                 this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
                 this.splashed = false;
             }, 100);
-        } else{
+        } else {
             this.animations(this.rotateImages, 50);
         };
     };
@@ -74,6 +74,21 @@ class ThrowableObject extends MovableObject {
         if (this.isColliding(this.level.endboss)) {
             this.level.endboss.takeHit();
             this.splashed = true;
+        };
+    };
+
+    throwableObjectGravity() {
+        if (this.mirroring) {
+            this.x -= this.speedX;
+        };
+        if (!this.mirroring) {
+            this.x += this.speedX;
+        };
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+        if (this.y >= 360) {
+            this.speedY = 0;
+            this.speedX = 0;
         };
     };
 };

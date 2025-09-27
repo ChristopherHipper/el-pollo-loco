@@ -60,7 +60,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.attackImages);
         this.loadImages(this.hurtImages);
         this.loadImages(this.deathImages);
-        this.x = 500;
+        this.x = 3000;
     };
 
     update(deltaTime, level, character) {
@@ -90,8 +90,6 @@ class Endboss extends MovableObject {
 
     attack() {
         if (this.isColliding(this.character)) {
-            console.log('Endboss attacks');
-            
             this.attackMode = true;
             this.character.takeHit();
             this.speedX = 0;
@@ -99,14 +97,22 @@ class Endboss extends MovableObject {
                 this.attackMode = false;
                 this.speedX = 0.4;
             }, 1300);
-        }
-    }
+        };
+    };
 
     walking() {
         if (this.startWalking) {
             this.moveLeft();
-        }
-    }
+        };
+    };
+
+    continueWalking() {
+        setTimeout(() => {
+            this.speedX = 0.4;
+            this.startWalking = true;
+        }, 1000);
+    };
+
 
     characterDetection() {
         const distance = Math.abs(this.character.x - this.x);
@@ -114,26 +120,19 @@ class Endboss extends MovableObject {
             this.startWalking = true;
         } else if (distance >= 650) {
             this.startWalking = false;
-        }
-    }
+        };
+    };
 
     takeHit() {
         if (this.cooldown) return;
         this.speedX = 0;
-        this.cooldown = true;
-        this.hurt = true;
-        this.health -= this.damage;
+        this.takeDamage();
         this.level.endbossBar.updateEndbossHealthbar(this.health);
         if (this.health <= 0) {
             this.isDead();
             return;
         }
-        setTimeout(() => {
-            this.cooldown = false;
-            this.hurt = false;
-            this.currentImage = 0;
-            this.speedX = 0.4;
-            this.startWalking = true;
-        }, 1500);
+        this.resetCooldown();
+        this.continueWalking();
     };
 };

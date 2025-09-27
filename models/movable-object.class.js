@@ -20,6 +20,20 @@ class MovableObject extends DrawableObject {
         height: 0
     };
 
+    takeDamage() {
+        this.cooldown = true;
+        this.hurt = true;
+        this.health -= this.damage;
+    }
+
+    resetCooldown() {
+        setTimeout(() => {
+            this.cooldown = false;
+            this.hurt = false;
+            this.currentImage = 0;
+        }, 1000);
+    };
+
     isDead() {
         setTimeout(() => {
             this.isAlive = false;
@@ -91,43 +105,15 @@ class MovableObject extends DrawableObject {
     applyGravity() {
         setInterval(() => {
             if (this instanceof Character) {
-                if (this.isAboveGround() || this.speedY > 0) {
-                    this.y -= this.speedY;
-                    this.speedY -= this.acceleration;
-                } if (!this.isAboveGround()) {
-                    this.speedY = 0;
-                    this.y = 230;
-                };
+                this.characterGravity();
             } else if (this instanceof ThrowableObject) {
-                if (this.mirroring) {
-                    this.x -= this.speedX;
-                };
-                if (!this.mirroring) {
-                    this.x += this.speedX;
-                };
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-                if (this.y >= 360) {
-                    this.speedY = 0;
-                    this.speedX = 0;
-                };
+                this.throwableObjectGravity();
             };
         }, 50);
     };
 
-    drawBorder(ctx) {
-        /*         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Bottle || this instanceof Coin) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = 'blue';
-                    ctx.lineWidth = 5;
-                    ctx.rect(this.x, this.y, this.width, this.height);
-                    ctx.stroke();
-                } */
-    }
-
     drawOffsetBorder(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle
-        ) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
             ctx.beginPath();
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 3;
