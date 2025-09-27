@@ -5,30 +5,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El pollo loco</title>
+    <link rel="shortcut icon" href="./assets/img/sombrero.png" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style/assets.css">
 
-    <script src="./models/drawable-object.class.js"></script>
-    <script src="./models/movable-object.class.js"></script>
-    <script src="./models/throwable-object.class.js"></script>
-    <script src="./models/character.class.js"></script>
-    <script src="./models/chicken.class.js"></script>
-    <script src="./models/coins.class.js"></script>
-    <script src="./models/bottle.class.js"></script>
-    <script src="./models/endboss.class.js"></script>
-    <script src="./models/clouds.class.js"></script>
-    <script src="./models/background.class.js"></script>
-    <script src="./models/statusbars.class.js"></script>
-    <script src="./models/keyboard.class.js"></script>
-    <script src="./models/level.class.js"></script>
-    <script src="./levels/level1.js"></script>
-    <script src="./models/world.class.js"></script>
+    <script src="./js/models/drawable-object.class.js"></script>
+    <script src="./js/models/movable-object.class.js"></script>
+    <script src="./js/models/throwable-object.class.js"></script>
+    <script src="./js/models/character.class.js"></script>
+    <script src="./js/models/chicken.class.js"></script>
+    <script src="./js/models/coins.class.js"></script>
+    <script src="./js/models/bottle.class.js"></script>
+    <script src="./js/models/endboss.class.js"></script>
+    <script src="./js/models/clouds.class.js"></script>
+    <script src="./js/models/background.class.js"></script>
+    <script src="./js/models/statusbars.class.js"></script>
+    <script src="./js/models/keyboard.class.js"></script>
+    <script src="./js/models/level.class.js"></script>
+    <script src="./js/level1.js"></script>
+    <script src="./js/models/world.class.js"></script>
     <script src="./js/game.js"></script>
 
 </head>
 
-<body onload="init()">
-    <h1>El pollo loco</h1>
-    <canvas id="canvas" width="720px" height="480px"></canvas>
+<body>
+    <header>
+        <h1>El pollo loco</h1>
+    </header>
+
+    <main>
+        <canvas class="border" id="canvas" width="720px" height="480px"></canvas>
+
+        <div id="startScreen" class="game-size start-screen border">
+            <img class="background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
+                alt="Startscreen">
+            <div class="start-screen-buttons">
+                <button onclick="startGame()">Start Game</button>
+                <button onclick="toggleControl()">How to Play</button>
+            </div>
+        </div>
+
+        <div id="controll" class="game-size how-to-play border d-none">
+            <img class="background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
+                alt="Startscreen">
+            <div class="controll-content">
+                <h2>How to play</h2>
+                <p>Help Pepe cross the dangerous desert and defeat the <span>Giant Chicken</span> <br>
+                    On your way, various enemies will block your path - you can defeat them either by jumping on them or
+                    by
+                    using bottles. <br>
+                    Collect coins for points and bottles as weapons - only then will you have a chance to bring down the
+                    <br>
+                    <span>Giant Chicken</span>
+                </p>
+                <div class="controll-container">
+                    <div>
+                        <img class="controll-icon" src="./assets/img/arrow-up.png" alt="arrow-up">
+                        Jump
+                    </div>
+                    <div>
+                        <img class="controll-icon" src="./assets/img/arrow-left.png" alt="arrow-left">
+                        Move left
+                    </div>
+                    <div>
+                        <img class="controll-icon" src="./assets/img/arrow-rigth.png" alt="arrow-right">
+                        Move right
+                    </div>
+                    <div>
+                        <div class="controll-icon">Space</div>
+                        Throw Bottle
+                    </div>
+                </div>
+                <div>
+                    <button onclick="toggleControl()" class="back-button">Back to Startscreen</button>
+                </div>
+                
+            </div>
+
+        </div>
+    </main>
+
 
 
 

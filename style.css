@@ -3,7 +3,13 @@
     src: url('/assets/fonts/zabars.ttf');
 }
 
+@font-face {
+    font-family: 'ranchers';
+    src: url('/assets/fonts/ranchers.ttf');
+}
+
 body {
+    box-sizing: border-box;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     margin: 0;
     display: flex;
@@ -16,13 +22,102 @@ body {
     background-position: center;
 }
 
-h1{
-    font-size: 84px;
-    font-weight: 500;
-    margin: 36px;
+main {
+    position: relative;
 }
 
-canvas {
-    border: 2px solid black;
+.start-screen {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     border-radius: 15px;
+}
+
+.start-screen-buttons {
+    z-index: 1;
+    padding-top: 46px;
+    display: flex;
+    gap: 24px;
+}
+
+.how-to-play {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    color: #ffcc00;
+    z-index: 1;
+}
+
+.how-to-play::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.how-to-play>* {
+    position: relative;
+}
+
+.controll-content{
+    z-index: 1;
+    position: absolute;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.back-button {
+    background-color: rgb(209, 58, 58);
+    box-shadow: 0 4px rgb(142, 35, 35);
+}
+
+.back-button:active {
+    box-shadow: 0 2px rgb(254, 69, 69);
+    transform: translateY(2px);
+}
+
+.back-button:hover {
+    background-color: rgb(254, 69, 69);
+}
+
+.controll-icon {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ffcc00;
+    cursor: pointer;
+    box-shadow: 0 4px #cc9900;
+    height: 24px;
+    margin-bottom: 8px;
+}
+
+.controll-container {
+    display: flex;
+    gap: 36px;
+    justify-content: center;
+    align-items: center;
+}
+
+.controll-container div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 300;
+    color: black;
 }
