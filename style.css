@@ -121,3 +121,18 @@ main {
     font-weight: 300;
     color: black;
 }
+
+.sound-size-container{
+    position: absolute;
+    left: 630px;
+    top: 440px;
+    display: flex;
+    gap: 16px;
+    z-index: 1;
+}
+
+.sound-size-container img{
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}

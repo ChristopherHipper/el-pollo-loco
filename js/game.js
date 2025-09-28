@@ -6,6 +6,7 @@ function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     document.getElementById('startScreen').classList.toggle('d-none');
+    document.getElementById('sound-size-button').classList.toggle('d-none');
 }
 
 window.addEventListener('keydown', (e) => {

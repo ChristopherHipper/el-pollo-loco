@@ -36,9 +36,14 @@
     <main>
         <canvas class="border" id="canvas" width="720px" height="480px"></canvas>
 
+        <div id="sound-size-button" class="sound-size-container d-none"> 
+            <img id="mute-img" src="./assets/img/mute.png" alt="mute image">
+            <img id="fullscreen-img" src="./assets/img/fullscreen.png" alt="mute image">
+        </div>
+
         <div id="startScreen" class="game-size start-screen border">
             <img class="background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
-                alt="Startscreen">
+                alt="Startscreen image">
             <div class="start-screen-buttons">
                 <button onclick="startGame()">Start Game</button>
                 <button onclick="toggleControl()">How to Play</button>
@@ -79,7 +84,7 @@
                 <div>
                     <button onclick="toggleControl()" class="back-button">Back to Startscreen</button>
                 </div>
-                
+
             </div>
 
         </div>
