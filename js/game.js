@@ -5,8 +5,8 @@ let keyboard = new Keyboard();
 function startGame() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    document.getElementById('startScreen').classList.toggle('d-none');
-    document.getElementById('sound-size-button').classList.toggle('d-none');
+    document.getElementById('start-Screen').classList.toggle('d-none');
+    document.getElementById('game-ui').classList.toggle('d-none');
 }
 
 window.addEventListener('keydown', (e) => {
@@ -18,8 +18,8 @@ window.addEventListener('keyup', (e) => {
 })
 
 function toggleControl() {
-    document.getElementById('startScreen').classList.toggle('d-none');
-    document.getElementById('controll').classList.toggle('d-none');
+    document.getElementById('start-Screen').classList.toggle('d-none');
+    document.getElementById('settings-screen').classList.toggle('d-none');
 }
 
 

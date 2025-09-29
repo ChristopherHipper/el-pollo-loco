@@ -36,24 +36,24 @@
     <main>
         <canvas class="border" id="canvas" width="720px" height="480px"></canvas>
 
-        <div id="sound-size-button" class="sound-size-container d-none"> 
+        <div id="game-ui" class="game-ui d-none">
             <img id="mute-img" src="./assets/img/mute.png" alt="mute image">
             <img id="fullscreen-img" src="./assets/img/fullscreen.png" alt="mute image">
         </div>
 
-        <div id="startScreen" class="game-size start-screen border">
-            <img class="background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
-                alt="Startscreen image">
+        <div id="start-Screen" class="height-widht start-screen">
+            <img class="border background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
+                alt="Startscreen">
             <div class="start-screen-buttons">
                 <button onclick="startGame()">Start Game</button>
                 <button onclick="toggleControl()">How to Play</button>
             </div>
         </div>
 
-        <div id="controll" class="game-size how-to-play border d-none">
-            <img class="background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
+        <div id="settings-screen" class="height-widht settings-screen d-none">
+            <img class="border background-image" src="./assets/img/9_intro_outro_screens/start/startscreen_1.png"
                 alt="Startscreen">
-            <div class="controll-content">
+            <div class="settings-content">
                 <h2>How to play</h2>
                 <p>Help Pepe cross the dangerous desert and defeat the <span>Giant Chicken</span> <br>
                     On your way, various enemies will block your path - you can defeat them either by jumping on them or
@@ -63,21 +63,21 @@
                     <br>
                     <span>Giant Chicken</span>
                 </p>
-                <div class="controll-container">
+                <div class="keybind-container">
                     <div>
-                        <img class="controll-icon" src="./assets/img/arrow-up.png" alt="arrow-up">
+                        <img class="key-icon" src="./assets/img/arrow-up.png" alt="arrow-up">
                         Jump
                     </div>
                     <div>
-                        <img class="controll-icon" src="./assets/img/arrow-left.png" alt="arrow-left">
+                        <img class="key-icon" src="./assets/img/arrow-left.png" alt="arrow-left">
                         Move left
                     </div>
                     <div>
-                        <img class="controll-icon" src="./assets/img/arrow-rigth.png" alt="arrow-right">
+                        <img class="key-icon" src="./assets/img/arrow-rigth.png" alt="arrow-right">
                         Move right
                     </div>
                     <div>
-                        <div class="controll-icon">Space</div>
+                        <div class="key-icon space">Space</div>
                         Throw Bottle
                     </div>
                 </div>
@@ -87,6 +87,18 @@
 
             </div>
 
+        </div>
+
+
+        <div id="game-over-Screen" class="end-game-screen height-widht d-none">
+            <img class="end-game-image" src="./assets/img/You won, you lost/Game Over.png" alt="Startscreen">
+            <button onclick="startGame()">Restart</button>
+        </div>
+
+
+        <div id="win-Screen" class="end-game-screen height-widht d-none">
+            <img class="end-game-image" src="./assets/img/You won, you lost/You won A.png" alt="Startscreen">
+            <button onclick="startGame()">Play again!</button>
         </div>
     </main>
 

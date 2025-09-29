@@ -9,9 +9,7 @@
 }
 
 body {
-    box-sizing: border-box;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
-    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,11 +22,19 @@ body {
 
 main {
     position: relative;
+    width: 720px;
+    height: 480px;
+}
+
+canvas{
+    width: 100%;
+    height: 100%;
 }
 
 .start-screen {
     position: absolute;
     top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
 }
@@ -37,7 +43,6 @@ main {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
 }
 
 .start-screen-buttons {
@@ -47,7 +52,7 @@ main {
     gap: 24px;
 }
 
-.how-to-play {
+.settings-screen {
     position: absolute;
     top: 0;
     display: flex;
@@ -59,26 +64,23 @@ main {
     z-index: 1;
 }
 
-.how-to-play::before {
+.settings-screen::before {
     content: "";
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
     pointer-events: none;
     z-index: 1;
+    border-radius: 15px;
 }
 
-.how-to-play>* {
-    position: relative;
-}
-
-.controll-content{
+.settings-content {
     z-index: 1;
     position: absolute;
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 9px;
 }
 
 .back-button {
@@ -95,25 +97,29 @@ main {
     background-color: rgb(254, 69, 69);
 }
 
-.controll-icon {
-    padding: 12px 24px;
-    border: none;
+.key-icon {
+    display: flex;
+    justify-content: center;
     border-radius: 8px;
     background-color: #ffcc00;
-    cursor: pointer;
     box-shadow: 0 4px #cc9900;
-    height: 24px;
     margin-bottom: 8px;
+    width: 48px;
+    height: 48px;
 }
 
-.controll-container {
+.space{
+    width: 72px;
+}
+
+.keybind-container {
     display: flex;
     gap: 36px;
     justify-content: center;
     align-items: center;
 }
 
-.controll-container div {
+.keybind-container div {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -122,17 +128,31 @@ main {
     color: black;
 }
 
-.sound-size-container{
+.game-ui {
     position: absolute;
-    left: 630px;
-    top: 440px;
+    right: 15px;
+     bottom: 15px;
     display: flex;
     gap: 16px;
     z-index: 1;
 }
 
-.sound-size-container img{
+.game-ui img {
     width: 32px;
     height: 32px;
     cursor: pointer;
+}
+
+.end-game-image {
+    width: 70%;
+    height: 70%;
+}
+
+.end-game-screen {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
