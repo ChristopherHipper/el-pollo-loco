@@ -37,8 +37,8 @@
         <canvas class="border" id="canvas" width="720px" height="480px"></canvas>
 
         <div id="game-ui" class="game-ui d-none">
-            <img id="mute-img" src="./assets/img/mute.png" alt="mute image">
-            <img id="fullscreen-img" src="./assets/img/fullscreen.png" alt="mute image">
+            <img onclick="toggleSound()" id="mute" src="./assets/img/unmute.png" alt="mute image">
+            <img onclick="toggleFullscreen()" id="fullscreen" src="./assets/img/fullscreen.png" alt="mute image">
         </div>
 
         <div id="start-Screen" class="height-widht start-screen">
@@ -46,7 +46,7 @@
                 alt="Startscreen">
             <div class="start-screen-buttons">
                 <button onclick="startGame()">Start Game</button>
-                <button onclick="toggleControl()">How to Play</button>
+                <button onclick="toggleSettings()">How to Play</button>
             </div>
         </div>
 
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div>
-                    <button onclick="toggleControl()" class="back-button">Back to Startscreen</button>
+                    <button onclick="toggleSettings()" class="back-button">Back to Startscreen</button>
                 </div>
 
             </div>
@@ -92,13 +92,13 @@
 
         <div id="game-over-Screen" class="end-game-screen height-widht d-none">
             <img class="end-game-image" src="./assets/img/You won, you lost/Game Over.png" alt="Startscreen">
-            <button onclick="startGame()">Restart</button>
+            <button onclick="restartGame()">Restart</button>
         </div>
 
 
         <div id="win-Screen" class="end-game-screen height-widht d-none">
             <img class="end-game-image" src="./assets/img/You won, you lost/You won A.png" alt="Startscreen">
-            <button onclick="startGame()">Play again!</button>
+            <button onclick="restartGame()">Play again!</button>
         </div>
     </main>
 
