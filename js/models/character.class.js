@@ -6,7 +6,7 @@ class Character extends MovableObject {
     y = 230;
     lastMovement = new Date().getTime();
     coins = 0;
-    bottles = 0;
+    bottles = 5;
 
     offset = {
         top: 80,
@@ -97,6 +97,7 @@ class Character extends MovableObject {
     };
 
     update(deltaTime, keyboard, level) {
+        this.isDead();
         if (this.isAlive) {
             this.level = level;
             this.keyboard = keyboard;
@@ -104,7 +105,8 @@ class Character extends MovableObject {
             this.handleInput();
             this.playAnimation();
             this.bounceBack();
-        };
+            level.healthbar.updateHealthbar(this.health);
+        }; 
     };
 
     handleInput() {
@@ -129,7 +131,7 @@ class Character extends MovableObject {
     };
 
     playAnimation() {
-        if (this.health <= 0) this.animations(this.deathImages, 150)
+        if (this.health <= 0) this.deathAnimation(this.deathImages, 150)
         else if (this.isHurt()) this.animations(this.hurtImages, 100);
         else if (!this.isAboveGround() && this.keyboard.up) this.animations(this.preJumpImages, 100);
         else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100);
@@ -148,14 +150,9 @@ class Character extends MovableObject {
     takeHit() {
         if (this.cooldown) return;
         this.takeDamage();
-        this.level.healthbar.updateHealthbar(this.health);
         this.bounce = 20;
         this.bounceBack();
         this.lastMovement = new Date().getTime();
-        if (this.health <= 0) {
-            this.isDead();
-            return;
-        }
         this.resetCooldown();
     };
 
@@ -178,7 +175,7 @@ class Character extends MovableObject {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
             this.speedY -= this.acceleration;
-        } if (!this.isAboveGround()) {
+        } if (!this.isAboveGround() && this.isAlive) {
             this.speedY = 0;
             this.y = 230;
         };

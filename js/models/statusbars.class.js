@@ -106,17 +106,22 @@ class HealthbarEndboss extends DrawableObject {
         this.loadImages(this.HealthbarEndbossImages);
     };
 
-    updateEndbossHealtbarPosition(x, y) {
-        this.x = x;
-        this.y = y - 20;
+    updateEndbossHealtbarPosition(x, y, detected, character) {
+        if (!detected) {
+            this.y = 6;
+            this.x = character.x + 400;
+        } else {
+            this.x = x;
+            this.y = y - 20;
+        }
     };
-    
+
     updateEndbossHealthbar(health) {
         if (health > 0) {
             let index = health / 20;
             this.loadImage(this.HealthbarEndbossImages[index]);
         } else {
-            this.loadImage('../assets/img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png');
+            this.loadImage('assets/img/7_statusbars/2_statusbar_endboss/orange/orange0.png');
         };
     };
 };

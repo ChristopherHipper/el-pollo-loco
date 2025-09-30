@@ -34,10 +34,13 @@ class MovableObject extends DrawableObject {
         }, 1000);
     };
 
-    isDead() {
-        setTimeout(() => {
-            this.isAlive = false;
-        }, 700);
+    isDead() {  
+        if (this.health <= 0) {
+            setTimeout(() => {
+                this.isAlive = false;
+                this.y += 2
+            }, 700);
+        }
     };
 
     isHurt() {
@@ -101,6 +104,26 @@ class MovableObject extends DrawableObject {
         let path = imageArray[this.currentImage];
         this.img = this.images[path];
     };
+
+    deathAnimation(imageArray, frameDuration) {
+        if (this.currentImageArray != imageArray) {
+            this.currentImageArray = imageArray;
+            this.currentImage = 0;
+            this.frameTimer = 0;
+            this.frameDuration = frameDuration;
+        }
+        this.frameTimer += this.deltaTime;
+        if (this.frameTimer >= this.frameDuration) {
+            this.frameTimer = 0;
+            this.currentImage = this.currentImage + 1
+        }
+        if (this.currentImage >= imageArray) {
+            return
+        } else {
+            let path = imageArray[this.currentImage];
+            this.img = this.images[path];
+        }
+    }
 
     applyGravity() {
         setInterval(() => {

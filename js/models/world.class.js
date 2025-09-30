@@ -24,7 +24,6 @@ class World {
         this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
-        this.level.endbossBar.updateEndbossHealtbarPosition(this.level.endboss.x, this.level.endboss.y);
         this.camera_x = -this.character.x + 100;
         this.draw();
 

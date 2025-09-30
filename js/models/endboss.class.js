@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     speedX = 0.4;
     attackMode = false;
     startWalking = false;
+    detected = false;
     standImages = [
         '../assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         '../assets/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -64,6 +65,7 @@ class Endboss extends MovableObject {
     };
 
     update(deltaTime, level, character) {
+        this.isDead();
         if (this.isAlive) {
             this.character = character;
             this.level = level;
@@ -72,12 +74,14 @@ class Endboss extends MovableObject {
             this.walking();
             this.attack();
             this.characterDetection();
+            level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.character);
+            level.endbossBar.updateEndbossHealthbar(this.health);
         }
     };
 
     playAnimation() {
         if (this.health <= 0) {
-            this.animations(this.deathImages, 250);
+            this.deathAnimation(this.deathImages, 250);
         } else if (this.isHurt()) {
             this.animations(this.hurtImages, 200);
         } else if (this.attackMode) {
@@ -117,8 +121,10 @@ class Endboss extends MovableObject {
     characterDetection() {
         const distance = Math.abs(this.character.x - this.x);
         if (distance <= 300) {
+            this.detected = true;
             this.startWalking = true;
         } else if (distance >= 650) {
+            this.detected = false;
             this.startWalking = false;
         };
     };
@@ -127,7 +133,6 @@ class Endboss extends MovableObject {
         if (this.cooldown) return;
         this.speedX = 0;
         this.takeDamage();
-        this.level.endbossBar.updateEndbossHealthbar(this.health);
         if (this.health <= 0) {
             this.isDead();
             return;
