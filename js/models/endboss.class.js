@@ -6,6 +6,7 @@ class Endboss extends MovableObject {
     attackMode = false;
     startWalking = false;
     detected = false;
+    activeBar = false;
     standImages = [
         '../assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         '../assets/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -123,6 +124,7 @@ class Endboss extends MovableObject {
         if (distance <= 300) {
             this.detected = true;
             this.startWalking = true;
+            this.activeBar = true;
         } else if (distance >= 650) {
             this.detected = false;
             this.startWalking = false;

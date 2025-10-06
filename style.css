@@ -26,7 +26,7 @@ main {
     height: 480px;
 }
 
-canvas{
+canvas {
     width: 100%;
     height: 100%;
     background-color: black;
@@ -109,7 +109,7 @@ canvas{
     height: 48px;
 }
 
-.space{
+.space {
     width: 72px;
 }
 
@@ -132,7 +132,7 @@ canvas{
 .game-ui {
     position: absolute;
     right: 15px;
-     bottom: 15px;
+    bottom: 15px;
     display: flex;
     gap: 16px;
     z-index: 1;
@@ -156,4 +156,19 @@ canvas{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+}
+
+.end-game-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 15px;
+}
+
+.end-game-screen button, .end-game-screen img {
+    z-index: 1;
 }

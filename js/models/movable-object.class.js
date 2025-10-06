@@ -34,14 +34,16 @@ class MovableObject extends DrawableObject {
         }, 1000);
     };
 
-    isDead() {  
+    isDead() {
         if (this.health <= 0) {
             setTimeout(() => {
                 this.isAlive = false;
                 this.y += 2
-                if (this instanceof Endboss) this.gameWin();
-                if (this instanceof Character) this.gameOver();
-            }, 700);
+                setTimeout(() => {
+                    if (this instanceof Endboss) this.gameWin();
+                    if (this instanceof Character) this.gameOver();
+                }, 700);
+            }, 600);
         }
     };
 
@@ -147,11 +149,11 @@ class MovableObject extends DrawableObject {
         };
     };
 
-    gameOver(){
+    gameOver() {
         document.getElementById('game-over-screen').classList.remove('d-none');
     };
 
-    gameWin(){
-        document.getElementById('win-screen').classList.remove('d-none');  
+    gameWin() {
+        document.getElementById('win-screen').classList.remove('d-none');
     };
 };
