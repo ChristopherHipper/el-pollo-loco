@@ -94,40 +94,39 @@ class MovableObject extends DrawableObject {
     };
 
     animations(imageArray, frameDuration) {
-        if (this.currentImageArray != imageArray) {
-            this.currentImageArray = imageArray;
-            this.currentImage = 0;
+        this.getFPS(imageArray, frameDuration)
+        if (this.frameTimer >= frameDuration) {
             this.frameTimer = 0;
-            this.frameDuration = frameDuration;
-        }
-        this.frameTimer += this.deltaTime;
-        if (this.frameTimer >= this.frameDuration) {
-            this.frameTimer = 0;
-            this.currentImage = (this.currentImage + 1) % imageArray.length
-        }
+            this.currentImage = (this.currentImage + 1) % imageArray.length;
+        };
         let path = imageArray[this.currentImage];
         this.img = this.images[path];
     };
 
     deathAnimation(imageArray, frameDuration) {
+        this.getFPS(imageArray, frameDuration);
+        if (this.frameTimer >= frameDuration) {
+            this.frameTimer = 0;
+            this.currentImage = this.currentImage + 1;
+        };
+        if (this.currentImage >= imageArray) {
+            return;
+        } else {
+            let path = imageArray[this.currentImage];
+            this.img = this.images[path];
+        };
+    };
+
+    getFPS(imageArray, frameDuration) {
         if (this.currentImageArray != imageArray) {
             this.currentImageArray = imageArray;
             this.currentImage = 0;
             this.frameTimer = 0;
             this.frameDuration = frameDuration;
-        }
+        };
         this.frameTimer += this.deltaTime;
-        if (this.frameTimer >= this.frameDuration) {
-            this.frameTimer = 0;
-            this.currentImage = this.currentImage + 1
-        }
-        if (this.currentImage >= imageArray) {
-            return
-        } else {
-            let path = imageArray[this.currentImage];
-            this.img = this.images[path];
-        }
-    }
+        return this.frameTimer;
+    };
 
     applyGravity() {
         setInterval(() => {
