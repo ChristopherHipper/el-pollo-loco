@@ -40,6 +40,7 @@ class World {
         this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
+        this.level.clouds.forEach(c => c.moveAnmation());
         this.camera_x = -this.character.x + 100;
     };
 

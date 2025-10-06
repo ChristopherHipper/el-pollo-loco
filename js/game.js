@@ -45,6 +45,10 @@ function toggleFullscreen() {
     };
 };
 
+function newGame() {
+    
+};
+
 
 
 

@@ -96,31 +96,29 @@ class Character extends MovableObject {
         this.applyGravity();
     };
 
-    update(deltaTime, keyboard, level) {
+    update(deltaTime) {
         this.isDead();
         if (this.isAlive) {
-            this.level = level;
-            this.keyboard = keyboard;
             this.deltaTime = deltaTime;
             this.handleInput();
             this.playAnimation();
             this.bounceBack();
-            level.healthbar.updateHealthbar(this.health);
+            this.world.level.healthbar.updateHealthbar(this.health);
         }; 
     };
 
     handleInput() {
-        if (this.keyboard.right && this.x < this.level.levelEndX && !this.isHurt()) {
+        if (this.world.keyboard.right && this.x < this.world.level.levelEndX && !this.isHurt()) {
             this.moveRight();
             this.mirroring = false;
             this.lastMovement = new Date().getTime();
         };
-        if (this.keyboard.left && this.x > -500 && !this.isHurt()) {
+        if (this.world.keyboard.left && this.x > -500 && !this.isHurt()) {
             this.moveLeft();
             this.mirroring = true;
             this.lastMovement = new Date().getTime();
         };
-        if (this.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
+        if (this.world.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
             setTimeout(() => {
                 this.jump(22);
             }, 80);
@@ -133,10 +131,10 @@ class Character extends MovableObject {
     playAnimation() {
         if (this.health <= 0) this.deathAnimation(this.deathImages, 150)
         else if (this.isHurt()) this.animations(this.hurtImages, 100);
-        else if (!this.isAboveGround() && this.keyboard.up) this.animations(this.preJumpImages, 100);
+        else if (!this.isAboveGround() && this.world.keyboard.up) this.animations(this.preJumpImages, 100);
         else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100);
         else if (this.isAboveGround() && this.isFalling()) this.animations(this.fallImages, 300);
-        else if (this.keyboard.right || this.keyboard.left) this.animations(this.walkingImages, 100);
+        else if (this.world.keyboard.right || this.world.keyboard.left) this.animations(this.walkingImages, 100);
         else if (this.isSleeping()) this.animations(this.longIdleImages, 400);
         else {
             if (!this.isIdle) {
@@ -157,11 +155,11 @@ class Character extends MovableObject {
     };
 
     bounceBack() {
-        if (this.keyboard.right || !this.keyboard.right && !this.keyboard.left) {
+        if (this.world.keyboard.right || !this.world.keyboard.right && !this.world.keyboard.left) {
             this.x -= this.bounce;
             this.x = Math.round(this.x);
             this.bounce -= this.acceleration;
-        } else if (this.keyboard.left) {
+        } else if (this.world.keyboard.left) {
             this.x += this.bounce;
             this.x = Math.round(this.x);
             this.bounce -= this.acceleration;

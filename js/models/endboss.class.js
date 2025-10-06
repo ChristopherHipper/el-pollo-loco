@@ -65,18 +65,16 @@ class Endboss extends MovableObject {
         this.x = 3000;
     };
 
-    update(deltaTime, level, character) {
+    update(deltaTime) {
         this.isDead();
         if (this.isAlive) {
-            this.character = character;
-            this.level = level;
             this.deltaTime = deltaTime;
             this.playAnimation();
             this.walking();
             this.attack();
             this.characterDetection();
-            level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.character);
-            level.endbossBar.updateEndbossHealthbar(this.health);
+            this.world.level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.world.character);
+             this.world.level.endbossBar.updateEndbossHealthbar(this.health);
         }
     };
 
@@ -94,9 +92,9 @@ class Endboss extends MovableObject {
     };
 
     attack() {
-        if (this.isColliding(this.character)) {
+        if (this.isColliding(this.world.character)) {
             this.attackMode = true;
-            this.character.takeHit();
+            this.world.character.takeHit();
             this.speedX = 0;
             setTimeout(() => {
                 this.attackMode = false;
@@ -120,7 +118,7 @@ class Endboss extends MovableObject {
 
 
     characterDetection() {
-        const distance = Math.abs(this.character.x - this.x);
+        const distance = Math.abs(this.world.character.x - this.x);
         if (distance <= 400) {
             this.detected = true;
             this.startWalking = true;
