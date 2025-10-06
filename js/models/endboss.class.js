@@ -121,7 +121,7 @@ class Endboss extends MovableObject {
 
     characterDetection() {
         const distance = Math.abs(this.character.x - this.x);
-        if (distance <= 300) {
+        if (distance <= 400) {
             this.detected = true;
             this.startWalking = true;
             this.activeBar = true;

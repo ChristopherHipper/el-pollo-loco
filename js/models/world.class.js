@@ -10,7 +10,16 @@ class World {
         this.character = new Character();
         this.throwableBottles = [];
         this.lastThrow = 0;
+        this.gameIsRunning = true;
+        this.setWorld();
         this.loop();
+    };
+
+    setWorld() {
+        this.character.world = this;
+        if (this.level.endboss) {
+            this.level.endboss.world = this;
+        }
     };
 
     loop() {
@@ -19,45 +28,52 @@ class World {
         this.lastFrameTime = now;
         this.checkCollision();
         this.checkThrowableObject();
+        this.update(deltaTime);
+        this.draw();
+
+        requestAnimationFrame(() => this.loop());
+    };
+
+    update(deltaTime) {
         this.character.update(deltaTime, this.keyboard, this.level);
         this.level.endboss.update(deltaTime, this.level, this.character);
         this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
         this.camera_x = -this.character.x + 100;
-        this.draw();
-
-        requestAnimationFrame(() => this.loop());
     };
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0);
+        if (this.gameIsRunning) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.translate(this.camera_x, 0);
 
-        this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
-        this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
+            this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
+            this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
 
-        this.addObjectsToMap(this.level.background);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableBottles);
+            this.addObjectsToMap(this.level.background);
+            this.addObjectsToMap(this.level.coins);
+            this.addObjectsToMap(this.level.bottles);
+            this.addObjectsToMap(this.level.clouds);
+            this.addObjectsToMap(this.level.enemies);
+            this.addObjectsToMap(this.throwableBottles);
 
-        this.addToMap(this.level.endboss);
+            this.addToMap(this.level.endboss);
 
-        if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar)
-        this.addToMap(this.character);
+            if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar)
+            this.addToMap(this.character);
 
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.level.healthbar);
-        this.addToMap(this.level.coinbar);
-        this.addToMap(this.level.bottlebar);
-        this.addToMap(this.level.bottlebar);
+            this.ctx.translate(-this.camera_x, 0);
+            this.addToMap(this.level.healthbar);
+            this.addToMap(this.level.coinbar);
+            this.addToMap(this.level.bottlebar);
+            this.addToMap(this.level.bottlebar);
 
-        this.ctx.translate(this.camera_x, 0);
+            this.ctx.translate(this.camera_x, 0);
 
-        this.ctx.translate(-this.camera_x, 0);
+            this.ctx.translate(-this.camera_x, 0);
+        }
+
     };
 
     addObjectsToMap(objects) {
@@ -135,5 +151,15 @@ class World {
             this.level.bottlebar.updateBottleBar(this.character.bottles);
             this.lastThrow = now;
         };
+    };
+
+    gameOver() {
+        this.gameIsRunning = false;
+        document.getElementById('game-over-screen').classList.remove('d-none');
+    };
+
+    gameWin() {
+        this.gameIsRunning = false;
+        document.getElementById('win-screen').classList.remove('d-none');
     };
 };

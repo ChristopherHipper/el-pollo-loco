@@ -40,8 +40,8 @@ class MovableObject extends DrawableObject {
                 this.isAlive = false;
                 this.y += 2
                 setTimeout(() => {
-                    if (this instanceof Endboss) this.gameWin();
-                    if (this instanceof Character) this.gameOver();
+                    if (this instanceof Endboss) this.world.gameWin();
+                    if (this instanceof Character) this.world.gameOver();
                 }, 700);
             }, 600);
         }
@@ -147,13 +147,5 @@ class MovableObject extends DrawableObject {
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.width, this.height - this.offset.top - this.offset.height);
             ctx.stroke();
         };
-    };
-
-    gameOver() {
-        document.getElementById('game-over-screen').classList.remove('d-none');
-    };
-
-    gameWin() {
-        document.getElementById('win-screen').classList.remove('d-none');
     };
 };
