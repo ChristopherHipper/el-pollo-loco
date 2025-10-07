@@ -46,7 +46,7 @@ function toggleFullscreen() {
 };
 
 function newGame() {
-    
+
 };
 
 

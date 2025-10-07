@@ -1,6 +1,7 @@
 class World {
     lastFrameTime = new Date().getTime();
     camera_x;
+    gameLoop
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -19,7 +20,7 @@ class World {
         this.character.world = this;
         if (this.level.endboss) {
             this.level.endboss.world = this;
-        }
+        };
     };
 
     loop() {
@@ -31,7 +32,7 @@ class World {
         this.update(deltaTime);
         this.draw();
 
-        requestAnimationFrame(() => this.loop());
+        this.gameLoop = requestAnimationFrame(() => this.loop());
     };
 
     update(deltaTime) {
@@ -45,36 +46,26 @@ class World {
     };
 
     draw() {
-        if (this.gameIsRunning) {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             this.ctx.translate(this.camera_x, 0);
-
             this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
             this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
-
             this.addObjectsToMap(this.level.background);
             this.addObjectsToMap(this.level.coins);
             this.addObjectsToMap(this.level.bottles);
             this.addObjectsToMap(this.level.clouds);
             this.addObjectsToMap(this.level.enemies);
             this.addObjectsToMap(this.throwableBottles);
-
             this.addToMap(this.level.endboss);
-
-            if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar)
+            if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar);
             this.addToMap(this.character);
-
             this.ctx.translate(-this.camera_x, 0);
             this.addToMap(this.level.healthbar);
             this.addToMap(this.level.coinbar);
             this.addToMap(this.level.bottlebar);
             this.addToMap(this.level.bottlebar);
-
             this.ctx.translate(this.camera_x, 0);
-
             this.ctx.translate(-this.camera_x, 0);
-        }
-
     };
 
     addObjectsToMap(objects) {
@@ -155,12 +146,12 @@ class World {
     };
 
     gameOver() {
-        this.gameIsRunning = false;
+        cancelAnimationFrame(this.gameLoop);
         document.getElementById('game-over-screen').classList.remove('d-none');
     };
 
     gameWin() {
-        this.gameIsRunning = false;
+        cancelAnimationFrame(this.gameLoop);
         document.getElementById('win-screen').classList.remove('d-none');
     };
 };

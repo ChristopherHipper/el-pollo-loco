@@ -43,7 +43,7 @@ class MovableObject extends DrawableObject {
                 setTimeout(() => {
                     if (this instanceof Endboss) this.world.gameWin();
                     if (this instanceof Character) this.world.gameOver();
-                }, 700);
+                }, 1200);
             }, 600);
         }
     };

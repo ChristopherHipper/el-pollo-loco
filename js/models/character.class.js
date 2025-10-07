@@ -6,7 +6,7 @@ class Character extends MovableObject {
     y = 230;
     lastMovement = new Date().getTime();
     coins = 0;
-    bottles = 5;
+    bottles = 0;
 
     offset = {
         top: 80,
