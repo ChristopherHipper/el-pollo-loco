@@ -1,6 +1,7 @@
 class MovableObject extends DrawableObject {
     damage = 20;
     deltaTime;
+    gravityTimer = 0;
     frameTimer = 0;
     frameDuration = 100;
     width = 720;
@@ -94,7 +95,12 @@ class MovableObject extends DrawableObject {
     };
 
     animations(imageArray, frameDuration) {
-        this.getFPS(imageArray, frameDuration)
+        if (this.currentImageArray != imageArray) {
+            this.currentImageArray = imageArray;
+            this.currentImage = 0;
+            this.frameTimer = 0;
+        }
+        this.getFPS()
         if (this.frameTimer >= frameDuration) {
             this.frameTimer = 0;
             this.currentImage = (this.currentImage + 1) % imageArray.length;
@@ -104,7 +110,12 @@ class MovableObject extends DrawableObject {
     };
 
     deathAnimation(imageArray, frameDuration) {
-        this.getFPS(imageArray, frameDuration);
+        if (this.currentImageArray != imageArray) {
+            this.currentImageArray = imageArray;
+            this.currentImage = 0;
+            this.frameTimer = 0;
+        }
+        this.getFPS()
         if (this.frameTimer >= frameDuration) {
             this.frameTimer = 0;
             this.currentImage = this.currentImage + 1;
@@ -117,25 +128,23 @@ class MovableObject extends DrawableObject {
         };
     };
 
-    getFPS(imageArray, frameDuration) {
-        if (this.currentImageArray != imageArray) {
-            this.currentImageArray = imageArray;
-            this.currentImage = 0;
-            this.frameTimer = 0;
-            this.frameDuration = frameDuration;
-        };
+    getFPS() {
         this.frameTimer += this.deltaTime;
         return this.frameTimer;
     };
 
+
     applyGravity() {
-        setInterval(() => {
+        const gravityInterval = 50;
+        this.gravityTimer += this.deltaTime;
+        if (this.gravityTimer >= gravityInterval) {
             if (this instanceof Character) {
                 this.characterGravity();
             } else if (this instanceof ThrowableObject) {
                 this.throwableObjectGravity();
-            };
-        }, 50);
+            }
+            this.gravityTimer = 0;
+        }
     };
 
     drawOffsetBorder(ctx) {

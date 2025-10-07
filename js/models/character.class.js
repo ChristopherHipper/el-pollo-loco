@@ -93,7 +93,6 @@ class Character extends MovableObject {
         this.loadImages(this.deathImages);
         this.loadImages(this.idleImages);
         this.loadImages(this.longIdleImages);
-        this.applyGravity();
     };
 
     update(deltaTime) {
@@ -104,6 +103,7 @@ class Character extends MovableObject {
             this.playAnimation();
             this.bounceBack();
             this.world.level.healthbar.updateHealthbar(this.health);
+            this.applyGravity();
         }; 
     };
 

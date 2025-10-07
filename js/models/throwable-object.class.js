@@ -30,7 +30,6 @@ class ThrowableObject extends MovableObject {
         this.loadImage('assets/img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.splashImages);
         this.loadImages(this.rotateImages);
-        this.applyGravity();
     };
 
     throw(deltaTime, level, throwableBottles) {
@@ -41,6 +40,7 @@ class ThrowableObject extends MovableObject {
         this.hitEndboss();
         this.hitGround();
         this.splash();
+        this.applyGravity();
     };
 
     splash() {
