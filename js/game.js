@@ -46,8 +46,28 @@ function toggleFullscreen() {
 };
 
 function newGame() {
-
+    world = null;
+    console.log('--- NEW GAME START ---');
+    if (world) {
+        console.log('Old world exists -> stopping', world.id);
+    } else {
+        console.log('No world to stop');
+    }
+    level1 = null;
+    
+    document.getElementById('game-over-screen').classList.add('d-none');
+    resetGame();
+    setLevel();
+    canvas = document.getElementById('canvas');
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    world = new World(canvas, keyboard);
 };
+
+function resetGame() {
+    coins = [new Coin(), new Coin(), new Coin(), new Coin(), new Coin(),];
+    bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),];
+    enemies = [new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),];
+}
 
 
 

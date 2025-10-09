@@ -11,7 +11,8 @@ class World {
         this.character = new Character();
         this.throwableBottles = [];
         this.lastThrow = 0;
-        this.gameIsRunning = true;
+        this.id = Math.random().toString(36).substr(2, 5); // eindeutige ID für Debug
+        console.log(`[World ${this.id}] created`);
         this.setWorld();
         this.loop();
     };
@@ -46,26 +47,26 @@ class World {
     };
 
     draw() {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            this.ctx.translate(this.camera_x, 0);
-            this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
-            this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
-            this.addObjectsToMap(this.level.background);
-            this.addObjectsToMap(this.level.coins);
-            this.addObjectsToMap(this.level.bottles);
-            this.addObjectsToMap(this.level.clouds);
-            this.addObjectsToMap(this.level.enemies);
-            this.addObjectsToMap(this.throwableBottles);
-            this.addToMap(this.level.endboss);
-            if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar);
-            this.addToMap(this.character);
-            this.ctx.translate(-this.camera_x, 0);
-            this.addToMap(this.level.healthbar);
-            this.addToMap(this.level.coinbar);
-            this.addToMap(this.level.bottlebar);
-            this.addToMap(this.level.bottlebar);
-            this.ctx.translate(this.camera_x, 0);
-            this.ctx.translate(-this.camera_x, 0);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.translate(this.camera_x, 0);
+        this.level.background.forEach(bg => bg.updateCameraPosition(this.camera_x));
+        this.level.clouds.forEach(cloud => cloud.updateCameraPosition(this.camera_x));
+        this.addObjectsToMap(this.level.background);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.throwableBottles);
+        this.addToMap(this.level.endboss);
+        if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar);
+        this.addToMap(this.character);
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.level.healthbar);
+        this.addToMap(this.level.coinbar);
+        this.addToMap(this.level.bottlebar);
+        this.addToMap(this.level.bottlebar);
+        this.ctx.translate(this.camera_x, 0);
+        this.ctx.translate(-this.camera_x, 0);
     };
 
     addObjectsToMap(objects) {
@@ -147,6 +148,7 @@ class World {
 
     gameOver() {
         cancelAnimationFrame(this.gameLoop);
+        console.log(`[World ${this.id}] stopped`);
         document.getElementById('game-over-screen').classList.remove('d-none');
     };
 
