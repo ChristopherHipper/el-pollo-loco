@@ -2,6 +2,7 @@ class World {
     lastFrameTime = new Date().getTime();
     camera_x;
     gameLoop
+    isRunning = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -11,8 +12,6 @@ class World {
         this.character = new Character();
         this.throwableBottles = [];
         this.lastThrow = 0;
-        this.id = Math.random().toString(36).substr(2, 5); // eindeutige ID für Debug
-        console.log(`[World ${this.id}] created`);
         this.setWorld();
         this.loop();
     };
@@ -25,6 +24,7 @@ class World {
     };
 
     loop() {
+        if (!this.isRunning) return;
         let now = new Date().getTime();
         let deltaTime = now - this.lastFrameTime;
         this.lastFrameTime = now;
@@ -146,14 +146,16 @@ class World {
         };
     };
 
-    gameOver() {
+    gameEnd(state) {
+        if (state === 'win') {
+            document.getElementById('win-screen').classList.remove('d-none');
+        } else {
+            document.getElementById('game-over-screen').classList.remove('d-none');
+        }
+        this.isRunning = false;
         cancelAnimationFrame(this.gameLoop);
-        console.log(`[World ${this.id}] stopped`);
-        document.getElementById('game-over-screen').classList.remove('d-none');
-    };
-
-    gameWin() {
-        cancelAnimationFrame(this.gameLoop);
-        document.getElementById('win-screen').classList.remove('d-none');
-    };
+        console.log(this.character);
+        console.log(this.level);
+        
+    }
 };

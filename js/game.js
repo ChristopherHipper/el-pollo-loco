@@ -46,27 +46,34 @@ function toggleFullscreen() {
 };
 
 function newGame() {
-    world = null;
-    console.log('--- NEW GAME START ---');
-    if (world) {
-        console.log('Old world exists -> stopping', world.id);
-    } else {
-        console.log('No world to stop');
-    }
-    level1 = null;
-    
-    document.getElementById('game-over-screen').classList.add('d-none');
-    resetGame();
+    resetLevel();
     setLevel();
-    canvas = document.getElementById('canvas');
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-    world = new World(canvas, keyboard);
+    document.getElementById('game-over-screen').classList.add('d-none');
 };
 
-function resetGame() {
+
+function resetLevel() {
     coins = [new Coin(), new Coin(), new Coin(), new Coin(), new Coin(),];
     bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),];
     enemies = [new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),];
+    world.level.endboss.health = 100;
+    world.level.endboss.isAlive = true;
+    world.level.endboss.x = 3000;
+    world.level.endboss.y = 60;
+    world.level.endboss.activeBar = false;
+    world.character.health = 100;
+    world.character.isAlive = true;
+    world.character.lastMove = 0;
+    world.character.x = 0;
+    world.character.y = 230;
+    world.character.coins = 0;
+    world.character.bottles = 0;
+    world.level.coinbar.updateCoinBar(coins, null, 0);
+    world.level.bottlebar.updateBottleBar(0);
+    world.isRunning = true;
+    world.camera_x = 100;
+    world.gameLoop = 0;
+    world.gameLoop = requestAnimationFrame(() => world.loop());
 }
 
 
