@@ -154,8 +154,5 @@ class World {
         }
         this.isRunning = false;
         cancelAnimationFrame(this.gameLoop);
-        console.log(this.character);
-        console.log(this.level);
-        
     }
 };

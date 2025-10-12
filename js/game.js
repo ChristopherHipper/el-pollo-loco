@@ -46,35 +46,54 @@ function toggleFullscreen() {
 };
 
 function newGame() {
-    resetLevel();
-    setLevel();
+    resetGame();
     document.getElementById('game-over-screen').classList.add('d-none');
+    world.gameLoop = requestAnimationFrame(() => world.loop());
 };
 
+
+function resetGame() {
+    resetLevel();
+    resetWorld();
+};
+
+function resetWorld() {
+    world.isRunning = true;
+    world.camera_x = 100;
+    world.gameLoop = 0;
+    world.character = new Character();
+    world.setWorld();
+};
 
 function resetLevel() {
     coins = [new Coin(), new Coin(), new Coin(), new Coin(), new Coin(),];
     bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),];
     enemies = [new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),];
-    world.level.endboss.health = 100;
-    world.level.endboss.isAlive = true;
-    world.level.endboss.x = 3000;
-    world.level.endboss.y = 60;
-    world.level.endboss.activeBar = false;
-    world.character.health = 100;
-    world.character.isAlive = true;
-    world.character.lastMove = 0;
-    world.character.x = 0;
-    world.character.y = 230;
-    world.character.coins = 0;
-    world.character.bottles = 0;
-    world.level.coinbar.updateCoinBar(coins, null, 0);
-    world.level.bottlebar.updateBottleBar(0);
-    world.isRunning = true;
-    world.camera_x = 100;
-    world.gameLoop = 0;
-    world.gameLoop = requestAnimationFrame(() => world.loop());
-}
+    world.level = new Level(
+        enemies,
+        [
+            new Cloud('../assets/img/5_background/layers/4_clouds/1.png', 0),
+            new Cloud('../assets/img/5_background/layers/4_clouds/2.png', 720),
+        ],
+        [
+            new Background('../assets/img/5_background/layers/air.png', 0),
+            new Background('../assets/img/5_background/layers/3_third_layer/1.png', 0),
+            new Background('../assets/img/5_background/layers/2_second_layer/1.png', 0),
+            new Background('../assets/img/5_background/layers/1_first_layer/1.png', 0),
+            new Background('../assets/img/5_background/layers/air.png', 720),
+            new Background('../assets/img/5_background/layers/3_third_layer/2.png', 720),
+            new Background('../assets/img/5_background/layers/2_second_layer/2.png', 720),
+            new Background('../assets/img/5_background/layers/1_first_layer/2.png', 720),
+        ],
+        coins,
+        bottles,
+        new Endboss(),
+        new HealthbarCharacter(),
+        new CoinbarCharacter(),
+        new BottlebarCharacter(),
+        new HealthbarEndboss(),
+    );
+};
 
 
 

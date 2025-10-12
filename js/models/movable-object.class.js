@@ -41,8 +41,6 @@ class MovableObject extends DrawableObject {
                 this.isAlive = false;
                 this.y += 2
                 setTimeout(() => {
-                    console.log('komme rein');
-                    
                     if (this instanceof Endboss) this.world.gameEnd('win');
                     if (this instanceof Character) this.world.gameEnd('lose');
                 }, 1200);
