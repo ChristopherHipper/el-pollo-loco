@@ -58,7 +58,6 @@ function resetGame() {
 };
 
 function resetWorld() {
-    world.isRunning = true;
     world.camera_x = 100;
     world.gameLoop = 0;
     world.character = new Character();

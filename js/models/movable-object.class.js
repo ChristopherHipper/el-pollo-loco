@@ -4,6 +4,7 @@ class MovableObject extends DrawableObject {
     gravityTimer = 0;
     frameTimer = 0;
     frameDuration = 100;
+    deathTimerStarted = false;
     width = 720;
     x = 0;
     speedY = 0;
@@ -28,7 +29,7 @@ class MovableObject extends DrawableObject {
     }
 
     resetCooldown() {
-        setTimeout(() => {
+        this.cooldownDelay = setTimeout(() => {
             this.cooldown = false;
             this.hurt = false;
             this.currentImage = 0;
@@ -37,15 +38,21 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         if (this.health <= 0) {
-            setTimeout(() => {
+            if (!this.deathTimerStarted) {
+                this.deathTimer = 0;
+                this.deathTimerStarted = true;
+            }
+            this.deathTimer += this.deltaTime;
+            if (this.deathTimer >= 600) {
                 this.isAlive = false;
-                this.y += 2
-                setTimeout(() => {
-                    if (this instanceof Endboss) this.world.gameEnd('win');
-                    if (this instanceof Character) this.world.gameEnd('lose');
-                }, 1200);
-            }, 600);
-        }
+                this.y += 2;
+            };
+            if (this.deathTimer >= 1200 && !this.deathHandled) {
+                if (this instanceof Endboss) this.world.gameEnd('win');
+                if (this instanceof Character) this.world.gameEnd('lose');
+                this.deathHandled = true;
+            };
+        };
     };
 
     isHurt() {
