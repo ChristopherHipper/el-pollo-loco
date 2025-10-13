@@ -48,7 +48,6 @@ function toggleFullscreen() {
 function newGame() {
     resetGame();
     document.getElementById('game-over-screen').classList.add('d-none');
-    world.gameLoop = requestAnimationFrame(() => world.loop());
 };
 
 
