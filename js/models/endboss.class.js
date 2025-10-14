@@ -74,7 +74,7 @@ class Endboss extends MovableObject {
             this.attack();
             this.characterDetection();
             this.world.level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.world.character);
-             this.world.level.endbossBar.updateEndbossHealthbar(this.health);
+            this.world.level.endbossBar.updateEndbossHealthbar(this.health);
         }
     };
 
@@ -115,7 +115,6 @@ class Endboss extends MovableObject {
             this.startWalking = true;
         }, 1000);
     };
-
 
     characterDetection() {
         const distance = Math.abs(this.world.character.x - this.x);

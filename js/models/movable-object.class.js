@@ -92,7 +92,7 @@ class MovableObject extends DrawableObject {
     };
 
     handelGameEnd() {
-        if (this.deathTimer >= 1200 && !this.deathHandled) {
+        if (this.deathTimer >= 2000 && !this.deathHandled) {
             if (this instanceof Endboss) this.world.gameEnd('win');
             if (this instanceof Character) this.world.gameEnd('lose');
             this.deathHandled = true;

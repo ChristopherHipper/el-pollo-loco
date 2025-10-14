@@ -11,8 +11,12 @@ window.addEventListener('keyup', (e) => {
 });
 
 function startGame() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+    if (world) {
+        resetGame();
+    } else {
+        canvas = document.getElementById('canvas');
+        world = new World(canvas, keyboard);
+    };
     document.getElementById('start-Screen').classList.toggle('d-none');
     document.getElementById('game-ui').classList.toggle('d-none');
 };
@@ -45,11 +49,18 @@ function toggleFullscreen() {
     };
 };
 
+function backToHome() {
+    document.getElementById('game-over-screen').classList.add('d-none');
+    document.getElementById('win-screen').classList.add('d-none');
+    document.getElementById('start-Screen').classList.remove('d-none');
+    document.getElementById('game-ui').classList.add('d-none');
+}
+
 function newGame() {
     resetGame();
     document.getElementById('game-over-screen').classList.add('d-none');
+    document.getElementById('win-screen').classList.add('d-none');
 };
-
 
 function resetGame() {
     resetLevel();
@@ -57,10 +68,12 @@ function resetGame() {
 };
 
 function resetWorld() {
+    world.gameRunning = true;
     world.camera_x = 100;
     world.gameLoop = 0;
     world.character = new Character();
     world.setWorld();
+    world.loop();
 };
 
 function resetLevel() {

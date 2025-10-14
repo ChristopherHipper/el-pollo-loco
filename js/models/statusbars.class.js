@@ -113,7 +113,7 @@ class HealthbarEndboss extends DrawableObject {
         } else {
             this.x = x;
             this.y = y - 20;
-        }
+        };
     };
 
     updateEndbossHealthbar(health) {

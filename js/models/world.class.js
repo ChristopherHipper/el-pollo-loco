@@ -2,6 +2,7 @@ class World {
     lastFrameTime = new Date().getTime();
     camera_x;
     gameLoop;
+    gameRunning = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -23,6 +24,7 @@ class World {
     };
 
     loop() {
+        if (!this.gameRunning) return;
         let now = new Date().getTime();
         let deltaTime = now - this.lastFrameTime;
         this.lastFrameTime = now;
@@ -149,13 +151,8 @@ class World {
             document.getElementById('win-screen').classList.remove('d-none');
         } else {
             document.getElementById('game-over-screen').classList.remove('d-none');
-        }
+        };
         cancelAnimationFrame(this.gameLoop);
-        console.log(this.gameLoop);
-    };
-
-    stopIntervals() {
-        this.intervalIds.push(this.character.jumpDelay, this.character.cooldownDelay, this.character.isDeadDelay, this.character.gameOverDelay, this.level.endboss.cooldownDelay, this.level.endboss.isDeadDelay, this.level.endboss.gameOverDelay, this.level.endboss.walkDelay, this.level.endboss.attackDelay);
-        this.intervalIds.forEach(id => clearInterval(id));
+        this.gameRunning = false;
     };
 };
