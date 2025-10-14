@@ -22,11 +22,6 @@ span {
     color: red;
 }
 
-.border {
-    border: 2px solid black;
-    border-radius: 15px;
-}
-
 p {
     font-size: 30px;
     margin: 0 36px;
