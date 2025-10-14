@@ -14,7 +14,7 @@ class Enemies extends MovableObject {
         this.deltaTime = deltaTime
         this.moveLeft();
         if (this.isAlive) {
-            this.animations(this.walkingImages, 100);
+            this.animations(this.walkingImages, 100, true);
         };
     };
 

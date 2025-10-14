@@ -21,6 +21,6 @@ class Coin extends MovableObject {
 
     moveAnmation(deltaTime) {
         this.deltaTime = deltaTime;
-        this.animations(this.blinkImages,200);
+        this.animations(this.blinkImages,200, true);
     };
 };

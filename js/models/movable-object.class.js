@@ -26,7 +26,7 @@ class MovableObject extends DrawableObject {
         this.cooldown = true;
         this.hurt = true;
         this.health -= this.damage;
-    }
+    };
 
     resetCooldown() {
         this.cooldownDelay = setTimeout(() => {
@@ -34,25 +34,6 @@ class MovableObject extends DrawableObject {
             this.hurt = false;
             this.currentImage = 0;
         }, 1000);
-    };
-
-    isDead() {
-        if (this.health <= 0) {
-            if (!this.deathTimerStarted) {
-                this.deathTimer = 0;
-                this.deathTimerStarted = true;
-            }
-            this.deathTimer += this.deltaTime;
-            if (this.deathTimer >= 600) {
-                this.isAlive = false;
-                this.y += 2;
-            };
-            if (this.deathTimer >= 1200 && !this.deathHandled) {
-                if (this instanceof Endboss) this.world.gameEnd('win');
-                if (this instanceof Character) this.world.gameEnd('lose');
-                this.deathHandled = true;
-            };
-        };
     };
 
     isHurt() {
@@ -101,37 +82,66 @@ class MovableObject extends DrawableObject {
         };
     };
 
-    animations(imageArray, frameDuration) {
-        if (this.currentImageArray != imageArray) {
-            this.currentImageArray = imageArray;
-            this.currentImage = 0;
-            this.frameTimer = 0;
-        }
-        this.getFPS()
-        if (this.frameTimer >= frameDuration) {
-            this.frameTimer = 0;
-            this.currentImage = (this.currentImage + 1) % imageArray.length;
+    isDead() {
+        if (this.health <= 0) {
+            this.initDeathTimer();
+            this.updateDeathTimer();
+            this.handelDeath();
+            this.handelGameEnd();
         };
+    };
+
+    handelGameEnd() {
+        if (this.deathTimer >= 1200 && !this.deathHandled) {
+            if (this instanceof Endboss) this.world.gameEnd('win');
+            if (this instanceof Character) this.world.gameEnd('lose');
+            this.deathHandled = true;
+        };
+    };
+
+    handelDeath() {
+        if (this.deathTimer >= 600) {
+            this.isAlive = false;
+            this.y += 2;
+        };
+    };
+
+    updateDeathTimer() {
+        this.deathTimer += this.deltaTime;
+        return this.deathTimer;
+    };
+
+    initDeathTimer() {
+        if (!this.deathTimerStarted) {
+            this.deathTimer = 0;
+            this.deathTimerStarted = true;
+        };
+    };
+
+    animations(imageArray, frameDuration, loop = true) {
+        this.getCorrectedImageCache(imageArray);
+        this.getFPS();
+        this.handelAnimationFrame(imageArray, frameDuration, loop);
+        this.drawAnimation(imageArray);
+    };
+
+    drawAnimation(imageArray) {
         let path = imageArray[this.currentImage];
         this.img = this.images[path];
     };
 
-    deathAnimation(imageArray, frameDuration) {
+    handelAnimationFrame(imageArray, frameDuration, loop) {
+        if (this.frameTimer >= frameDuration) {
+            this.frameTimer = 0;
+            loop ? this.currentImage = (this.currentImage + 1) % imageArray.length : this.currentImage = this.currentImage + 1;
+        };
+    };
+
+    getCorrectedImageCache(imageArray) {
         if (this.currentImageArray != imageArray) {
             this.currentImageArray = imageArray;
             this.currentImage = 0;
             this.frameTimer = 0;
-        }
-        this.getFPS()
-        if (this.frameTimer >= frameDuration) {
-            this.frameTimer = 0;
-            this.currentImage = this.currentImage + 1;
-        };
-        if (this.currentImage >= imageArray) {
-            return;
-        } else {
-            let path = imageArray[this.currentImage];
-            this.img = this.images[path];
         };
     };
 
@@ -139,7 +149,6 @@ class MovableObject extends DrawableObject {
         this.frameTimer += this.deltaTime;
         return this.frameTimer;
     };
-
 
     applyGravity() {
         const gravityInterval = 50;

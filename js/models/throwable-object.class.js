@@ -45,13 +45,13 @@ class ThrowableObject extends MovableObject {
 
     splash() {
         if (this.splashed) {
-            this.animations(this.splashImages, 50);
+            this.animations(this.splashImages, 50, true);
             setTimeout(() => {
                 this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
                 this.splashed = false;
             }, 100);
         } else {
-            this.animations(this.rotateImages, 50);
+            this.animations(this.rotateImages, 50, true);
         };
     };
 

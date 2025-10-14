@@ -80,15 +80,15 @@ class Endboss extends MovableObject {
 
     playAnimation() {
         if (this.health <= 0) {
-            this.deathAnimation(this.deathImages, 250);
+            this.animations(this.deathImages, 250, false);
         } else if (this.isHurt()) {
-            this.animations(this.hurtImages, 200);
+            this.animations(this.hurtImages, 200, true);
         } else if (this.attackMode) {
-            this.animations(this.attackImages, 150);
+            this.animations(this.attackImages, 150, true);
         } else if (this.startWalking) {
-            this.animations(this.walkingImages, 200);
+            this.animations(this.walkingImages, 200, true);
         }
-        else this.animations(this.standImages, 300);
+        else this.animations(this.standImages, 300, true);
     };
 
     attack() {

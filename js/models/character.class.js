@@ -129,19 +129,19 @@ class Character extends MovableObject {
     };
 
     playAnimation() {
-        if (this.health <= 0) this.deathAnimation(this.deathImages, 150)
-        else if (this.isHurt()) this.animations(this.hurtImages, 100);
-        else if (!this.isAboveGround() && this.world.keyboard.up) this.animations(this.preJumpImages, 100);
-        else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100);
-        else if (this.isAboveGround() && this.isFalling()) this.animations(this.fallImages, 300);
-        else if (this.world.keyboard.right || this.world.keyboard.left) this.animations(this.walkingImages, 100);
-        else if (this.isSleeping()) this.animations(this.longIdleImages, 400);
+        if (this.health <= 0) this.animations(this.deathImages, 150, false)
+        else if (this.isHurt()) this.animations(this.hurtImages, 100, true);
+        else if (!this.isAboveGround() && this.world.keyboard.up) this.animations(this.preJumpImages, 100, true);
+        else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100, true);
+        else if (this.isAboveGround() && this.isFalling()) this.animations(this.fallImages, 300, true);
+        else if (this.world.keyboard.right || this.world.keyboard.left) this.animations(this.walkingImages, 100, true);
+        else if (this.isSleeping()) this.animations(this.longIdleImages, 400, true);
         else {
             if (!this.isIdle) {
                 this.currentImage = 0;
                 this.isIdle = true;
             }
-            this.animations(this.idleImages, 400);
+            this.animations(this.idleImages, 400, true);
         };
     };
 
