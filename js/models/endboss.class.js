@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 60;
+    rageSpeed = 0.8;
     speedX = 0.4;
     attackMode = false;
     startWalking = false;
@@ -62,7 +63,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.attackImages);
         this.loadImages(this.hurtImages);
         this.loadImages(this.deathImages);
-        this.x = 3000;
+        this.x = 4000;
     };
 
     update(deltaTime) {
@@ -111,7 +112,8 @@ class Endboss extends MovableObject {
 
     continueWalking() {
         setTimeout(() => {
-            this.speedX = 0.4;
+            this.speedX += this.rageSpeed;
+            this.rageSpeed += 0.2;
             this.startWalking = true;
         }, 1000);
     };
@@ -122,7 +124,7 @@ class Endboss extends MovableObject {
             this.detected = true;
             this.startWalking = true;
             this.activeBar = true;
-        } else if (distance >= 650) {
+        } else if (distance >= 700) {
             this.detected = false;
             this.startWalking = false;
         };

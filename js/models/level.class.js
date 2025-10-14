@@ -1,5 +1,5 @@
 class Level {
-    levelEndX = 3500;
+    levelEndX = 3450;
     Items = [];
     constructor(enemies, clouds, background, coins, bottles, endboss, healthbar, coinbar, bottlebar, endbossBar) {
         this.enemies = enemies;
@@ -22,7 +22,7 @@ class Level {
     };
 
     positionItems(item) {
-        this.x = Math.random() * (2300 - 230) + 200;
+        this.x = Math.random() * (2300 - 230) + 400;
         this.y = Math.random() * (200 - 60) + 60;
         if (item instanceof Bottle) {
             this.y = 350;
@@ -37,7 +37,7 @@ class Level {
     };
 
     positionEnemies(enemie) {
-        this.x = Math.random() * (2300 - 430) + 430;
+        this.x = Math.random() * (2300 - 430) + 630;
         let checkX = this.enemies.find(e => Math.abs(e.x - this.x) < 150);
         if (checkX) {
             this.positionEnemies(enemie);

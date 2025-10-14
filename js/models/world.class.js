@@ -32,6 +32,7 @@ class World {
         this.checkThrowableObject();
         this.update(deltaTime);
         this.draw();
+        this.openWorld();
 
         this.gameLoop = requestAnimationFrame(() => this.loop());
     };
@@ -143,6 +144,12 @@ class World {
             this.character.bottles--;
             this.level.bottlebar.updateBottleBar(this.character.bottles);
             this.lastThrow = now;
+        };
+    };
+
+    openWorld(){
+        if (this.character.coins == 5) {
+            this.level.levelEndX = 4000;
         };
     };
 
