@@ -1,6 +1,6 @@
 * {
-  margin: 0;
-  box-sizing: border-box;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 h1 {
@@ -57,4 +57,26 @@ button:hover {
 
 .d-none {
     display: none;
+}
+
+@media only screen and (max-width: 720px) {
+    button {
+        font-size: 20px;
+        padding: 10px 20px;
+        height: 40px;
+    }
+
+    h2 {
+        font-size: 46px;
+        margin: 12px;
+    }
+
+    span {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: 24px;
+        margin: 0 36px;
+    }
 }
