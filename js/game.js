@@ -10,6 +10,13 @@ window.addEventListener('keyup', (e) => {
     keyboard.keyLeave(e.code);
 });
 
+window.matchMedia("(orientation: portrait)").addEventListener('change', e => {
+    const portrait = e.matches;
+    if (portrait) {
+        document.getElementById('landscape').classList.remove('d-none');
+    }
+});
+
 function startGame() {
     if (world) {
         resetGame();
