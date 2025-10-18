@@ -33,16 +33,16 @@ class Chicken extends Enemies {
     width = 80;
     y = 345;
     walkingImages = [
-        '../assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        '../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        '../assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
+        'assets/img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
+        'assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
+        'assets/img/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
-    deadImage = '../assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
+    deadImage = 'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png';
 
     constructor() {
         super();
-        this.loadImage('../assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
+        this.loadImage('assets/img/3_enemies_chicken/chicken_normal/1_walk/2_w.png');
         this.loadImages(this.walkingImages);
         this.loadImage(this.deadImage);
     };
@@ -53,16 +53,16 @@ class SmallChicken extends Enemies {
     width = 60;
     y = 360;
     walkingImages = [
-        '../assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        '../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        '../assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
+        'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        'assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        'assets/img/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
-    deadImage = '../assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png';
+    deadImage = 'assets/img/3_enemies_chicken/chicken_small/2_dead/dead.png';
 
     constructor() {
         super();
-        this.loadImage('../assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
+        this.loadImage('assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImage(this.deadImage);
         this.loadImages(this.walkingImages);
     };

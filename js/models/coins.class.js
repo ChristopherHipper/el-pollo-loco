@@ -9,13 +9,13 @@ class Coin extends MovableObject {
     };
 
     blinkImages = [
-        '../assets/img/8_coin/coin_1.png',
-        '../assets/img/8_coin/coin_2.png',
+        'assets/img/8_coin/coin_1.png',
+        'assets/img/8_coin/coin_2.png',
     ];
 
     constructor() {
         super();
-        this.loadImage('../assets/img/8_coin/coin_1.png');
+        this.loadImage('assets/img/8_coin/coin_1.png');
         this.loadImages(this.blinkImages);
     };
 

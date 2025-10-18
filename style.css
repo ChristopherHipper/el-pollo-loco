@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'zabras';
-    src: url('/assets/fonts/zabars.ttf');
+    src: url('assets/fonts/zabars.ttf');
 }
 
 @font-face {
     font-family: 'ranchers';
-    src: url('/assets/fonts/ranchers.ttf');
+    src: url('assets/fonts/ranchers.ttf');
 }
 
 body {
@@ -14,7 +14,7 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background-image: url('./assets/img/background.jpg');
+    background-image: url('assets/img/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
