@@ -10,12 +10,21 @@ window.addEventListener('keyup', (e) => {
     keyboard.keyLeave(e.code);
 });
 
-window.matchMedia("(orientation: portrait)").addEventListener('change', e => {
-    const portrait = e.matches;
-    if (portrait) {
-        document.getElementById('landscape').classList.remove('d-none');
-    }
-});
+function isMobile() {
+    return navigator.maxTouchPoints > 0;
+};
+
+function toggleLandscapeOverlay() {
+    let landscapeVideo = document.getElementById('landscape');
+    if (isMobile() && screen.orientation.type.includes('landscape') || !isMobile() && window.innerWidth > 720) {
+        landscapeVideo.classList.add('d-none');
+        landscapeVideo.pause();
+        landscapeVideo.currentTime = 0;
+    } else {
+        landscapeVideo.classList.remove('d-none');
+        landscapeVideo.play();
+    };
+};
 
 function startGame() {
     if (world) {
