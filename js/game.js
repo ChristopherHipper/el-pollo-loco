@@ -6,6 +6,14 @@ window.addEventListener('keydown', (e) => {
     keyboard.keyPres(e.code);
 });
 
+function mobileTouchStart(key) {
+    keyboard.keyPres(key);
+}
+
+function mobileTouchEnd(key) {
+    keyboard.keyLeave(key);
+}
+
 window.addEventListener('keyup', (e) => {
     keyboard.keyLeave(e.code);
 });

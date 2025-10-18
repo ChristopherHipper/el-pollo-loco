@@ -29,7 +29,7 @@
 </head>
 
 <body onresize="toggleLandscapeOverlay()" onload="setLevel()">
-    <video autoplay loop id="landscape" class="d-none">
+    <video autoplay loop muted playsinline id="landscape" class="d-none">
         <source src="./assets/video/rotate-device.mp4" type="video/mp4">
         <source src="./assets/video/rotate-device.ogg" type="video/ogg">
     </video>
@@ -48,12 +48,12 @@
 
         <div id="game-ui" class="game-ui-mobile">
             <div>
-                <img onclick="" id="" src="./assets/img/mobile-left-arrow.png" alt="left arrow">
-                <img onclick="" id="" src="./assets/img/mobile-right-arrow.png" alt="right arrow">
+                <img ontouchend="mobileTouchEnd('ArrowLeft')" ontouchstart="mobileTouchStart('ArrowLeft')" id="mobile-left" src="./assets/img/mobile-left-arrow.png" alt="left arrow">
+                <img ontouchend="mobileTouchEnd('ArrowRight')" ontouchstart="mobileTouchStart('ArrowRight')" id="mobile-right" src="./assets/img/mobile-right-arrow.png" alt="right arrow">
             </div>
             <div>
-                <img onclick="" id="" src="./assets/img/mobile-up-arrow.png" alt="up arrow">
-                <img onclick="" id="" src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="bottle">
+                <img ontouchend="mobileTouchEnd('ArrowUp')" ontouchstart="mobileTouchStart('ArrowUp')" id="mobile-jump" src="./assets/img/mobile-up-arrow.png" alt="up arrow">
+                <img ontouchend="mobileTouchEnd('Space')" ontouchstart="mobileTouchStart('Space')" id="mobile-throw" src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="bottle">
             </div>
         </div>
 
