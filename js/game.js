@@ -34,7 +34,17 @@ function toggleLandscapeOverlay() {
     };
 };
 
+function handleUIKeys() {
+    let mobileKeys = document.getElementById('game-ui-mobile');
+    if (isMobile()) {
+        mobileKeys.classList.remove('d-none');
+    } else {
+        mobileKeys.classList.add('d-none');
+    };
+};
+
 function startGame() {
+    handleUIKeys();
     if (world) {
         resetGame();
     } else {
@@ -78,6 +88,7 @@ function backToHome() {
     document.getElementById('win-screen').classList.add('d-none');
     document.getElementById('start-Screen').classList.remove('d-none');
     document.getElementById('game-ui').classList.add('d-none');
+    document.getElementById('game-ui-mobile').classList.add('d-none');
 }
 
 function newGame() {
@@ -107,18 +118,18 @@ function resetLevel() {
     world.level = new Level(
         enemies,
         [
-            new Cloud('../assets/img/5_background/layers/4_clouds/1.png', 0),
-            new Cloud('../assets/img/5_background/layers/4_clouds/2.png', 720),
+            new Cloud('assets/img/5_background/layers/4_clouds/1.png', 0),
+            new Cloud('assets/img/5_background/layers/4_clouds/2.png', 720),
         ],
         [
-            new Background('../assets/img/5_background/layers/air.png', 0),
-            new Background('../assets/img/5_background/layers/3_third_layer/1.png', 0),
-            new Background('../assets/img/5_background/layers/2_second_layer/1.png', 0),
-            new Background('../assets/img/5_background/layers/1_first_layer/1.png', 0),
-            new Background('../assets/img/5_background/layers/air.png', 720),
-            new Background('../assets/img/5_background/layers/3_third_layer/2.png', 720),
-            new Background('../assets/img/5_background/layers/2_second_layer/2.png', 720),
-            new Background('../assets/img/5_background/layers/1_first_layer/2.png', 720),
+            new Background('assets/img/5_background/layers/air.png', 0),
+            new Background('assets/img/5_background/layers/3_third_layer/1.png', 0),
+            new Background('assets/img/5_background/layers/2_second_layer/1.png', 0),
+            new Background('assets/img/5_background/layers/1_first_layer/1.png', 0),
+            new Background('assets/img/5_background/layers/air.png', 720),
+            new Background('assets/img/5_background/layers/3_third_layer/2.png', 720),
+            new Background('assets/img/5_background/layers/2_second_layer/2.png', 720),
+            new Background('assets/img/5_background/layers/1_first_layer/2.png', 720),
         ],
         coins,
         bottles,

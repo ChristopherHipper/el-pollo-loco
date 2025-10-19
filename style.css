@@ -154,7 +154,7 @@ canvas {
 .game-ui-mobile {
     position: absolute;
     bottom: 0;
-    display: none;
+    display: flex;
     justify-content: space-between;
     z-index: 1;
     width: 96%;
@@ -248,9 +248,7 @@ canvas {
         top: 40px;
     }
 
-    .game-ui-mobile{
-        display: flex;
-    }
+
 }
 
 @media only screen and (max-height: 480px) {
