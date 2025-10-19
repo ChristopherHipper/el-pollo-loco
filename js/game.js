@@ -35,11 +35,14 @@ function toggleLandscapeOverlay() {
 };
 
 function handleUIKeys() {
+    let mobileUI = document.getElementById('game-ui');
     let mobileKeys = document.getElementById('game-ui-mobile');
     if (isMobile()) {
+        mobileUI.style.top = '40px'
         mobileKeys.classList.remove('d-none');
     } else {
         mobileKeys.classList.add('d-none');
+        mobileUI.style.bottom = '15px';
     };
 };
 
