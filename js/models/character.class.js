@@ -104,21 +104,37 @@ class Character extends MovableObject {
             this.bounceBack();
             this.world.level.healthbar.updateHealthbar(this.health);
             this.applyGravity();
-        }; 
+            this.hanldeSoundEffects();
+        };
     };
 
+    hanldeSoundEffects() {
+        if (this.isJumping()) {
+            soundEffects.jump.play();
+        } else if (this.isMovingLeft() && !this.isAboveGround() || this.isMovingRight() && !this.isAboveGround()) {
+            soundEffects.run.play();
+        } else this.stopSoundEffects();
+    };
+
+    stopSoundEffects(){
+        for (let sound in soundEffects){
+            soundEffects[sound].stop();
+            soundEffects[sound].currentTime = 0;
+        }
+    }
+
     handleInput() {
-        if (this.world.keyboard.right && this.x < this.world.level.levelEndX && !this.isHurt()) {
+        if (this.isMovingRight()) {
             this.moveRight();
             this.mirroring = false;
             this.lastMovement = new Date().getTime();
         };
-        if (this.world.keyboard.left && this.x > -500 && !this.isHurt()) {
+        if (this.isMovingLeft()) {
             this.moveLeft();
             this.mirroring = true;
             this.lastMovement = new Date().getTime();
         };
-        if (this.world.keyboard.up && !this.isAboveGround() && !this.isHurt()) {
+        if (this.isJumping()) {
             setTimeout(() => {
                 this.jump(22);
             }, 80);
@@ -177,5 +193,17 @@ class Character extends MovableObject {
             this.speedY = 0;
             this.y = 230;
         };
+    };
+
+    isMovingRight() {
+        return this.world.keyboard.right && this.x < this.world.level.levelEndX && !this.isHurt();
+    };
+
+    isMovingLeft() {
+        return this.world.keyboard.left && this.x > -500 && !this.isHurt();
+    };
+
+    isJumping() {
+        return this.world.keyboard.up && !this.isAboveGround() && !this.isHurt();
     };
 };

@@ -2,6 +2,17 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
+const soundEffects = {
+    jump: new Audio('assets/audio/jump.wav'),
+    landingNoise: new Audio('assets/audio/landing.wav'),
+    landing: new Audio('assets/audio/landing-on-ground.wav'),
+    run: new Audio('assets/audio/run-gravel.wav'),
+}
+function init() {
+    toggleLandscapeOverlay();
+    setLevel();
+};
+
 window.addEventListener('keydown', (e) => {
     keyboard.keyPres(e.code);
 });
