@@ -109,19 +109,24 @@ class Character extends MovableObject {
     };
 
     hanldeSoundEffects() {
-        if (this.isJumping()) {
+        if (this.isJumping() && !this.isHurt()) {
             soundEffects.jump.play();
-        } else if (this.isMovingLeft() && !this.isAboveGround() || this.isMovingRight() && !this.isAboveGround()) {
+        } else if (this.isMovingLeft() && !this.isAboveGround()  && !this.isHurt() || this.isMovingRight() && !this.isAboveGround()  && !this.isHurt()) {
             soundEffects.run.play();
-        } else this.stopSoundEffects();
-    };
-
-    stopSoundEffects(){
-        for (let sound in soundEffects){
-            soundEffects[sound].stop();
-            soundEffects[sound].currentTime = 0;
+        } else if (this.isHurt() && this.health > 0) {
+            soundEffects.run.pause();
+            soundEffects.hurt.play();
+        } else if (this.health <= 0) {
+            soundEffects.hurt.pause();
+            soundEffects.run.pause();
+            soundEffects.dying.play();
+        } else if (this.isSleeping()) {
+            soundEffects.snoring.play();
         }
-    }
+        else {
+            soundEffects.run.pause();
+        }
+    };
 
     handleInput() {
         if (this.isMovingRight()) {

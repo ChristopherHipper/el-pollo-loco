@@ -7,7 +7,13 @@ const soundEffects = {
     landingNoise: new Audio('assets/audio/landing.wav'),
     landing: new Audio('assets/audio/landing-on-ground.wav'),
     run: new Audio('assets/audio/run-gravel.wav'),
-}
+    hurt: new Audio('assets/audio/hurt.wav'),
+    dying: new Audio('assets/audio/dying.wav'),
+    collect: new Audio('assets/audio/collect.wav'),
+    splash: new Audio('assets/audio/splash.wav'),
+    snoring: new Audio('assets/audio/snoring.wav'),
+};
+
 function init() {
     toggleLandscapeOverlay();
     setLevel();

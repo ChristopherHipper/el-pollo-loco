@@ -124,12 +124,14 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.character.coins++;
                 this.level.coinbar.updateCoinBar(coins, coin, this.character.coins);
+                soundEffects.collect.play();
             };
         });
         bottles.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
                 this.character.bottles++;
                 this.level.bottlebar.addBottleToBar(bottles, bottle, this.character.bottles);
+                soundEffects.collect.play();
             };
         });
     };
