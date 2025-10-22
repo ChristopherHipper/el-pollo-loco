@@ -111,6 +111,7 @@ class World {
         if (!this.character.isColliding(enemy)) {
             return;
         } else if (this.character.isFalling() && enemy.isAlive) {
+            soundEffects.jump.play();
             this.character.jump(22);
             this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
             return;
@@ -122,6 +123,7 @@ class World {
     checkItemCollision(coins, bottles) {
         coins.forEach(coin => {
             if (this.character.isColliding(coin)) {
+                soundEffects.collect.currentTime = 0;
                 this.character.coins++;
                 this.level.coinbar.updateCoinBar(coins, coin, this.character.coins);
                 soundEffects.collect.play();
@@ -129,6 +131,7 @@ class World {
         });
         bottles.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
+                soundEffects.collect.currentTime = 0;
                 this.character.bottles++;
                 this.level.bottlebar.addBottleToBar(bottles, bottle, this.character.bottles);
                 soundEffects.collect.play();

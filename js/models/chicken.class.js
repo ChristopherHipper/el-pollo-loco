@@ -19,6 +19,7 @@ class Enemies extends MovableObject {
     };
 
     chickenDied(enemies, enemy) {
+        this.findSoundEffect(enemy);
         enemy.isAlive = false;
         this.loadImage(this.deadImage);
         this.speedX = 0;
@@ -26,6 +27,14 @@ class Enemies extends MovableObject {
             enemies.splice(enemies.indexOf(enemy), 1);
         }, 1000);
     };
+
+    findSoundEffect(enemy) {
+    if (enemy instanceof Chicken) {
+        soundEffects.normalChicken.play();
+    } else if (enemy instanceof SmallChicken) {
+        soundEffects.smallChicken.play();
+    }
+}
 };
 
 class Chicken extends Enemies {

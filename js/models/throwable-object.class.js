@@ -45,6 +45,7 @@ class ThrowableObject extends MovableObject {
 
     splash() {
         if (this.splashed) {
+            soundEffects.splash.play();
             this.animations(this.splashImages, 50, true);
             setTimeout(() => {
                 this.throwableBottles.splice(this.throwableBottles.indexOf(this), 1);
