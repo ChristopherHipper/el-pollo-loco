@@ -29,8 +29,12 @@ function init() {
     setLevel();
 };
 
+function safeToLocalStorage() {
+    localStorage.setItem('isMuted', JSON.stringify(isMuted));
+};
+
 function getSoundSettingsFromLocalStorage() {
-    isMuted = localStorage.getItem("isMuted")
+    isMuted = JSON.parse(localStorage.getItem('isMuted'));
 };
 
 window.addEventListener('keydown', (e) => {
@@ -39,11 +43,11 @@ window.addEventListener('keydown', (e) => {
 
 function mobileTouchStart(key) {
     keyboard.keyPres(key);
-}
+};
 
 function mobileTouchEnd(key) {
     keyboard.keyLeave(key);
-}
+};
 
 window.addEventListener('keyup', (e) => {
     keyboard.keyLeave(e.code);
@@ -75,7 +79,7 @@ function handleUIKeys() {
         mobileKeys.classList.add('d-none');
         mobileUI.style.bottom = '15px';
     };
-    if (isMuted === 'true') {
+    if (isMuted == 'true') {
         document.getElementById('mute').src = "./assets/img/mute.png";
     } else if (isMuted === 'false') {
         document.getElementById('mute').src = "./assets/img/unmute.png";
@@ -101,8 +105,19 @@ function playGameSound() {
     gameBGMusic.gameBGM.loop = true;
 };
 
+function toggleSound() {
+    isMuted === 'true' ? isMuted = 'false' : isMuted = 'true';
+    if (isMuted === 'true') {
+        document.getElementById('mute').src = "./assets/img/mute.png";
+    } else if (isMuted === 'false') {
+        document.getElementById('mute').src = "./assets/img/unmute.png";
+    };
+    handleSoundSettings();
+    safeToLocalStorage();
+};
+
 function getSound() {
-    if (isMuted === 'false' || isMuted === null) {
+    if (isMuted == 'false' || isMuted == null) {
         isMuted = 'false';
     } else {
         isMuted = 'true';
@@ -110,7 +125,7 @@ function getSound() {
 };
 
 function handleSoundSettings() {
-    if (isMuted === 'true') {
+    if (isMuted == 'true') {
         muteSounds();
     } else {
         playSounds();
@@ -135,16 +150,9 @@ function playSounds() {
     };
 };
 
-function safeToLocalStorage() {
-    localStorage.setItem("isMuted", JSON.stringify(isMuted));
-};
-
 function toggleSettings() {
     document.getElementById('start-Screen').classList.toggle('d-none');
     document.getElementById('settings-screen').classList.toggle('d-none');
-};
-
-function toggleSound() {
 };
 
 function toggleFullscreen() {
@@ -166,7 +174,7 @@ function backToHome() {
     document.getElementById('start-Screen').classList.remove('d-none');
     document.getElementById('game-ui').classList.add('d-none');
     document.getElementById('game-ui-mobile').classList.add('d-none');
-}
+};
 
 function newGame() {
     resetGame();
