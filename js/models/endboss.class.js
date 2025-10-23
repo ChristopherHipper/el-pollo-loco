@@ -74,9 +74,21 @@ class Endboss extends MovableObject {
             this.walking();
             this.attack();
             this.characterDetection();
+            this.hanldeSoundEffects();
             this.world.level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.world.character);
             this.world.level.endbossBar.updateEndbossHealthbar(this.health);
+            
         }
+    };
+
+    hanldeSoundEffects() {
+        if (this.detected) {
+            gameBGMusic.gameBGM.pause();
+            gameBGMusic.bossfightBGM.play();
+        } else {
+            gameBGMusic.bossfightBGM.pause();
+            gameBGMusic.gameBGM.play();
+        };
     };
 
     playAnimation() {
@@ -124,7 +136,7 @@ class Endboss extends MovableObject {
             this.detected = true;
             this.startWalking = true;
             this.activeBar = true;
-        } else if (distance >= 700) {
+        } else if (distance >= 1200) {
             this.detected = false;
             this.startWalking = false;
         };

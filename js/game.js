@@ -102,7 +102,6 @@ function startGame() {
 
 function playGameSound() {
     gameBGMusic.gameBGM.play();
-    gameBGMusic.gameBGM.loop = true;
 };
 
 function toggleSound() {
