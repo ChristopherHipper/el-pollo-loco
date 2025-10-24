@@ -162,11 +162,13 @@ class World {
         if (state === 'win') {
             document.getElementById('win-screen').classList.remove('d-none');
             gameBGMusic.bossfightBGM.volume = 0;
+            gameBGMusic.winBGM.loop = true;
             gameBGMusic.winBGM.play();
         } else {
             document.getElementById('game-over-screen').classList.remove('d-none');
             gameBGMusic.bossfightBGM.volume = 0;
             gameBGMusic.gameBGM.volume = 0;
+            gameBGMusic.loseBGM.loop = true;
             gameBGMusic.loseBGM.play();
         };
         cancelAnimationFrame(this.gameLoop);
