@@ -109,6 +109,7 @@ class Endboss extends MovableObject {
             this.attackMode = true;
             this.world.character.takeHit();
             this.speedX = 0;
+            soundEffects.hurt.play();
             setTimeout(() => {
                 this.attackMode = false;
                 this.speedX = 0.4;

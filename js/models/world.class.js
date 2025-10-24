@@ -117,6 +117,7 @@ class World {
             return;
         } else if (enemy.isAlive) {
             this.character.takeHit();
+            soundEffects.hurt.play();
         };
     };
 
