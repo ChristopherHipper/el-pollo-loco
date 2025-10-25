@@ -151,25 +151,8 @@ canvas {
     cursor: pointer;
 }
 
-.game-ui-mobile {
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    width: 96%;
-    margin: 6px 14px;
-}
-
-.game-ui-mobile img {
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
-
-.game-ui-mobile div {
-    display: flex;
-    gap: 24px;
+.game-ui img:hover {
+    transform: scale(0.9);
 }
 
 .end-game-image {
@@ -202,6 +185,66 @@ canvas {
     z-index: 1;
 }
 
+.pause-screen {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    z-index: 1;
+}
+
+.pause-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: 15px;
+}
+
+.pause-screen-buttons {
+    display: flex;
+    gap: 24px;
+    z-index: 1;
+    align-items: end;
+    margin-bottom: 144px;
+}
+
+.controls {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.controls div {
+    display: flex;
+    gap: 24px;
+}
+
+.mobile-btn {
+    width: 52px;
+    height: 52px;
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.mobile-btn:active {
+    transform: scale(0.9);
+    opacity: 0.8;
+}
+
 @media only screen and (max-width: 720px) {
     main {
         width: 100%;
@@ -222,6 +265,10 @@ canvas {
     }
 
     .end-game-screen::before {
+        border-radius: 0px;
+    }
+
+    .pause-screen::before {
         border-radius: 0px;
     }
 
@@ -248,7 +295,9 @@ canvas {
         top: 40px;
     }
 
-
+    .pause-screen-buttons {
+        margin-bottom: 100px;
+    }
 }
 
 @media only screen and (max-height: 480px) {

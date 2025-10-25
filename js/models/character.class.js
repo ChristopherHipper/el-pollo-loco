@@ -114,7 +114,6 @@ class Character extends MovableObject {
         } else if (this.isMovingLeft() && !this.isAboveGround()  && !this.isHurt() || this.isMovingRight() && !this.isAboveGround()  && !this.isHurt()) {
             soundEffects.run.play();
         } else if (this.health <= 0) {
-            soundEffects.hurt.pause();
             soundEffects.run.pause();
             soundEffects.dying.play();
         } else if (this.isSleeping()) {

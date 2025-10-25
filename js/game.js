@@ -92,7 +92,7 @@ function backToHome() {
     document.getElementById('win-screen').classList.add('d-none');
     document.getElementById('start-Screen').classList.remove('d-none');
     document.getElementById('game-ui').classList.add('d-none');
-    document.getElementById('game-ui-mobile').classList.add('d-none');
+    document.getElementById('pause-screen').classList.add('d-none');
 };
 
 function newGame() {
@@ -100,6 +100,7 @@ function newGame() {
     resetSounds();
     handleSoundSettings();
     playGameSound();
+    handleUIKeys();
     document.getElementById('game-over-screen').classList.add('d-none');
     document.getElementById('win-screen').classList.add('d-none');
 };
@@ -107,6 +108,12 @@ function newGame() {
 function resetGame() {
     resetLevel();
     resetWorld();
+};
+
+function continueGame() {
+    document.getElementById('pause-screen').classList.add('d-none');
+    world.gameRunning = true;
+    world.loop();
 };
 
 function resetWorld() {
@@ -118,36 +125,12 @@ function resetWorld() {
     world.loop();
 };
 
-function resetLevel() {
-    coins = [new Coin(), new Coin(), new Coin(), new Coin(), new Coin(),];
-    bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),];
-    enemies = [new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),];
-    world.level = new Level(
-        enemies,
-        [
-            new Cloud('assets/img/5_background/layers/4_clouds/1.png', 0),
-            new Cloud('assets/img/5_background/layers/4_clouds/2.png', 720),
-        ],
-        [
-            new Background('assets/img/5_background/layers/air.png', 0),
-            new Background('assets/img/5_background/layers/3_third_layer/1.png', 0),
-            new Background('assets/img/5_background/layers/2_second_layer/1.png', 0),
-            new Background('assets/img/5_background/layers/1_first_layer/1.png', 0),
-            new Background('assets/img/5_background/layers/air.png', 720),
-            new Background('assets/img/5_background/layers/3_third_layer/2.png', 720),
-            new Background('assets/img/5_background/layers/2_second_layer/2.png', 720),
-            new Background('assets/img/5_background/layers/1_first_layer/2.png', 720),
-        ],
-        coins,
-        bottles,
-        new Endboss(),
-        new HealthbarCharacter(),
-        new CoinbarCharacter(),
-        new BottlebarCharacter(),
-        new HealthbarEndboss(),
-    );
+function pauseGame() {
+    cancelAnimationFrame(world.gameLoop);
+    world.gameRunning = false;
+    resetSounds();
+    document.getElementById('pause-screen').classList.remove('d-none');
 };
-
 
 
 

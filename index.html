@@ -34,6 +34,31 @@
         <source src="./assets/video/rotate-device.mp4" type="video/mp4">
         <source src="./assets/video/rotate-device.ogg" type="video/ogg">
     </video>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <defs>
+            <filter id="soft-blur" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2.5" result="blur" />
+            </filter>
+        </defs>
+        <symbol id="btn-left" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.12)" filter="url(#soft-blur)" />
+            <circle cx="32" cy="32" r="29" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />
+            <path d="M38 20 L24 32 L38 44" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="4"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="btn-right" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.12)" filter="url(#soft-blur)" />
+            <circle cx="32" cy="32" r="29" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />
+            <path d="M26 20 L40 32 L26 44" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="4"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+        <symbol id="btn-jump" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="30" fill="rgba(255,255,255,0.12)" filter="url(#soft-blur)" />
+            <circle cx="32" cy="32" r="29" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" />
+            <path d="M32 44 L32 22 M22 32 L32 22 L42 32" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="4"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </symbol>
+    </svg>
 
     <header>
         <h1>El pollo loco</h1>
@@ -43,19 +68,31 @@
         <canvas class="border" id="canvas" width="720px" height="480px"></canvas>
 
         <div id="game-ui" class="game-ui d-none">
+            <img onclick="pauseGame()" id="pause" src="./assets/img/pause.png" alt="pause image">
             <img onclick="toggleSound()" id="mute" src="" alt="mute image">
             <img onclick="toggleFullscreen()" id="fullscreen" src="./assets/img/fullscreen.png" alt="mute image">
         </div>
 
-        <div id="game-ui-mobile" class="game-ui-mobile d-none">
+        <div id="game-ui-mobile" class="controls d-none">
             <div>
-                <img ontouchend="mobileTouchEnd('ArrowLeft')" ontouchstart="mobileTouchStart('ArrowLeft')" id="mobile-left" src="./assets/img/mobile-left-arrow.png" alt="left arrow">
-                <img ontouchend="mobileTouchEnd('ArrowRight')" ontouchstart="mobileTouchStart('ArrowRight')" id="mobile-right" src="./assets/img/mobile-right-arrow.png" alt="right arrow">
+                <svg ontouchend="mobileTouchEnd('ArrowLeft')" ontouchstart="mobileTouchStart('ArrowLeft')"
+                    id="mobile-left" class="mobile-btn">
+                    <use href="#btn-left" />
+                </svg>
+                <svg ontouchend="mobileTouchEnd('ArrowRight')" ontouchstart="mobileTouchStart('ArrowRight')"
+                    id="mobile-right" class="mobile-btn">
+                    <use href="#btn-right" />
+                </svg>
             </div>
             <div>
-                <img ontouchend="mobileTouchEnd('ArrowUp')" ontouchstart="mobileTouchStart('ArrowUp')" id="mobile-jump" src="./assets/img/mobile-up-arrow.png" alt="up arrow">
-                <img ontouchend="mobileTouchEnd('Space')" ontouchstart="mobileTouchStart('Space')" id="mobile-throw" src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="bottle">
+                <svg ontouchend="mobileTouchEnd('ArrowUp')" ontouchstart="mobileTouchStart('ArrowUp')" id="mobile-jump"
+                    class="mobile-btn">
+                    <use href="#btn-jump" />
+                </svg>
+                <img class="mobile-btn" ontouchend="mobileTouchEnd('Space')" ontouchstart="mobileTouchStart('Space')"
+                    id="mobile-throw" src="./assets/img/6_salsa_bottle/salsa_bottle.png" alt="bottle">
             </div>
+
         </div>
 
         <div id="start-Screen" class="height-widht start-screen">
@@ -65,6 +102,15 @@
                 <button onclick="startGame()">Start Game</button>
                 <button onclick="toggleSettings()">How to Play</button>
             </div>
+        </div>
+
+        <div id="pause-screen" class="height-widht pause-screen d-none">
+            <img class="border background-image" src="./assets/img/pause-bgm.png" alt="pasue-Background-Image">
+            <div class="pause-screen-buttons"> 
+                <button onclick="continueGame()">Contiune</button>
+                <button onclick="backToHome()" class="back-button">Back to Startscreen</button>
+            </div>
+
         </div>
 
         <div id="settings-screen" class="height-widht settings-screen d-none">
@@ -99,9 +145,7 @@
                 <div>
                     <button onclick="toggleSettings()" class="back-button">Back to Startscreen</button>
                 </div>
-
             </div>
-
         </div>
 
         <div id="game-over-screen" class="end-game-screen height-widht d-none">
