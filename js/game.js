@@ -3,9 +3,9 @@ let world;
 let keyboard = new Keyboard();
 
 function init() {
+    initLandscapeOverlay();
     getSoundSettingsFromLocalStorage();
     getSound();
-    toggleLandscapeOverlay();
     setLevel();
 };
 
@@ -29,17 +29,47 @@ function isMobile() {
     return navigator.maxTouchPoints > 0;
 };
 
+function stopLandScapeVideo(landscapeVideo) {
+    landscapeVideo.classList.add('d-none');
+    landscapeVideo.pause();
+    landscapeVideo.currentTime = 0;
+};
+
+function playLandScapeVideo(landscapeVideo) {
+    landscapeVideo.classList.remove('d-none');
+    landscapeVideo.play();
+}
+
+function initLandscapeOverlay() {
+    let landscapeVideo = document.getElementById('landscape');
+    if (isMobile() && screen.orientation.type.includes('landscape') || !isMobile() && window.innerWidth > 720) {
+        stopLandScapeVideo(landscapeVideo);
+    } else {
+        playLandScapeVideo(landscapeVideo);
+    };
+};
+
 function toggleLandscapeOverlay() {
     let landscapeVideo = document.getElementById('landscape');
     if (isMobile() && screen.orientation.type.includes('landscape') || !isMobile() && window.innerWidth > 720) {
-        landscapeVideo.classList.add('d-none');
-        landscapeVideo.pause();
-        landscapeVideo.currentTime = 0;
+        stopLandScapeVideo(landscapeVideo)
+        initMobileUI();
     } else {
-        landscapeVideo.classList.remove('d-none');
-        landscapeVideo.play();
+        playLandScapeVideo(landscapeVideo);
+        world ? pauseGame() : 'default';
     };
 };
+
+function initMobileUI() {
+    let mobileUI = document.getElementById('game-ui-mobile');
+    if (!world || world && !world.gameRunning) {
+        mobileUI.classList.add('d-none');
+    } else if (isMobile()) {
+        mobileUI.classList.remove('d-none');
+    } else {
+        mobileUI.classList.add('d-none');
+    }
+}
 
 function handleUIKeys() {
     let mobileUI = document.getElementById('game-ui');
@@ -112,6 +142,7 @@ function resetGame() {
 
 function continueGame() {
     document.getElementById('pause-screen').classList.add('d-none');
+    isMobile() ? document.getElementById('game-ui-mobile').classList.remove('d-none') : 'default';
     world.gameRunning = true;
     world.loop();
 };
@@ -130,6 +161,7 @@ function pauseGame() {
     world.gameRunning = false;
     resetSounds();
     document.getElementById('pause-screen').classList.remove('d-none');
+    document.getElementById('game-ui-mobile').classList.add('d-none');
 };
 
 
