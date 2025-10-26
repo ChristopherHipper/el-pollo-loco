@@ -245,6 +245,29 @@ canvas {
     opacity: 0.8;
 }
 
+.menu{
+    width: 38x;
+    height: 38px;
+    z-index: 999;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 18px;
+}
+
+.menu:hover {
+    transform: scale(1.1);
+}
+
+.impressum-content{
+    position: absolute;
+    top: 5px;
+    right: 4px;
+    z-index: 1;
+    overflow-y: scroll;
+    height: 98%
+}
+
 @media only screen and (max-width: 720px) {
     main {
         width: 100%;

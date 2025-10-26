@@ -174,6 +174,12 @@ function pauseGame() {
     document.getElementById('mobile-controls').classList.add('d-none');
 };
 
+function toggleImpressum(){
+    document.getElementById('impressum-content').scrollTop = 0;
+    document.getElementById('start-Screen').classList.toggle('d-none');
+    document.getElementById('impressum').classList.toggle('d-none');
+}
+
 
 
 
