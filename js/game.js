@@ -38,30 +38,39 @@ function stopLandScapeVideo(landscapeVideo) {
 function playLandScapeVideo(landscapeVideo) {
     landscapeVideo.classList.remove('d-none');
     landscapeVideo.play();
-}
+};
 
 function initLandscapeOverlay() {
-    let landscapeVideo = document.getElementById('landscape');
-    if (isMobile() && screen.orientation.type.includes('landscape') || !isMobile() && window.innerWidth > 720) {
+    const landscapeVideo = document.getElementById('landscape');
+    const mobile = isMobile();
+    const landscapeOrientation = screen.orientation.type.includes('landscape');
+    if (mobile && landscapeOrientation || !mobile && window.innerWidth > 720) {
         stopLandScapeVideo(landscapeVideo);
     } else {
         playLandScapeVideo(landscapeVideo);
     };
 };
 
-function toggleLandscapeOverlay() {
-    let landscapeVideo = document.getElementById('landscape');
-    if (isMobile() && screen.orientation.type.includes('landscape') || !isMobile() && window.innerWidth > 720) {
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+async function toggleLandscapeOverlay() {
+    const landscapeVideo = document.getElementById('landscape');
+    const mobile = isMobile();
+    const landscapeOrientation = screen.orientation.type.includes('landscape')
+    await delay(100);
+    if (mobile && !landscapeOrientation || !mobile && window.innerWidth < 720) {
+        playLandScapeVideo(landscapeVideo);
+        pauseGame();
+    } else {
         stopLandScapeVideo(landscapeVideo)
         initMobileUI();
-    } else {
-        playLandScapeVideo(landscapeVideo);
-        world ? pauseGame() : 'default';
     };
 };
 
 function initMobileUI() {
-    let mobileUI = document.getElementById('game-ui-mobile');
+    const mobileUI = document.getElementById('game-ui-mobile');
     if (!world || world && !world.gameRunning) {
         mobileUI.classList.add('d-none');
     } else if (isMobile()) {
@@ -72,8 +81,8 @@ function initMobileUI() {
 }
 
 function handleUIKeys() {
-    let mobileUI = document.getElementById('game-ui');
-    let mobileKeys = document.getElementById('game-ui-mobile');
+    const mobileUI = document.getElementById('game-ui');
+    const mobileKeys = document.getElementById('game-ui-mobile');
     if (isMobile()) {
         mobileUI.style.top = '40px'
         mobileKeys.classList.remove('d-none');
