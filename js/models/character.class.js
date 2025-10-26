@@ -7,7 +7,6 @@ class Character extends MovableObject {
     lastMovement = new Date().getTime();
     coins = 0;
     bottles = 0;
-
     offset = {
         top: 80,
         width: 30,

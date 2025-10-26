@@ -70,7 +70,7 @@ async function toggleLandscapeOverlay() {
 };
 
 function initMobileUI() {
-    const mobileUI = document.getElementById('game-ui-mobile');
+    const mobileUI = document.getElementById('mobile-controls');
     if (!world || world && !world.gameRunning) {
         mobileUI.classList.add('d-none');
     } else if (isMobile()) {
@@ -82,7 +82,7 @@ function initMobileUI() {
 
 function handleUIKeys() {
     const mobileUI = document.getElementById('game-ui');
-    const mobileKeys = document.getElementById('game-ui-mobile');
+    const mobileKeys = document.getElementById('mobile-controls');
     if (isMobile()) {
         mobileUI.style.top = '40px'
         mobileKeys.classList.remove('d-none');
@@ -151,7 +151,7 @@ function resetGame() {
 
 function continueGame() {
     document.getElementById('pause-screen').classList.add('d-none');
-    isMobile() ? document.getElementById('game-ui-mobile').classList.remove('d-none') : 'default';
+    isMobile() ? document.getElementById('mobile-controls').classList.remove('d-none') : 'default';
     world.gameRunning = true;
     world.loop();
 };
@@ -166,11 +166,12 @@ function resetWorld() {
 };
 
 function pauseGame() {
+    if (!world) return;
     cancelAnimationFrame(world.gameLoop);
     world.gameRunning = false;
     resetSounds();
     document.getElementById('pause-screen').classList.remove('d-none');
-    document.getElementById('game-ui-mobile').classList.add('d-none');
+    document.getElementById('mobile-controls').classList.add('d-none');
 };
 
 

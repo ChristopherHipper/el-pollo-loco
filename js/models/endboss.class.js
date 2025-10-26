@@ -150,7 +150,7 @@ class Endboss extends MovableObject {
         if (this.health <= 0) {
             this.isDead();
             return;
-        }
+        };
         this.resetCooldown();
         this.continueWalking();
     };
