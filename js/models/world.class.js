@@ -172,7 +172,7 @@ class World {
             gameBGMusic.loseBGM.loop = true;
             gameBGMusic.loseBGM.play();
         };
-        document.getElementById('game-ui-mobile').classList.add('d-none');
+        document.getElementById('mobile-controls').classList.add('d-none');
         cancelAnimationFrame(this.gameLoop);
         this.gameRunning = false;
     };

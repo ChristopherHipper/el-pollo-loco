@@ -17,6 +17,7 @@ const soundEffects = {
     snoring: new Audio('assets/audio/snoring.wav'),
     normalChicken: new Audio('assets/audio/normal-chicken-dying.wav'),
     smallChicken: new Audio('assets/audio/small-chicken-dying.wav'),
+    endbossHurt: new Audio('assets/audio/endboss-hurt.wav'),
 };
 
 function safeToLocalStorage() {

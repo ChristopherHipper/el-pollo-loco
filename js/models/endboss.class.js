@@ -77,11 +77,17 @@ class Endboss extends MovableObject {
             this.hanldeSoundEffects();
             this.world.level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.world.character);
             this.world.level.endbossBar.updateEndbossHealthbar(this.health);
-            
+
         }
     };
 
     hanldeSoundEffects() {
+        if (this.health <= 0) {
+            soundEffects.endbossHurt.play();
+        };
+        if (this.isHurt() && this.health > 0) {
+            soundEffects.endbossHurt.play();
+        };
         if (this.detected) {
             gameBGMusic.gameBGM.pause();
             gameBGMusic.bossfightBGM.play();
