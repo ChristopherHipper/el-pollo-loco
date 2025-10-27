@@ -49,8 +49,11 @@ canvas {
 
 .background-image {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: 0;
 }
 
 .start-screen-buttons {
@@ -64,10 +67,6 @@ canvas {
     position: absolute;
     top: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
     color: #ffcc00;
     z-index: 1;
 }
@@ -83,12 +82,14 @@ canvas {
 }
 
 .settings-content {
+    position: relative;
     z-index: 1;
-    position: absolute;
-    text-align: center;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    justify-content: center;
+    align-items: center;
 }
 
 .back-button {
@@ -213,7 +214,7 @@ canvas {
 }
 
 .controls {
-    position: fixed;
+    position: absolute;
     bottom: 10px;
     left: 0;
     right: 0;
@@ -245,7 +246,7 @@ canvas {
     opacity: 0.8;
 }
 
-.menu{
+.menu {
     width: 38x;
     height: 38px;
     z-index: 999;
@@ -259,13 +260,24 @@ canvas {
     transform: scale(1.1);
 }
 
-.impressum-content{
+.impressum-content {
     position: absolute;
     top: 5px;
     right: 4px;
     z-index: 1;
     overflow-y: scroll;
     height: 98%
+}
+
+@media only screen and (max-width: 950px) {
+    .key-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .space{
+        width: 50px;
+    }
 }
 
 @media only screen and (max-width: 720px) {
@@ -300,8 +312,8 @@ canvas {
     }
 
     .key-icon {
-        width: 40px;
-        height: 40px;
+        width: 38px;
+        height: 38px;
     }
 
     .end-game-image {
