@@ -73,7 +73,6 @@ class ThrowableObject extends MovableObject {
 
     hitEndboss() {
         if (this.isColliding(this.level.endboss)) {
-            //soundEffects.endbossHurt.play();
             this.level.endboss.takeHit();
             this.splashed = true;
         };

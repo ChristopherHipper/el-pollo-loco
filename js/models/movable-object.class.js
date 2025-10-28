@@ -29,9 +29,11 @@ class MovableObject extends DrawableObject {
     };
 
     resetCooldown() {
+        this.hurtDelay = setTimeout(() => {
+            this.hurt = false;
+        }, 500);
         this.cooldownDelay = setTimeout(() => {
             this.cooldown = false;
-            this.hurt = false;
             this.currentImage = 0;
         }, 1000);
     };
@@ -163,7 +165,7 @@ class MovableObject extends DrawableObject {
         }
     };
 
-    drawOffsetBorder(ctx) {
+/*     drawOffsetBorder(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
             ctx.beginPath();
             ctx.strokeStyle = 'red';
@@ -171,5 +173,5 @@ class MovableObject extends DrawableObject {
             ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.width, this.height - this.offset.top - this.offset.height);
             ctx.stroke();
         };
-    };
+    }; */
 };

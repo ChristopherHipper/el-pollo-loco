@@ -1,7 +1,7 @@
 let level1;
 let coins = [new Coin(), new Coin(), new Coin(), new Coin(), new Coin(),];
-let bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),];
-let enemies = [new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),];
+let bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),new Bottle(), new Bottle(), new Bottle()];
+let enemies = [new Chicken(), new Chicken(), new Chicken(),new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),new SmallChicken(), new SmallChicken(), new SmallChicken(),];
 
 function setLevel() {
     level1 = new Level(
@@ -32,8 +32,8 @@ function setLevel() {
 
 function resetLevel() {
     coins = [new Coin(), new Coin(), new Coin(), new Coin(), new Coin(),];
-    bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),];
-    enemies = [new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),];
+    bottles = [new Bottle(), new Bottle(), new Bottle(), new Bottle(), new Bottle(),new Bottle(),new Bottle(),new Bottle()];
+    enemies = [new Chicken(), new Chicken(), new Chicken(),new Chicken(), new Chicken(), new Chicken(), new SmallChicken(), new SmallChicken(), new SmallChicken(),new SmallChicken(), new SmallChicken(), new SmallChicken(),];
     world.level = new Level(
         enemies,
         [

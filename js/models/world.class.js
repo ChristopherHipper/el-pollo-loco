@@ -33,7 +33,6 @@ class World {
         this.update(deltaTime);
         this.draw();
         this.openWorld();
-
         this.gameLoop = requestAnimationFrame(() => this.loop());
     };
 
@@ -79,8 +78,7 @@ class World {
     addToMap(object) {
         if (object.mirroring) this.mirrorImage(object);
         object.draw(this.ctx);
-        if (typeof object.drawBorder === 'function') object.drawBorder(this.ctx);
-        if (typeof object.drawOffsetBorder === 'function') object.drawOffsetBorder(this.ctx);
+        //if (typeof object.drawOffsetBorder === 'function') object.drawOffsetBorder(this.ctx);
         if (object.mirroring) this.mirrorImageBack(object);
     };
 
@@ -116,8 +114,8 @@ class World {
             this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
             return;
         } else if (enemy.isAlive) {
+            if (!this.character.cooldown) soundEffects.hurt.play()
             this.character.takeHit();
-            soundEffects.hurt.play();
         };
     };
 
@@ -132,6 +130,7 @@ class World {
         });
         bottles.forEach(bottle => {
             if (this.character.isColliding(bottle)) {
+                if (this.character.bottles === 5) return
                 soundEffects.collect.currentTime = 0;
                 this.character.bottles++;
                 this.level.bottlebar.addBottleToBar(bottles, bottle, this.character.bottles);
@@ -153,7 +152,7 @@ class World {
         };
     };
 
-    openWorld(){
+    openWorld() {
         if (this.character.coins == 5) {
             this.level.levelEndX = 4000;
         };
@@ -162,18 +161,26 @@ class World {
     gameEnd(state) {
         if (state === 'win') {
             document.getElementById('win-screen').classList.remove('d-none');
+            this.endGameAudio(state);
+        } else {
+            document.getElementById('game-over-screen').classList.remove('d-none');
+            this.endGameAudio(state);
+        };
+        document.getElementById('mobile-controls').classList.add('d-none');
+        cancelAnimationFrame(this.gameLoop);
+        this.gameRunning = false;
+    };
+
+    endGameAudio(state) {
+        if (state === 'win') {
             gameBGMusic.bossfightBGM.volume = 0;
             gameBGMusic.winBGM.loop = true;
             gameBGMusic.winBGM.play();
         } else {
-            document.getElementById('game-over-screen').classList.remove('d-none');
             gameBGMusic.bossfightBGM.volume = 0;
             gameBGMusic.gameBGM.volume = 0;
             gameBGMusic.loseBGM.loop = true;
             gameBGMusic.loseBGM.play();
         };
-        document.getElementById('mobile-controls').classList.add('d-none');
-        cancelAnimationFrame(this.gameLoop);
-        this.gameRunning = false;
     };
 };

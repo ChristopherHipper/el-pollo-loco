@@ -13,11 +13,13 @@ window.addEventListener('keydown', (e) => {
     keyboard.keyPres(e.code);
 });
 
-function mobileTouchStart(key) {
+function mobileTouchStart(key, e) {
+    e.preventDefault();
     keyboard.keyPres(key);
 };
 
-function mobileTouchEnd(key) {
+function mobileTouchEnd(key, e) {
+    e.preventDefault();
     keyboard.keyLeave(key);
 };
 
@@ -166,7 +168,7 @@ function resetWorld() {
 };
 
 function pauseGame() {
-    if (!world) return;
+    if (!world || !world.gameRunning) return;
     cancelAnimationFrame(world.gameLoop);
     world.gameRunning = false;
     resetSounds();
@@ -178,7 +180,7 @@ function toggleImpressum(){
     document.getElementById('impressum-content').scrollTop = 0;
     document.getElementById('start-Screen').classList.toggle('d-none');
     document.getElementById('impressum').classList.toggle('d-none');
-}
+};
 
 
 

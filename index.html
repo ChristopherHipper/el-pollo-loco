@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>El pollo loco</title>
     <link rel="shortcut icon" href="./assets/img/sombrero.png" type="image/x-icon">
     <link rel="stylesheet" href="./style.css">
@@ -51,21 +51,21 @@
 
         <div id="mobile-controls" class="controls d-none">
             <div>
-                <svg ontouchend="mobileTouchEnd('ArrowLeft')" ontouchstart="mobileTouchStart('ArrowLeft')"
+                <svg ontouchend="mobileTouchEnd('ArrowLeft', event)" ontouchstart="mobileTouchStart('ArrowLeft', event)"
                     id="mobile-left" class="mobile-btn">
                     <use href="#btn-left" />
                 </svg>
-                <svg ontouchend="mobileTouchEnd('ArrowRight')" ontouchstart="mobileTouchStart('ArrowRight')"
+                <svg ontouchend="mobileTouchEnd('ArrowRight', event)" ontouchstart="mobileTouchStart('ArrowRight', event)"
                     id="mobile-right" class="mobile-btn">
                     <use href="#btn-right" />
                 </svg>
             </div>
             <div>
-                <svg ontouchend="mobileTouchEnd('ArrowUp')" ontouchstart="mobileTouchStart('ArrowUp')" id="mobile-jump"
+                <svg ontouchend="mobileTouchEnd('ArrowUp', event)" ontouchstart="mobileTouchStart('ArrowUp', event)" id="mobile-jump"
                     class="mobile-btn">
                     <use href="#btn-jump" />
                 </svg>
-                <svg ontouchend="mobileTouchEnd('Space')" ontouchstart="mobileTouchStart('Space')" id="mobile-throw"
+                <svg ontouchend="mobileTouchEnd('Space', event)" ontouchstart="mobileTouchStart('Space', event)" id="mobile-throw"
                     class="mobile-btn">
                     <use href="#btn-throw" />
                 </svg>

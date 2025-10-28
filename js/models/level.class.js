@@ -22,7 +22,7 @@ class Level {
     };
 
     positionItems(item) {
-        this.x = Math.random() * (2300 - 230) + 400;
+        this.x = Math.random() * (3500 - 230) + 400;
         this.y = Math.random() * (200 - 60) + 60;
         if (item instanceof Bottle) {
             this.y = 350;
@@ -37,7 +37,7 @@ class Level {
     };
 
     positionEnemies(enemie) {
-        this.x = Math.random() * (2300 - 430) + 630;
+        this.x = Math.random() * (3500 - 430) + 630;
         let checkX = this.enemies.find(e => Math.abs(e.x - this.x) < 150);
         if (checkX) {
             this.positionEnemies(enemie);

@@ -18,6 +18,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    touch-action: none;
 }
 
 main {
@@ -224,6 +225,7 @@ canvas {
     padding: 0 24px;
     pointer-events: none;
     z-index: 1000;
+    touch-action: none;
 }
 
 .controls div {
@@ -239,6 +241,8 @@ canvas {
     user-select: none;
     cursor: pointer;
     transition: transform 0.1s ease, opacity 0.1s ease;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 .mobile-btn:active {
@@ -275,7 +279,7 @@ canvas {
         height: 40px;
     }
 
-    .space{
+    .space {
         width: 50px;
     }
 }
