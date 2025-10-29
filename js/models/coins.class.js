@@ -19,6 +19,15 @@ class Coin extends MovableObject {
         this.loadImages(this.blinkImages);
     };
 
+    /**
+     * Update animation timing and advance the blink animation.
+     *
+     * Stores the provided delta time on the instance and invokes the instance
+     * animation routine for blinkImages using a frame duration of 200ms and
+     * looping enabled.
+     *
+     * @param {number} deltaTime - Time elapsed since the last update (in milliseconds).
+     */
     moveAnmation(deltaTime) {
         this.deltaTime = deltaTime;
         this.animations(this.blinkImages,200, true);

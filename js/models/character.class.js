@@ -94,6 +94,15 @@ class Character extends MovableObject {
         this.loadImages(this.longIdleImages);
     };
 
+    /**
+     * Update the character for the current frame.
+     *
+     * Performs a death check and, if the character remains alive, advances
+     * the character's state for this frame: records the delta time,
+     * handles player input, updates animations, resolves bounce-back logic,
+     * updates the level healthbar, applies gravity, and plays relevant sound effects.
+     * @param {number} deltaTime - Time elapsed since the last update (in milliseconds).
+     */
     update(deltaTime) {
         this.isDead();
         if (this.isAlive) {
@@ -107,19 +116,33 @@ class Character extends MovableObject {
         };
     };
 
+    /**
+     * handles sound effects based on the character's current state.
+     *
+     * Checks states in priority order and triggers the appropriate sounds via the external
+     * `soundEffects` object (expected to contain audio controls with `play()` / `pause()`):
+     */
     hanldeSoundEffects() {
         if (this.isJumping() && !this.isHurt()) {
             soundEffects.jump.play();
-        } else if (this.isMovingLeft() && !this.isAboveGround()  && !this.isHurt() || this.isMovingRight() && !this.isAboveGround()  && !this.isHurt()) {
+        } else if (this.isMovingLeft() && !this.isAboveGround() && !this.isHurt() || this.isMovingRight() && !this.isAboveGround() && !this.isHurt()) {
             soundEffects.run.play();
         } else if (this.health <= 0) {
             soundEffects.run.pause();
             soundEffects.dying.play();
-        } else if (this.isSleeping()) {soundEffects.snoring.play();
-        } else if (this.isFalling() && this.y > 200 ) {soundEffects.landing.play();
-        } else {soundEffects.run.pause();};
+        } else if (this.isSleeping()) {
+            soundEffects.snoring.play();
+        } else if (this.isFalling() && this.y > 200) {
+            soundEffects.landing.play();
+        } else { soundEffects.run.pause(); };
     };
 
+    /**
+     * Handle current input state and update the character accordingly.
+     *
+     * Evaluates movement and jump input flags and triggers the corresponding
+     * actions and side effects:
+     */
     handleInput() {
         if (this.isMovingRight()) {
             this.moveRight();
@@ -141,8 +164,16 @@ class Character extends MovableObject {
         };
     };
 
+    /**
+     * Selects and plays the appropriate animation for the character based on its current state.
+     *
+     * Delegates rendering to this.animations(imagesArray, frameDurationMs, loopBoolean).
+     *
+     * Intended usage:
+     *  - Called each update/frame to keep the visible animation in sync with the character state.
+    */
     playAnimation() {
-        if (this.health <= 0) this.animations(this.deathImages, 150, false)
+        if (this.health <= 0) this.animations(this.deathImages, 150, false);
         else if (this.isHurt()) this.animations(this.hurtImages, 100, true);
         else if (!this.isAboveGround() && this.world.keyboard.up) this.animations(this.preJumpImages, 100, true);
         else if (this.isAboveGround() && !this.isFalling()) this.animations(this.jumpingImages, 100, true);
@@ -153,11 +184,18 @@ class Character extends MovableObject {
             if (!this.isIdle) {
                 this.currentImage = 0;
                 this.isIdle = true;
-            }
+            };
             this.animations(this.idleImages, 400, true);
         };
     };
 
+    /**
+     * Handle the character taking a hit.
+     *
+     * If the character is currently in a cooldown state, this method returns early and does nothing.
+     * Otherwise it applies damage, applies a bounce effect and bounce-back behavior, updates the
+     * last movement timestamp, and starts the hit cooldown.
+     */
     takeHit() {
         if (this.cooldown) return;
         this.takeDamage();
@@ -167,6 +205,13 @@ class Character extends MovableObject {
         this.resetCooldown();
     };
 
+    /**
+     * Applies a horizontal "bounce back" displacement to the character based on current keyboard input.
+     *
+     * Relies on:
+     * - this.world.keyboard.left, this.world.keyboard.right
+     * - this.x, this.bounce, this.acceleration
+     */
     bounceBack() {
         if (this.world.keyboard.right || !this.world.keyboard.right && !this.world.keyboard.left) {
             this.x -= this.bounce;
@@ -182,6 +227,12 @@ class Character extends MovableObject {
         };
     };
 
+    /**
+     * Apply gravity to the character by updating vertical position and velocity each frame.
+     *
+     * If the character is above the ground or currently moving upward (speedY > 0),
+     * the method moves the character vertically by speedY and then updates speedY
+     */
     characterGravity() {
         if (this.isAboveGround() || this.speedY > 0) {
             this.y -= this.speedY;
@@ -192,14 +243,29 @@ class Character extends MovableObject {
         };
     };
 
+    /**
+     * Determine whether the character should move to the right.
+     *
+     * @returns {boolean} True if the character can move right, otherwise false.
+     */
     isMovingRight() {
         return this.world.keyboard.right && this.x < this.world.level.levelEndX && !this.isHurt();
     };
 
+    /**
+    * Determine whether the character should move to the left.
+    *
+    * @returns {boolean} True if the character can move left, otherwise false.
+    */
     isMovingLeft() {
         return this.world.keyboard.left && this.x > -500 && !this.isHurt();
     };
 
+    /**
+    * Determine whether the character should jump.
+    *
+    * @returns {boolean} True if the character can move jump, otherwise false.
+    */
     isJumping() {
         return this.world.keyboard.up && !this.isAboveGround() && !this.isHurt();
     };

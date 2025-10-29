@@ -4,12 +4,25 @@ class Keyboard {
     up = false;
     throw = false;
 
+    /**
+     * Handle a single keyboard key press by setting the corresponding boolean flag on the instance.
+     *
+     * @param {string} key - The KeyboardEvent.key value to process. Expected values:
+     * 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Space'.
+     */
     keyPres(key) {
         key === 'ArrowLeft' ? this.left = true : 'default';
         key === 'ArrowRight' ? this.right = true : 'default';
         key === 'ArrowUp' ? this.up = true : 'default';
         key === 'Space' ? this.throw = true : 'default';
     };
+
+    /**
+    * Handle a single keyboard key leaves by setting the corresponding boolean flag on the instance.
+    *
+    * @param {string} key - The KeyboardEvent.key value to process. Expected values:
+    * 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Space'.
+    */
     keyLeave(key) {
         key === 'ArrowLeft' ? this.left = false : 'default';
         key === 'ArrowRight' ? this.right = false : 'default';

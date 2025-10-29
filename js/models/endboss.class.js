@@ -66,6 +66,16 @@ class Endboss extends MovableObject {
         this.x = 4000;
     };
 
+    /**
+     * Updates the endboss state for a single frame.
+     *
+     * Calls a death check and, if the endboss remains alive, applies frame-specific updates:
+     * stores the provided deltaTime, advances animations,
+     * updates walking and attack behavior, performs character detection,
+     * handles sound effects, updates the endboss healthbar position and value in the world level UI.
+     *
+     * @param {number} deltaTime - Time elapsed since the last update (in milliseconds).
+     */
     update(deltaTime) {
         this.isDead();
         if (this.isAlive) {
@@ -77,10 +87,16 @@ class Endboss extends MovableObject {
             this.hanldeSoundEffects();
             this.world.level.endbossBar.updateEndbossHealtbarPosition(this.x, this.y, this.detected, this.world.character);
             this.world.level.endbossBar.updateEndbossHealthbar(this.health);
-
         }
     };
 
+    /**
+     * Handles the endboss' sound effects and background music transitions.
+     *
+     * Checks states in priority order and triggers the appropriate sounds via the external
+     * `soundEffects`and `gameBGMusic` objects (expected to contain audio controls with `play()` / `pause()`):
+     *
+     */
     hanldeSoundEffects() {
         if (this.health <= 0) {
             soundEffects.endbossHurt.play();
@@ -97,6 +113,17 @@ class Endboss extends MovableObject {
         };
     };
 
+    /**
+     * Update the endboss animation according to its current state.
+     *
+     * Priority (highest to lowest):
+     *   1. Death: if this.health <= 0 -> use this.deathImages at 250ms, non-looping.
+     *   2. Hurt: if this.isHurt() -> use this.hurtImages at 200ms, looping.
+     *   3. Attack: if this.attackMode -> use this.attackImages at 150ms, looping.
+     *   4. Walk: if this.startWalking -> use this.walkingImages at 200ms, looping.
+     *   5. Stand: fallback -> use this.standImages at 300ms, looping.
+     *
+     */
     playAnimation() {
         if (this.health <= 0) {
             this.animations(this.deathImages, 250, false);
@@ -110,6 +137,16 @@ class Endboss extends MovableObject {
         else this.animations(this.standImages, 300, true);
     };
 
+    /**
+     * Checks for a collision with the character and, if colliding, performs the endboss attack routine.
+     *
+     * When a collision is detected this method:
+     * - sets this.attackMode to true,
+     * - calls this.world.character.takeHit(),
+     * - stop horizontal movement,
+     * - plays the hurt sound effect (soundEffects.hurt.play()),
+     * - schedules a timeout (1300 ms) after which this.attackMode is set to false and this.speedX is restored to 0.4.
+     */
     attack() {
         if (this.isColliding(this.world.character)) {
             this.attackMode = true;
@@ -123,12 +160,23 @@ class Endboss extends MovableObject {
         };
     };
 
+    /**
+     * If the instance's `startWalking` flag is true, initiates leftward movement by calling `this.moveLeft()`.
+     */
     walking() {
         if (this.startWalking) {
             this.moveLeft();
         };
     };
 
+    /**
+     * Resume walking after a short delay by applying rage-based speed adjustments.
+     *
+     * Schedules a callback 1000ms later that:
+     * - increases this.speedX by the current this.rageSpeed,
+     * - increments this.rageSpeed by 0.2,
+     * - sets this.startWalking to true.
+     */
     continueWalking() {
         setTimeout(() => {
             this.speedX += this.rageSpeed;
@@ -137,6 +185,14 @@ class Endboss extends MovableObject {
         }, 1000);
     };
 
+    /**
+     * Checks the distance between this endboss and the character,
+     * and updates the endboss state flags accordingly.
+     *
+     * - If the distance is <= 400, the endboss becomes detected, begins walking, and shows its active bar.
+     * - If the distance is >= 1200, the endboss is no longer detected and stops walking.
+     *
+     */
     characterDetection() {
         const distance = Math.abs(this.world.character.x - this.x);
         if (distance <= 400) {
@@ -149,6 +205,15 @@ class Endboss extends MovableObject {
         };
     };
 
+    /**
+     * Process a hit on the end boss
+     *
+     * - If a cooldown is active, the hit is ignored.
+     * - Stops horizontal movement (sets speedX to 0) before applying damage.
+     * - Calls takeDamage() to reduce health.
+     * - If health is <= 0 after damage, calls isDead() and exits early.
+     * - Otherwise, resets the hit cooldown and resumes walking via continueWalking().
+     */
     takeHit() {
         if (this.cooldown) return;
         this.speedX = 0;

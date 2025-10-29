@@ -20,18 +20,40 @@ const soundEffects = {
     endbossHurt: new Audio('assets/audio/endboss-hurt.wav'),
 };
 
+/**
+ * Saves the current mute state of the game to localStorage.
+ * 
+ * Stores the `isMuted` boolean as a JSON string so it can be
+ * retrieved later to maintain audio settings across sessions.
+ */
 function safeToLocalStorage() {
     localStorage.setItem('isMuted', JSON.stringify(isMuted));
 };
 
+/**
+ * Retrieves the game's mute state from localStorage.
+ * 
+ * Parses the stored JSON value of `isMuted` and applies it
+ * to the game's current audio settings.
+ */
 function getSoundSettingsFromLocalStorage() {
     isMuted = JSON.parse(localStorage.getItem('isMuted'));
 };
 
+/**
+ * Plays the main background music of the game.
+ */
 function playGameSound() {
     gameBGMusic.gameBGM.play();
 };
 
+/**
+ * Toggles the game's sound on or off.
+ * 
+ * - Switches the `isMuted` state between 'true' and 'false'.
+ * - Updates the mute/unmute button image accordingly.
+ * - Applies the new sound settings and saves the state to localStorage.
+ */
 function toggleSound() {
     isMuted === 'true' ? isMuted = 'false' : isMuted = 'true';
     if (isMuted === 'true') {
@@ -43,6 +65,12 @@ function toggleSound() {
     safeToLocalStorage();
 };
 
+/**
+ * Initializes the game's sound state based on the current `isMuted` value.
+ * 
+ * Ensures `isMuted` is set to 'false' if it is null or explicitly 'false',
+ * otherwise sets it to 'true'.
+ */
 function getSound() {
     if (isMuted == 'false' || isMuted == null) {
         isMuted = 'false';
@@ -51,6 +79,12 @@ function getSound() {
     };
 };
 
+/**
+ * Applies the current sound settings based on the `isMuted` state.
+ * 
+ * - If `isMuted` is 'true', mutes all game sounds.
+ * - If `isMuted` is 'false', plays or resumes all game sounds.
+ */
 function handleSoundSettings() {
     if (isMuted == 'true') {
         muteSounds();
@@ -59,6 +93,12 @@ function handleSoundSettings() {
     };
 };
 
+/**
+ * Mutes all game audio.
+ * 
+ * Sets the volume of all background music tracks and sound effects
+ * to 0 to silence the game.
+ */
 function muteSounds() {
     for (const sound in gameBGMusic) {
         gameBGMusic[sound].volume = 0;
@@ -68,6 +108,12 @@ function muteSounds() {
     };
 };
 
+/**
+ * Sets the volume of all game audio to normal levels.
+ * 
+ * Restores the volume of all background music tracks and sound effects
+ * to 0.3 to enable sound playback.
+ */
 function playSounds() {
     for (const sound in gameBGMusic) {
         gameBGMusic[sound].volume = 0.3;
@@ -77,6 +123,12 @@ function playSounds() {
     };
 };
 
+/**
+ * Stops all game audio and resets playback to the beginning.
+ * 
+ * Pauses all background music tracks and sound effects,
+ * and sets their current playback time to 0.
+ */
 function resetSounds() {
     for (const sound in gameBGMusic) {
         gameBGMusic[sound].pause();
@@ -88,6 +140,12 @@ function resetSounds() {
     };
 };
 
+/**
+ * Updates the mute/unmute button image based on the current sound state.
+ * 
+ * - If `isMuted` is 'true', shows the mute icon.
+ * - If `isMuted` is 'false', shows the unmute icon.
+ */
 function handleSoundUIElement() {
     if (isMuted == 'true') {
         document.getElementById('mute').src = "./assets/img/mute.png";
