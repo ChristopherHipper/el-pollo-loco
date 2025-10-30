@@ -24,7 +24,7 @@ span {
 
 p {
     font-size: 30px;
-    margin: 0 36px;
+    margin: 0 42px;
     text-align: center;
 }
 
@@ -103,6 +103,12 @@ a {
 }
 
 @media only screen and (max-width: 950px) {
+    h1 {
+        font-size: 72px;
+        font-weight: 500;
+        margin: 22px;
+    }
+
     button {
         font-size: 22px;
         margin-bottom: 6px;
@@ -124,7 +130,11 @@ a {
     }
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-height: 410px), (max-width: 720px) {
+    h1 {
+        display: none;
+    }
+
     button {
         font-size: 20px;
         padding: 10px 20px;
@@ -132,7 +142,7 @@ a {
     }
 
     h2 {
-        font-size: 46px;
+        font-size: 36px;
         margin: 12px;
     }
 
@@ -142,6 +152,6 @@ a {
 
     p {
         font-size: 20px;
-        margin: 0 36px;
+        margin: 0 40px;
     }
 }
