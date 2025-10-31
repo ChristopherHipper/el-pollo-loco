@@ -196,10 +196,10 @@ class Character extends MovableObject {
      * Otherwise it applies damage, applies a bounce effect and bounce-back behavior, updates the
      * last movement timestamp, and starts the hit cooldown.
      */
-    takeHit() {
+    takeHit(bounce) {
         if (this.cooldown) return;
         this.takeDamage();
-        this.bounce = 20;
+        this.bounce = bounce;
         this.bounceBack();
         this.lastMovement = new Date().getTime();
         this.resetCooldown();
@@ -268,5 +268,14 @@ class Character extends MovableObject {
     */
     isJumping() {
         return this.world.keyboard.up && !this.isAboveGround() && !this.isHurt();
+    };
+
+    /**
+    * Determine whether the character jump on enemy.
+    *
+    * @returns {boolean} True if the character jump on enemy.
+    */
+    jumpOnEnemy(enemy) {
+        return this.isFalling() && enemy.isAlive && this.y + this.height - this.offset.height <= enemy.y + 50;
     };
 };

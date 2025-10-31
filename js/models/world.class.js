@@ -200,14 +200,14 @@ class World {
     handleEnmyCollision(enemies, enemy) {
         if (!this.character.isColliding(enemy)) {
             return;
-        } else if (this.character.isFalling() && enemy.isAlive) {
+        } else if (this.character.jumpOnEnemy(enemy)) {
             soundEffects.jump.play();
             this.character.jump(22);
             this.level.enemies[enemies.indexOf(enemy)].chickenDied(enemies, enemy);
             return;
         } else if (enemy.isAlive) {
             if (!this.character.cooldown) soundEffects.hurt.play()
-            this.character.takeHit();
+            this.character.takeHit(20);
         };
     };
 
@@ -319,7 +319,12 @@ class World {
     continueGame() {
         this.level.endboss.speedX = 80 +  this.level.endboss.rageSpeed;
         this.level.enemies.forEach(e => e.speedX = 20 + Math.random() * 20);
-    }
+        if (!this.level.endboss.detected) {
+            gameBGMusic.gameBGM.play();
+        } else {
+            gameBGMusic.bossfightBGM.play()
+        };
+    };
 
     /**
     * Plays the appropriate audio when the game ends.

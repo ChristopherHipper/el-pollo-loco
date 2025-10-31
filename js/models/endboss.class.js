@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 60;
-    rageSpeed = 40;
+    rageSpeed = 60;
     speedX = 80;
     attackMode = false;
     startWalking = false;
@@ -152,7 +152,7 @@ class Endboss extends MovableObject {
     attack() {
         if (this.isColliding(this.world.character)) {
             this.attackMode = true;
-            this.world.character.takeHit();
+            this.world.character.takeHit(30);
             this.speedX = 0;
             soundEffects.hurt.play();
             setTimeout(() => {
@@ -184,7 +184,7 @@ class Endboss extends MovableObject {
         setTimeout(() => {
             this.speedX = 80
             this.speedX += this.rageSpeed;
-            this.rageSpeed += 40;
+            this.rageSpeed += 60;
             this.startWalking = true;
         }, 500);
     };

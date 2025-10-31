@@ -44,14 +44,8 @@ function getSoundSettingsFromLocalStorage() {
  * Plays the main background music of the game.
  */
 function playGameSound() {
-    const bgm = gameBGMusic.gameBGM;
-    if (bgm.paused) {
-        setTimeout(() => {
-            bgm.play().catch(err => {
-                console.warn('Fehler beim Abspielen der Hintergrundmusik:', err);
-            });
-        }, 1000);
-    }
+    gameBGMusic.gameBGM.play()
+    gameBGMusic.gameBGM.loop = true
 };
 
 /**

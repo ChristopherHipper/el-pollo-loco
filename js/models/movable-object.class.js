@@ -154,10 +154,12 @@ class MovableObject extends DrawableObject {
      * Check whether this object is dead and, if so, initiate and progress its death sequence.
      *
      * When this.health <= 0 this method:
+     * - block Keyboard input,
      * - calls this.initDeathTimer() to initialize the death timer,
      * - calls this.updateDeathTimer() to advance/update the death timer,
      * - calls this.handelDeath() to perform death handling (animations, cleanup, etc.),
      * - calls this.handelGameEnd() to trigger end-of-game logic if applicable.
+     * - calls this.world.pauseGame() to pause the Game
      */
     isDead() {
         if (this.health <= 0) {
@@ -196,7 +198,7 @@ class MovableObject extends DrawableObject {
     handelDeath() {
         if (this.deathTimer >= 600) {
             this.isAlive = false;
-            this.y += 2;
+            this.y += 300 * (this.deltaTime/1000);
         };
     };
 
@@ -304,6 +306,7 @@ class MovableObject extends DrawableObject {
     * if the timer exceeds the defined interval, applies gravity based on the object type:
     * - Calls `characterGravity()` if the object is a Character.
     * - Calls `throwableObjectGravity()` if the object is a ThrowableObject.
+    * - Calls `chickenGravity()` if the object is a SmallChicken.
     * 
     * Resets the gravity timer after applying gravity to ensure consistent timing.
     */
@@ -315,7 +318,9 @@ class MovableObject extends DrawableObject {
                 this.characterGravity();
             } else if (this instanceof ThrowableObject) {
                 this.throwableObjectGravity();
-            };
+            } else if(this instanceof SmallChicken){
+                this.chickenGravity()
+            }
             this.gravityTimer = 0;
         };
     };

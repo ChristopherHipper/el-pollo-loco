@@ -1,8 +1,8 @@
 class Enemies extends MovableObject {
     offset = {
         top: 5,
-        width: 16,
-        left: 10,
+        width: 10,
+        left: 5,
         height: 0
     };
     speedX = 20 + Math.random() * 20;
@@ -15,14 +15,17 @@ class Enemies extends MovableObject {
      *
      * Stores the provided delta time on the instance, advances the chicken's position to the left,
      * and triggers the walking animation while the chicken is alive.
-     *
+     * If the chicken is an SmallChicken it init the applyGravity() and if
+     * the SmallChicken is alive it calls jump()
      * @param {number} deltaTime - Time elapsed since the last update (in milliseconds).
      */
     update(deltaTime) {
         this.deltaTime = deltaTime;
         this.moveLeft();
-        if (this.isAlive) {
-            this.animations(this.walkingImages, 100, true);
+        if (this.isAlive) this.animations(this.walkingImages, 100, true);
+        if (this instanceof SmallChicken){
+            this.applyGravity();
+            if (this.isAlive) this.jump();
         };
     };
 
@@ -86,6 +89,9 @@ class SmallChicken extends Enemies {
     height = 60;
     width = 60;
     y = 360;
+    jumpTimer = 0;
+    jumpIntervall = Math.floor(1000 + Math.random() * 2001);
+    acceleration = 3.5;
     walkingImages = [
         'assets/img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
         'assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
@@ -99,5 +105,37 @@ class SmallChicken extends Enemies {
         this.loadImage('assets/img/3_enemies_chicken/chicken_small/1_walk/2_w.png');
         this.loadImage(this.deadImage);
         this.loadImages(this.walkingImages);
+    };
+
+    /**
+    * Makes the character automatically jump at fixed time intervals.
+    * 
+    * - Uses a timer (`jumpTimer`) to measure time between jumps.
+    * - When the timer exceeds the defined `jumpIntervall`, 
+    *   the character performs a jump with a fixed jump strength (30).
+    * - Resets the timer after each jump.
+    */
+    jump(){
+        this.jumpTimer += this.deltaTime
+        if (this.jumpTimer >= this.jumpIntervall) {
+            super.jump(30)
+            this.jumpTimer = 0
+        };
+    };
+
+    /**
+    * Simulates gravity for the chicken character.
+    * 
+    * - Updates the vertical position (`y`) based on the current vertical speed (`speedY`).
+    * - Applies acceleration to simulate the effect of gravity.
+    * - Stops the downward movement when the chicken reaches the ground (y >= 360).
+    */
+    chickenGravity() {
+        this.y -= this.speedY;
+        this.speedY -= this.acceleration;
+        if (this.y >= 360) {
+            this.y = 360
+            this.speedY = 0;
+        };
     };
 };
