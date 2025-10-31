@@ -16,6 +16,17 @@ class Level {
     };
 
     /**
+     * Sets the Level End X on the Endboss X.
+     *
+     * If the Endboss is active. The Level End X position is settet to the Endboss X Position
+     */
+    uppdateLevelRange(){
+        if (this.endboss.active) {
+            this.levelEndX = this.endboss.x;
+        };
+    };
+
+    /**
      * Initialize level objects by aggregating collectibles and positioning all objects.
      *
      * Combines the level's coin and bottle collections into `this.Items`, then iterates
@@ -39,7 +50,7 @@ class Level {
      * @param {Object} item - The item to position.
      */
     positionItems(item) {
-        this.x = Math.random() * (3500 - 230) + 400;
+        this.x = Math.random() * (3200 - 230) + 400;
         this.y = Math.random() * (200 - 60) + 60;
         if (item instanceof Bottle) {
             this.y = 350;

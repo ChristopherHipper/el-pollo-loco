@@ -3,6 +3,7 @@ class World {
     camera_x;
     gameLoop;
     gameRunning = true;
+    levelOpen = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -61,6 +62,7 @@ class World {
     update(deltaTime) {
         this.character.update(deltaTime, this.keyboard, this.level);
         this.level.endboss.update(deltaTime, this.level, this.character);
+        if (this.levelOpen) this.level.uppdateLevelRange();
         this.throwableBottles.forEach(b => b.throw(deltaTime, this.level, this.throwableBottles));
         this.level.enemies.forEach(e => e.update(deltaTime));
         this.level.coins.forEach(c => c.moveAnmation(deltaTime));
@@ -90,7 +92,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableBottles);
         this.addToMap(this.level.endboss);
-        if (this.level.endboss.activeBar) this.addToMap(this.level.endbossBar);
+        if (this.level.endboss.active) this.addToMap(this.level.endbossBar);
         this.addToMap(this.character);
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.level.healthbar);
@@ -269,7 +271,8 @@ class World {
     * the rest of the world for reaching the Endboss.
     */
     openWorld() {
-        if (this.character.coins == 5) {
+        if (!this.levelOpen && this.character.coins == 5) {
+            this.levelOpen = true
             this.level.levelEndX = 4000;
         };
     };
@@ -295,6 +298,28 @@ class World {
         cancelAnimationFrame(this.gameLoop);
         this.gameRunning = false;
     };
+
+    /**
+    * pause the level Movement of enemy's and Endboss
+    * 
+    * Sets the speedX value of the Endboss and for each enemy in enemies to 0.
+    * 
+    */
+    pauseGame() {
+        this.level.endboss.speedX = 0;
+        this.level.enemies.forEach(e => e.speedX = 0);
+    };
+
+    /**
+    * continue the level Movement of enemy's and Endboss
+    * 
+    * Sets the speedX value of the Endboss and for each enemy in enemies to back.
+    * 
+    */
+    continueGame() {
+        this.level.endboss.speedX = 80 +  this.level.endboss.rageSpeed;
+        this.level.enemies.forEach(e => e.speedX = 20 + Math.random() * 20);
+    }
 
     /**
     * Plays the appropriate audio when the game ends.

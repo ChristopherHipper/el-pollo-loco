@@ -1,11 +1,11 @@
 class Enemies extends MovableObject {
     offset = {
-        top: 0,
-        width: 0,
-        left: 0,
+        top: 5,
+        width: 16,
+        left: 10,
         height: 0
     };
-    speedX = 0.08 + Math.random() * 0.05;
+    speedX = 20 + Math.random() * 20;
     constructor() {
         super();
     };

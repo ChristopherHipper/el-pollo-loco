@@ -3,6 +3,7 @@ class Keyboard {
     left = false;
     up = false;
     throw = false;
+    inputAble = true;
 
     /**
      * Handle a single keyboard key press by setting the corresponding boolean flag on the instance.
@@ -11,6 +12,7 @@ class Keyboard {
      * 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'Space'.
      */
     keyPres(key) {
+        if (!this.inputAble) return
         key === 'ArrowLeft' ? this.left = true : 'default';
         key === 'ArrowRight' ? this.right = true : 'default';
         key === 'ArrowUp' ? this.up = true : 'default';

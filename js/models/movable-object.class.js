@@ -8,7 +8,7 @@ class MovableObject extends DrawableObject {
     width = 720;
     x = 0;
     speedY = 0;
-    speedX = 3;
+    speedX = 500;
     health = 100;
     acceleration = 2.5;
     hurt = false;
@@ -91,19 +91,20 @@ class MovableObject extends DrawableObject {
     /**
     * Move the object left by its horizontal speed.
     *
-    * Decreases this.x by this.speedX, effectively translating the object leftwards
+    * Decreases this.x by this.speedX * fps for correct running speed, effectively translating the object leftwards
     */
     moveLeft() {
-        this.x -= this.speedX;
+        if (this.deltaTime > 150) return
+        this.x -= this.speedX * (this.deltaTime/1000);
     };
 
     /**
     * Move the object right by its horizontal speed.
     *
-    * Increases this.x by this.speedX, effectively translating the object righttwards
+    * Increases this.x by this.speedX * fps for correct running speed, effectively translating the object righttwards
     */
     moveRight() {
-        this.x += this.speedX;
+        this.x += this.speedX * (this.deltaTime/1000);
     };
 
     /**
@@ -160,10 +161,12 @@ class MovableObject extends DrawableObject {
      */
     isDead() {
         if (this.health <= 0) {
+            this.world.keyboard.inputAble = false;
             this.initDeathTimer();
             this.updateDeathTimer();
             this.handelDeath();
             this.handelGameEnd();
+            this.world.pauseGame();
         };
     };
 
@@ -322,8 +325,8 @@ class MovableObject extends DrawableObject {
     * 
     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context to draw on.
     */
-    /*     drawOffsetBorder(ctx) {
-            if (this instanceof Character || this instanceof Chicken || this instanceof SmallChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) {
+/*     drawOffsetBorder(ctx) {
+            if (this instanceof SmallChicken || this instanceof Character) {
                 ctx.beginPath();
                 ctx.strokeStyle = 'red';
                 ctx.lineWidth = 3;

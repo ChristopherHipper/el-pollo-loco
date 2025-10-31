@@ -311,6 +311,7 @@ function continueGame() {
     isMobile() ? document.getElementById('mobile-controls').classList.remove('d-none') : 'default';
     world.gameRunning = true;
     world.loop();
+    world.continueGame();
 };
 
 /**
@@ -320,9 +321,13 @@ function continueGame() {
  * - Re-initializes the main character.
  * - Re-links the world to the character and Endboss.
  * - Starts the game loop.
+ * - close the level Open.
+ * - allow Keyboard input.
  */
 function resetWorld() {
     world.gameRunning = true;
+    world.levelOpen = false;
+    world.keyboard.inputAble = true;
     world.camera_x = 100;
     world.gameLoop = 0;
     world.character = new Character();
@@ -342,6 +347,7 @@ function pauseGame() {
     if (!world || !world.gameRunning) return;
     cancelAnimationFrame(world.gameLoop);
     world.gameRunning = false;
+    world.pauseGame();
     resetSounds();
     document.getElementById('pause-screen').classList.remove('d-none');
     document.getElementById('mobile-controls').classList.add('d-none');

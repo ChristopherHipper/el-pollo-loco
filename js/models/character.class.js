@@ -9,7 +9,7 @@ class Character extends MovableObject {
     bottles = 0;
     offset = {
         top: 80,
-        width: 30,
+        width: 45,
         left: 30,
         height: 5
     };
@@ -125,7 +125,7 @@ class Character extends MovableObject {
     hanldeSoundEffects() {
         if (this.isJumping() && !this.isHurt()) {
             soundEffects.jump.play();
-        } else if (this.isMovingLeft() && !this.isAboveGround() && !this.isHurt() || this.isMovingRight() && !this.isAboveGround() && !this.isHurt()) {
+        } else if (this.health > 0 && this.isMovingLeft() && !this.isAboveGround() && !this.isHurt() || this.health > 0 && this.isMovingRight() && !this.isAboveGround() && !this.isHurt()) {
             soundEffects.run.play();
         } else if (this.health <= 0) {
             soundEffects.run.pause();
@@ -144,12 +144,12 @@ class Character extends MovableObject {
      * actions and side effects:
      */
     handleInput() {
-        if (this.isMovingRight()) {
+        if (this.health > 0 && this.isMovingRight()) {
             this.moveRight();
             this.mirroring = false;
             this.lastMovement = new Date().getTime();
         };
-        if (this.isMovingLeft()) {
+        if (this.health > 0 && this.isMovingLeft()) {
             this.moveLeft();
             this.mirroring = true;
             this.lastMovement = new Date().getTime();

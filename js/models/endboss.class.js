@@ -2,12 +2,13 @@ class Endboss extends MovableObject {
     height = 400;
     width = 250;
     y = 60;
-    rageSpeed = 0.8;
-    speedX = 0.4;
+    rageSpeed = 40;
+    speedX = 80;
     attackMode = false;
     startWalking = false;
     detected = false;
-    activeBar = false;
+    wasDetected = false;
+    active = false;
     standImages = [
         'assets/img/4_enemie_boss_chicken/2_alert/G5.png',
         'assets/img/4_enemie_boss_chicken/2_alert/G6.png',
@@ -104,13 +105,14 @@ class Endboss extends MovableObject {
         if (this.isHurt() && this.health > 0) {
             soundEffects.endbossHurt.play();
         };
-        if (this.detected) {
+        if (this.detected && !this.wasDetected) {
             gameBGMusic.gameBGM.pause();
-            gameBGMusic.bossfightBGM.play();
-        } else {
+            gameBGMusic.bossfightBGM.play()
+        } else if (!this.detected && this.wasDetected) {
             gameBGMusic.bossfightBGM.pause();
-            gameBGMusic.gameBGM.play();
-        };
+            gameBGMusic.gameBGM.play()
+        }
+        this.wasDetected = this.detected;
     };
 
     /**
@@ -145,7 +147,7 @@ class Endboss extends MovableObject {
      * - calls this.world.character.takeHit(),
      * - stop horizontal movement,
      * - plays the hurt sound effect (soundEffects.hurt.play()),
-     * - schedules a timeout (1300 ms) after which this.attackMode is set to false and this.speedX is restored to 0.4.
+     * - schedules a timeout (1000 ms) after which this.attackMode is set to false and this.speedX is restored.
      */
     attack() {
         if (this.isColliding(this.world.character)) {
@@ -155,8 +157,9 @@ class Endboss extends MovableObject {
             soundEffects.hurt.play();
             setTimeout(() => {
                 this.attackMode = false;
-                this.speedX = 0.4;
-            }, 1300);
+                this.speedX = 80;
+                this.speedX += this.rageSpeed;
+            }, 1000);
         };
     };
 
@@ -172,17 +175,18 @@ class Endboss extends MovableObject {
     /**
      * Resume walking after a short delay by applying rage-based speed adjustments.
      *
-     * Schedules a callback 1000ms later that:
+     * Schedules a callback 500ms later that:
      * - increases this.speedX by the current this.rageSpeed,
-     * - increments this.rageSpeed by 0.2,
+     * - increments this.rageSpeed by 40,
      * - sets this.startWalking to true.
      */
     continueWalking() {
         setTimeout(() => {
+            this.speedX = 80
             this.speedX += this.rageSpeed;
-            this.rageSpeed += 0.2;
+            this.rageSpeed += 40;
             this.startWalking = true;
-        }, 1000);
+        }, 500);
     };
 
     /**
@@ -198,7 +202,7 @@ class Endboss extends MovableObject {
         if (distance <= 400) {
             this.detected = true;
             this.startWalking = true;
-            this.activeBar = true;
+            this.active = true;
         } else if (distance >= 1200) {
             this.detected = false;
             this.startWalking = false;

@@ -7,7 +7,7 @@ const gameBGMusic = {
 };
 
 const soundEffects = {
-    jump: new Audio('assets/audio/jump.wav'),
+jump: new Audio('assets/audio/jump.wav'),
     landing: new Audio('assets/audio/landing.wav'),
     run: new Audio('assets/audio/run-gravel.wav'),
     hurt: new Audio('assets/audio/hurt.wav'),
@@ -17,7 +17,7 @@ const soundEffects = {
     snoring: new Audio('assets/audio/snoring.wav'),
     normalChicken: new Audio('assets/audio/normal-chicken-dying.wav'),
     smallChicken: new Audio('assets/audio/small-chicken-dying.wav'),
-    endbossHurt: new Audio('assets/audio/endboss-hurt.wav'),
+    endbossHurt: new Audio('assets/audio/endboss-hurt.wav'), 
 };
 
 /**
@@ -44,7 +44,14 @@ function getSoundSettingsFromLocalStorage() {
  * Plays the main background music of the game.
  */
 function playGameSound() {
-    gameBGMusic.gameBGM.play();
+    const bgm = gameBGMusic.gameBGM;
+    if (bgm.paused) {
+        setTimeout(() => {
+            bgm.play().catch(err => {
+                console.warn('Fehler beim Abspielen der Hintergrundmusik:', err);
+            });
+        }, 1000);
+    }
 };
 
 /**
